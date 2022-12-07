@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>kernel on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/kernel/</link>
+        <description>Recent content in kernel on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/kernel/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>hatdware watchdog on raspberry pi 4</title>
+        <link>https://ippocratis.github.io/p/watchdog/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/watchdog/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/watchdog/watch.jpg" alt="Featured image of post hatdware watchdog on raspberry pi 4" /&gt;&lt;p&gt;&lt;strong&gt;Automatic restart on kernel panic, hardware freeze and wlan disconnections&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you run some servers on raspberry, you always want them available.
+So you need some kind of solution for cases where it gets stuck for any reason and does not respond.
+The answer, even at the hardware level, is called watchdog and its operation is simple.
+It is a microcontroller that has a timer in which it must receive a signal from the system. As long as the system is operational it communicates with the controller normally. But if it sticks for some reason the timer will go to zero and will send the reset signal and our system will restart.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Activate hardware dog&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On raspberry 3 and 4 the kernel module is available by deffault and you do not require its installation but only its activation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo su echo &#39;dtparam = watchdog = on&#39; &amp;gt;&amp;gt; /boot/config.txt reboot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation of system service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Arch:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yay -S watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Debian:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Configure service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo su echo &#39;watchdog-device = / dev / watchdog&#39; &amp;gt;&amp;gt; /etc/watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;watchdog-timeout = 15&#39; &amp;gt;&amp;gt; / etc / watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;max-load-1 = 24&#39; &amp;gt;&amp;gt; / etc / watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;interface = wlan0&#39; &amp;gt;&amp;gt; /etc/watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Activate and start the service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl enable watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl start watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl status watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;fork bomb (testing)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo bash -c &#39;: () {: |: &amp;amp;} ;:&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

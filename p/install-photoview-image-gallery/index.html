@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='photoview is lightweight dockerised photo gallery with face detection and auto library sync with modern design and useful features and an optimized mobile view as a web app it can easily replace proprietary paid closed source applications.
+reqirements
+python for the docker-compose installation on raspberry since the normal repos do not work on it docker and if we want to expose it outside the local network port forwording, ddns provider, reverse proxy server, encryption'><title>install photoview image gallery</title>
+
+<link rel='canonical' href='https://ippocratis.github.io/p/install-photoview-image-gallery/'>
+
+<link rel="stylesheet" href="/scss/style.min.ac77dcf8b111b51da39a92990f431923f210f3876d85798a2125667f96dc33a4.css"><meta property='og:title' content='install photoview image gallery'>
+<meta property='og:description' content='photoview is lightweight dockerised photo gallery with face detection and auto library sync with modern design and useful features and an optimized mobile view as a web app it can easily replace proprietary paid closed source applications.
+reqirements
+python for the docker-compose installation on raspberry since the normal repos do not work on it docker and if we want to expose it outside the local network port forwording, ddns provider, reverse proxy server, encryption'>
+<meta property='og:url' content='https://ippocratis.github.io/p/install-photoview-image-gallery/'>
+<meta property='og:site_name' content='Depl0yed'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='og:image' content='https://ippocratis.github.io/photoview.jpg' />
+<meta name="twitter:title" content="install photoview image gallery">
+<meta name="twitter:description" content="photoview is lightweight dockerised photo gallery with face detection and auto library sync with modern design and useful features and an optimized mobile view as a web app it can easily replace proprietary paid closed source applications.
+reqirements
+python for the docker-compose installation on raspberry since the normal repos do not work on it docker and if we want to expose it outside the local network port forwording, ddns provider, reverse proxy server, encryption"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ippocratis.github.io/photoview.jpg' />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53T8RWZ8BR"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-53T8RWZ8BR', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hue27fa0595436520d69d01a95cf7f15e5_36931_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Depl0yed</a></h1>
+            <h2 class="site-description">Self Host Use Foss and Drop Google</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://medium.com/@i.pyrgiotis'
+                        target="_blank"
+                        title="Medium"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <path d="M8 9h1l3 3l3 -3h1" />
+  <line x1="8" y1="15" x2="10" y2="15" />
+  <line x1="14" y1="15" x2="16" y2="15" />
+  <line x1="9" y1="9" x2="9" y2="15" />
+  <line x1="15" y1="9" x2="15" y2="15" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/ippossackofhacks'
+                        target="_blank"
+                        title="Telegram"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/abut/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/install-photoview-image-gallery/">
+                
+                    <img src="/photoview.jpg" loading="lazy" alt="Featured image of post install photoview image gallery" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/install-photoview-image-gallery/">install photoview image gallery</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>photoview is lightweight dockerised photo gallery with face detection and auto library sync with modern design and useful features and an optimized mobile view
+as a web app it can easily replace proprietary paid closed source applications.</p>
+</blockquote>
+<hr>
+<p><strong>reqirements</strong></p>
+<p>python for the docker-compose installation on raspberry since the normal repos do not work on it
+docker and if we want to expose it outside the local network port forwording, ddns provider, reverse proxy server, encryption</p>
+<p>Dietpi has its own scripts for installing programs and services so in this distro, from dietpi-software and additional-software we can install python and required dependencies
+if we use another distro</p>
+<p>install python</p>
+<p><code>sudo apt install python3 idle3</code></p>
+<p>install dependencies</p>
+<p><code>sudo apt-get install -y libffi-dev libssl-dev sudo apt-get install -y python3 python3-pip sudo apt-get remove python-configparser</code></p>
+<p>install docker/docker-compose</p>
+<p>install docker with official script</p>
+<p><code>curl -fsSL https://get.docker.com -o get-docker.sh</code></p>
+<p><code>sudo sh get-docker.sh</code></p>
+<p>and docker-compose through python</p>
+<p><code>sudo pip3 -v install docker-compose</code></p>
+<p>finally install photoview with docker-compose</p>
+<p><code>mkdir photoview</code></p>
+<p><code>cd photoview</code></p>
+<p><code>nano docker-compose.yml</code></p>
+<p>paste</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">version: &#34;3&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  db:
+</span></span><span class="line"><span class="cl">    image: mariadb:10.5
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - MYSQL_DATABASE=photoview
+</span></span><span class="line"><span class="cl">      - MYSQL_USER=photoview
+</span></span><span class="line"><span class="cl">      - MYSQL_PASSWORD=photosecret
+</span></span><span class="line"><span class="cl">      - MYSQL_RANDOM_ROOT_PASSWORD=1
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - db_data:/var/lib/mysql
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  photoview:
+</span></span><span class="line"><span class="cl">    image: viktorstrate/photoview:edge
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - &#34;8000:80&#34;
+</span></span><span class="line"><span class="cl">    depends_on:
+</span></span><span class="line"><span class="cl">      - db
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - PHOTOVIEW_DATABASE_DRIVER=mysql
+</span></span><span class="line"><span class="cl">      - PHOTOVIEW_MYSQL_URL=photoview:photosecret@tcp(db)/photoview
+</span></span><span class="line"><span class="cl">      - PHOTOVIEW_LISTEN_IP=photoview
+</span></span><span class="line"><span class="cl">      - PHOTOVIEW_LISTEN_PORT=80
+</span></span><span class="line"><span class="cl">      - PHOTOVIEW_MEDIA_CACHE=/app/cache
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      # Change This: The publicly exposed url
+</span></span><span class="line"><span class="cl">      # For example if the server is available from the domain example.com,
+</span></span><span class="line"><span class="cl">      # change this value to http://example.com/
+</span></span><span class="line"><span class="cl">      - PHOTOVIEW_PUBLIC_ENDPOINT=http://localhost:8000/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      # Optional: To enable map related features, you need to create a mapbox token.
+</span></span><span class="line"><span class="cl">      # A token can be generated for free here https://account.mapbox.com/access-tokens/
+</span></span><span class="line"><span class="cl">      # It&#39;s a good idea to limit the scope of the token to your own domain, to prevent others from using it.
+</span></span><span class="line"><span class="cl">      # - MAPBOX_TOKEN=&lt;YOUR TOKEN HERE&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - api_cache:/app/cache
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      # Change this to the directory where your photos are located on your server.
+</span></span><span class="line"><span class="cl">      # If the photos are located at `/home/user/photos`, then change this value
+</span></span><span class="line"><span class="cl">      # to the following: `/home/user/photos:/photos:ro`.
+</span></span><span class="line"><span class="cl">      # You can mount multiple paths, if your photos are spread across multiple directories.
+</span></span><span class="line"><span class="cl">      - ./photos_path:/photos:ro
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">volumes:
+</span></span><span class="line"><span class="cl">  db_data:
+</span></span><span class="line"><span class="cl">  api_cache:
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>modify docker-compose.yml</p>
+<blockquote>
+<p>edge is the unreleased beta edition .ther options are nighty and 2 for stable.</p>
+<p>ports: - &ldquo;8000:80&rdquo;</p>
+<p>instead of 8000 you can choose any available port on host</p>
+<p>PHOTOVIEW_PUBLIC_ENDPOINT=http://localhost:8000/</p>
+<p>replace with your domain if you want to expose to public
+thumbnail previews are only available from this adress</p>
+<p>MAPBOX_TOKEN=</p>
+<p>uncomment #
+grab token from <a class="link" href="https://account.mapbox.com/access-tokens/create"  target="_blank" rel="noopener"
+    >https://account.mapbox.com/access-tokens/create</a> after signing up on this great  Open source  map api service make sure to add yoour domain tthere so that only that can acess your token.</p>
+<p>./photos_path:/photos:ro
+replace ./photos_path with the full path of photos folder on host . path can be on an external hard drive</p>
+</blockquote>
+<p>install</p>
+<p>docker-compose up -d</p>
+<p><strong>Select external storage for cache volume</strong></p>
+<p>The app will create a relatively large size of thumbnails in the docker volume of api_cache so it is probably better to move the cache to external hard drive
+This can be done either by mounting - bind a folder of the hard drive in the container or directly to the docker-compose which is more elegant</p>
+<blockquote>
+<p>replace</p>
+<p>volumes: - api_cache:/app/cache</p>
+<p>with</p>
+<p>volumes: - /path/to/external/drive/folder:/app/cache</p>
+<p>delete</p>
+<p>api_cache:</p>
+<p>from</p>
+<p>volumes: db_data: api_cache:</p>
+<p>and leave</p>
+<p>PHOTOVIEW_MEDIA_CACHE=/app/cache</p>
+<p>as is</p>
+</blockquote>
+<p><strong>reverse proxy + encryption</strong></p>
+<p>you can follow allong with your selected serves documentation of your liking
+personaly i reverse proxy coz my router provider allows only on ddns domain and caddy coz it adds encryption automaticly and has a ded simple on liner config</p>
+<p><code>nano /etc/caddy/Caddyfile</code></p>
+<p>add</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">domain_name:port 
+</span></span><span class="line"><span class="cl">		{reverse_proxy http://localhost:port}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>save</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ctrl + x
+</span></span><span class="line"><span class="cl">ye
+</span></span><span class="line"><span class="cl">nter
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>restart service</p>
+<p><code>service caddy restart</code></p>
+<blockquote>
+<p>domain_name:port
+replace :port with a free router port and domain_name with your ddns domain name . same values as under PHOTOVIEW_PUBLIC_ENDPOINT on docker-compose</p>
+<p>localhost:port
+replace :port with the same port selected on</p>
+<p>“8000:80” on docker-compose</p>
+<p>visit address selected in PHOTOVIEW_PUBLIC_ENDPOINT choose user name and password on sign in page</p>
+<p>under setings on photo path add /photos</p>
+<p>selecet scan all to start indexing</p>
+</blockquote>
+<p><strong>live logs</strong></p>
+<p>it will take some hours to analyze all our photos
+during that time informative throws informative popups
+we can follow the process with</p>
+<p><code>docker ps</code></p>
+<p>copy container id of viktorstrate/photoview:edge</p>
+<p><code>docker logs --follow container_id</code></p>
+<p><img src="https://repository-images.githubusercontent.com/195657294/60789b00-9451-11ea-827f-3198af4de474"
+	
+	
+	
+	loading="lazy"
+	
+		alt="rrr"
+	
+	
+></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ippo-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Depl0yed
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.13.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

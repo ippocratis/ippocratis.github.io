@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>webfav on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/webfav/</link>
+        <description>Recent content in webfav on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/webfav/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>webdav server</title>
+        <link>https://ippocratis.github.io/p/webdav/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/webdav/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/webdav/dav.png" alt="Featured image of post webdav server" /&gt;&lt;p&gt;&lt;img src=&#34;https://4allportal.net/fileadmin/user_upload/integrations/WebDAV-Logo.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;webdav&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Docker-nginx-webdav-nononsense is a nginx webserver with the webdav module enabled and set up and ready to work like a file server using the webdav protocol and all packaged in a docker container.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Webdav server folders can be mounted on a remote file system and accessed by the remote file manager&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The result is an easy and fast personal cloud without useless functions without meaning&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/dgraziotin/docker-nginx-webdav-nononsense&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We clone the repo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git clone https: // github.com / dgraziotin / docker-nginx-webdav-nononsense.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We enter the folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd docker-nginx-webdav-nononsense&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Open the file for editing&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano doocker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In the volumes section we declare the path of the root dir. I have put the root folder of my external hard drive.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/ path / to / data / folder / on / host: / data&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We declare the user id &amp;amp; group id&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PUID = 1000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;UUID = 1000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We put in the timezone Athens&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TZ = Europe / Athens&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We set the username and password as enviromental variables&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;WEBDAV_USERNAME = xxxxxx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;WEBDAV_PASSWORD = xxxxx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We declare the allowed hostnames from where we will visit the server separately with comma&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SERVER_NAMES = localhost, myddns.domain.net&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;All available enviromenatal variables such as various nginx timeouts, file upload size etc can be found on the github project page&lt;/p&gt;
+&lt;p&gt;** build from source and run the container **&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose build &amp;amp;&amp;amp; docker-compose up&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;reverse proxy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The container does not support ssl cert. Dev encourages the use of reverse proxy and the management of ssl cert from it. I personally use caddy&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano / etc / caddy / Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ddns.domain.name:open_router_port { reverse_proxy localhost: 32080&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The webdav server runs on localhost: 32080 and we have access to it with ssl encryption outside the local network through our ddns. Caddy takes over the certificate and redirection to localhost.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Android&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On android we have access with any webdav capable filemanager eg mixplorer, solid, fe, cx&lt;/p&gt;
+&lt;p&gt;Some also offer automatic synchronization as a paid feature though.
+The only free app I found that has automatic synchronization is foldersync&lt;/p&gt;
+&lt;p&gt;accountstab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;new acount&lt;/li&gt;
+&lt;li&gt;webdav&lt;/li&gt;
+&lt;li&gt;I put a custom title&lt;/li&gt;
+&lt;li&gt;username (WEBDAV_USERNAME)&lt;/li&gt;
+&lt;li&gt;password (WEBDAV_PASSWORD)&lt;/li&gt;
+&lt;li&gt;ip (the ddns domain name)&lt;/li&gt;
+&lt;li&gt;port (the open port on the router we gave and the caddy)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;sync tab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;enter&lt;/li&gt;
+&lt;li&gt;I select send anly (send &amp;amp; receive, whatever suits us)&lt;/li&gt;
+&lt;li&gt;select local folder to sync&lt;/li&gt;
+&lt;li&gt;select remote folder (server)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I do not select automatic synchronization from here but later in &amp;ldquo;more&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;In the more settings of the sync tab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In the replacement of an older file I choose &amp;ldquo;to exclude&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;enable automatic sending&lt;/li&gt;
+&lt;li&gt;disable the temporary file name during transfer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the connect of the sync tab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I choose wifi only or data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Every time a new file is added to the local folder you will automatically sync to the webdav server&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

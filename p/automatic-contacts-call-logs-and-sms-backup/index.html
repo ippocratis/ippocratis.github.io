@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Automatic call history sms backup
+One of the basic functions of Google services that are are part of the its core services is automatic back up and restore of our contacts, messages and call history.
+You change your phone or swap a rom , put your Gmail in and boom it is ready.
+Here we will see how to replace that foss stuff
+we&amp;rsquo;ll use nextcloud, an open source personal cloud platform selfhosted on a raspberry pi or using a partner free open source provider (I tried opsone and it is excellent) also some android messaging applications that also offer extra security and have options for automated backup which we will take advantage of and upload the local file to our personal encrypted cloud'><title>Automatic contacts ,call logs and sms backup</title>
+
+<link rel='canonical' href='https://ippocratis.github.io/p/automatic-contacts-call-logs-and-sms-backup/'>
+
+<link rel="stylesheet" href="/scss/style.min.ac77dcf8b111b51da39a92990f431923f210f3876d85798a2125667f96dc33a4.css"><meta property='og:title' content='Automatic contacts ,call logs and sms backup'>
+<meta property='og:description' content='Automatic call history sms backup
+One of the basic functions of Google services that are are part of the its core services is automatic back up and restore of our contacts, messages and call history.
+You change your phone or swap a rom , put your Gmail in and boom it is ready.
+Here we will see how to replace that foss stuff
+we&amp;rsquo;ll use nextcloud, an open source personal cloud platform selfhosted on a raspberry pi or using a partner free open source provider (I tried opsone and it is excellent) also some android messaging applications that also offer extra security and have options for automated backup which we will take advantage of and upload the local file to our personal encrypted cloud'>
+<meta property='og:url' content='https://ippocratis.github.io/p/automatic-contacts-call-logs-and-sms-backup/'>
+<meta property='og:site_name' content='Depl0yed'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='og:image' content='https://ippocratis.github.io/nextcloudc.jpeg' />
+<meta name="twitter:title" content="Automatic contacts ,call logs and sms backup">
+<meta name="twitter:description" content="Automatic call history sms backup
+One of the basic functions of Google services that are are part of the its core services is automatic back up and restore of our contacts, messages and call history.
+You change your phone or swap a rom , put your Gmail in and boom it is ready.
+Here we will see how to replace that foss stuff
+we&amp;rsquo;ll use nextcloud, an open source personal cloud platform selfhosted on a raspberry pi or using a partner free open source provider (I tried opsone and it is excellent) also some android messaging applications that also offer extra security and have options for automated backup which we will take advantage of and upload the local file to our personal encrypted cloud"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ippocratis.github.io/nextcloudc.jpeg' />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53T8RWZ8BR"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-53T8RWZ8BR', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hue27fa0595436520d69d01a95cf7f15e5_36931_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Depl0yed</a></h1>
+            <h2 class="site-description">Self Host Use Foss and Drop Google</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://medium.com/@i.pyrgiotis'
+                        target="_blank"
+                        title="Medium"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <path d="M8 9h1l3 3l3 -3h1" />
+  <line x1="8" y1="15" x2="10" y2="15" />
+  <line x1="14" y1="15" x2="16" y2="15" />
+  <line x1="9" y1="9" x2="9" y2="15" />
+  <line x1="15" y1="9" x2="15" y2="15" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/ippossackofhacks'
+                        target="_blank"
+                        title="Telegram"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/abut/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/automatic-contacts-call-logs-and-sms-backup/">
+                
+                    <img src="/nextcloudc.jpeg" loading="lazy" alt="Featured image of post Automatic contacts ,call logs and sms backup" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/automatic-contacts-call-logs-and-sms-backup/">Automatic contacts ,call logs and sms backup</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><strong>Automatic call history sms backup</strong></p>
+<blockquote>
+<p>One of the basic functions of Google services that are are part of the its core services is automatic back up and restore of our contacts, messages and call history.</p>
+</blockquote>
+<blockquote>
+<p>You change your phone or swap a rom ,  put your Gmail in and  boom it is ready.</p>
+</blockquote>
+<blockquote>
+<p>Here we will see how to replace that foss stuff</p>
+</blockquote>
+<blockquote>
+<p>we&rsquo;ll use nextcloud, an open source personal cloud platform  selfhosted on a raspberry pi  or using a partner free open source provider (I tried opsone and it is excellent)
+also some android messaging applications that also offer extra  security and have options for automated backup which we will take advantage of and upload the local file to our personal encrypted cloud</p>
+</blockquote>
+<blockquote>
+<p>There are many open foss messaging apps that offer a high level of security and can be backed up locally.
+But here we will see signal and silence which can also send traditional sms
+By the way, sms does not offer encryption and is managed by the mobile provider.</p>
+</blockquote>
+<p><strong>Auto sms backup with signal / silence &amp; nextcloud</strong></p>
+<blockquote>
+<p>Initially our applications need a repository to be automatically upgraded by fdroid.
+Silence and nextcloud are available from the default repository of fdroid  but signal is not because it uses firebase to manage push notifications.
+So we add to fdroid one of the known repos which includes  signal  <a class="link" href="https://forum.f-droid.org/t/known-repositories/721"  target="_blank" rel="noopener"
+    >here</a>
+Otherwise if we use microg we can download it from aurora store which will also manage the updates.</p>
+</blockquote>
+<p><strong>Messages</strong></p>
+<blockquote>
+<p>Optionally create a hidden dot folder .name somewhere. There is no real reason since the data of the applications that will be created are encrypted. It&rsquo;s just an extra step)</p>
+</blockquote>
+<p><img src="https://signal.org/assets/og/og-image-ff2096df535eee499356de64b19fa8cebb9681ab1e78cca7330e7f8b8d5ec6d5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="d"
+	
+	
+></p>
+<p><strong>Signal</strong></p>
+<blockquote>
+<p>On signal from the top right 3 dots menu select settings</p>
+</blockquote>
+<blockquote>
+<p>chat and media</p>
+</blockquote>
+<blockquote>
+<p>chat back up</p>
+</blockquote>
+<blockquote>
+<p>enable</p>
+</blockquote>
+<blockquote>
+<p>write ddown the confirmation serial which we will need for the restoration</p>
+</blockquote>
+<blockquote>
+<p>ok</p>
+</blockquote>
+<blockquote>
+<p>backup folder</p>
+</blockquote>
+<blockquote>
+<p>Select the hidden folder we created</p>
+</blockquote>
+<p><img src="https://silence.im/images/logo-nav-dark.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="s"
+	
+	
+></p>
+<p><strong>Silence</strong></p>
+<blockquote>
+<p>Menu</p>
+</blockquote>
+<blockquote>
+<p>Import / export</p>
+</blockquote>
+<blockquote>
+<p>Encrypted backup</p>
+</blockquote>
+<blockquote>
+<p>Folder</p>
+</blockquote>
+<p><strong>Nextcloud</strong></p>
+<blockquote>
+<p>If you selfhost choose connect and give the ip of your domain and put the username and password on the sign-in page</p>
+</blockquote>
+<blockquote>
+<p>if you choose a partner provider</p>
+</blockquote>
+<blockquote>
+<p>To set up the nextcloud provider
+(ops one in the example) visit
+<a class="link" href="https://nextcloud.com/signup/"  target="_blank" rel="noopener"
+    >https://nextcloud.com/signup/</a>
+choose one and accept the terms of use</p>
+</blockquote>
+<blockquote>
+<p>More providers in under the change provider option</p>
+</blockquote>
+<blockquote>
+<p>give your mail and choose a password</p>
+</blockquote>
+<blockquote>
+<p>copy the address of the providers page</p>
+</blockquote>
+<blockquote>
+<p>verify account by following the link on your email</p>
+</blockquote>
+<blockquote>
+<p>In nextcloud app select connect and enter the address of the provider</p>
+</blockquote>
+<p>eg <a class="link" href="https://shared02.opsone-cloud.ch"  target="_blank" rel="noopener"
+    >https://shared02.opsone-cloud.ch</a> if you select opsone</p>
+<blockquote>
+<p>put in your username/password</p>
+</blockquote>
+<blockquote>
+<p>In  nextcloud app from the top left menu</p>
+</blockquote>
+<blockquote>
+<p>settings</p>
+</blockquote>
+<blockquote>
+<p>enable show hidden files</p>
+</blockquote>
+<blockquote>
+<p>auto back up</p>
+</blockquote>
+<blockquote>
+<p>top right menu</p>
+</blockquote>
+<blockquote>
+<p>setup a custom folder</p>
+</blockquote>
+<blockquote>
+<p>local folder</p>
+</blockquote>
+<blockquote>
+<p>Select the signal / silence folder</p>
+</blockquote>
+<blockquote>
+<p>remote folder</p>
+</blockquote>
+<blockquote>
+<p>I create a folder to identify and organize the content and select it</p>
+</blockquote>
+<blockquote>
+<p>select only upload on wifi  and  use subfolders if you want</p>
+</blockquote>
+<p><strong>Contacts</strong></p>
+<blockquote>
+<p>Download DAVx⁵ from fdroid</p>
+</blockquote>
+<blockquote>
+<p>In the nextcloud app</p>
+</blockquote>
+<blockquote>
+<p>setting</p>
+</blockquote>
+<blockquote>
+<p>contacts sync</p>
+</blockquote>
+<blockquote>
+<p>crate account with davx⁵</p>
+</blockquote>
+<blockquote>
+<p>contacts back up</p>
+</blockquote>
+<blockquote>
+<p>auto backup on</p>
+</blockquote>
+<blockquote>
+<p>backup now</p>
+</blockquote>
+<blockquote>
+<p>In the Nextcloud web interface shelfhosted or by provider</p>
+</blockquote>
+<blockquote>
+<p>Files tab</p>
+</blockquote>
+<blockquote>
+<p>select the vcf file that was uploaded and import it</p>
+</blockquote>
+<blockquote>
+<p>now we can see our contacts in the contacts tab</p>
+</blockquote>
+<blockquote>
+<p>In the contacts application of the phone we select DAVx⁵ as the default contacts account but also as a display contacts account</p>
+</blockquote>
+<p><strong>Call logs</strong></p>
+<p><a class="link" href="https://f-droid.org/en/packages/de.shandschuh.slightbackup/"  target="_blank" rel="noopener"
+    >Slight backup</a>
+is a foss application available on fdroid and can
+get a backup of the call history to a local folder so that we can upload it using the nextcloud application.
+But it does not have automatic backup. We have to get it manually.
+Here we will see the sms backup &amp; restore which is not foss but respects prpivacy and has no ads
+This application can also backup messages</p>
+<p><img src="https://play-lh.googleusercontent.com/_YbxUquV2BQZPEBrwu344nqOtG_DQF5FTjDBuzBH0nZNLq3BSK72ZoWi63pf-VfiBA"
+	
+	
+	
+	loading="lazy"
+	
+		alt="sms"
+	
+	
+></p>
+<p><strong>backup with foss app &lsquo;SMS backup &amp; restore</strong></p>
+<blockquote>
+<p>settings</p>
+</blockquote>
+<blockquote>
+<p>primary backup location</p>
+</blockquote>
+<blockquote>
+<p>set location</p>
+</blockquote>
+<blockquote>
+<p>backup type (full, archive or incremental)</p>
+</blockquote>
+<blockquote>
+<p>include (call logs, SMS, mms))</p>
+</blockquote>
+<blockquote>
+<p>upload location</p>
+</blockquote>
+<blockquote>
+<p>local file (gdrive, Dropbox etc could be used)</p>
+</blockquote>
+<blockquote>
+<p>scheduled backup settings</p>
+</blockquote>
+<blockquote>
+<p>enable and set daily</p>
+</blockquote>
+<blockquote>
+<p>password settings</p>
+</blockquote>
+<blockquote>
+<p>enable</p>
+</blockquote>
+<blockquote>
+<p>remove adds</p>
+</blockquote>
+<blockquote>
+<p>toggle</p>
+</blockquote>
+<p>under nextcloud</p>
+<p>from top rightt menu , select the local folder that contains the backupand also select a remot folder , create and name one if you want</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ippo-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Depl0yed
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.13.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

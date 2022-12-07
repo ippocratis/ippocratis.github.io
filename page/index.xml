@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pages on Depl0yed</title>
+        <link>https://ippocratis.github.io/page/</link>
+        <description>Recent content in Pages on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Archives</title>
+        <link>https://ippocratis.github.io/archives/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>About</title>
+        <link>https://ippocratis.github.io/abut/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/abut/</guid>
+        <description>&lt;p&gt;Deployed is about FOSS,
+it&amp;rsquo;s about selfhosting and testing software on the raspberry pi,
+the use of android open source and linux apps and degoogling androiduu.
+Random stuff i found interesting gather up at my telegram channel at:
+&lt;a class=&#34;link&#34; href=&#34;https://t.me/ippossackkofhacks&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://t.me/ippossackkofhacks&lt;/a&gt; together with stuff i find helfull and useful before they end ap as post here.
+I&amp;rsquo;m no pro this is just my personal experience.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Search</title>
+        <link>https://ippocratis.github.io/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/search/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

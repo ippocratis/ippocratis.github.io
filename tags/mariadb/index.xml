@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>mariadb on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/mariadb/</link>
+        <description>Recent content in mariadb on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/mariadb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>backup and restore dockerised datatbases</title>
+        <link>https://ippocratis.github.io/p/db-backup/</link>
+        <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/db-backup/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/db-backup/db.png" alt="Featured image of post backup and restore dockerised datatbases" /&gt;&lt;p&gt;Docker is great for selfhosting services&lt;/p&gt;
+&lt;p&gt;perfect for not so advanved users&lt;/p&gt;
+&lt;p&gt;if a service have to store somehow data well they use a database&lt;/p&gt;
+&lt;p&gt;it is important to keep that data consistent&lt;/p&gt;
+&lt;p&gt;docker it self helps with that using volumes.&lt;/p&gt;
+&lt;p&gt;you mount a dir on host in the container and its data preserves upon container restarts&lt;/p&gt;
+&lt;p&gt;thats one thing.&lt;/p&gt;
+&lt;p&gt;but if the database gets corrupted that data are of no use in that case&lt;/p&gt;
+&lt;p&gt;so:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mariadb/mysql&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;to backup all mariadb/mysql databases in an .sql file with a date tage in the filename&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose -f  compose-file.yml exec dbname mysqldump -uroot -pYOUR_MARIADB_ROOT_PASSWORD --all-databases &amp;gt; dump-$(date +%F_%H-%M-%S).sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;to restore it&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose -f /path/to/compose-file.yml up&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;maybe you&amp;rsquo;ll need to do it Twice (ctrl+c and re-up)&lt;/p&gt;
+&lt;p&gt;Then&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose -f /path/to/compose-file.yml exec -T dbname mysql -uroot -pYOUR_MARIADB_ROOT_PASSWORD  &amp;lt; /path/to/mariadb-dump.sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;It will take some time wait for it to finish&lt;/p&gt;
+&lt;p&gt;then&lt;/p&gt;
+&lt;p&gt;ctrl+c&lt;/p&gt;
+&lt;p&gt;and then&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose -f /path/to/compose.yml up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;note that &amp;ldquo;-uroot&amp;rdquo; and  &amp;ldquo;-pYOUR_MARIADB_ROOT_PASSWORD&amp;rdquo; are one word&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;postgres&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Backup&lt;/p&gt;
+&lt;p&gt;docker exec -t your-db-container pg_dumpall -c -U your-db-user &amp;gt; dump_$(date +%Y-%m-%d_%H_%M_%S).sql&lt;/p&gt;
+&lt;p&gt;Restore&lt;/p&gt;
+&lt;p&gt;cat your_dump.sql | docker exec -i your-db-container psql -U your-db-user -d your-db-name&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

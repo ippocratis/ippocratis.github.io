@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>raspberry pi on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/raspberry-pi/</link>
+        <description>Recent content in raspberry pi on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 22 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/raspberry-pi/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>traccar location tracker</title>
+        <link>https://ippocratis.github.io/p/traccar/</link>
+        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/traccar/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/traccar/traccar.png" alt="Featured image of post traccar location tracker" /&gt;&lt;p&gt;get location history with a selfhosted dockerised location tracking server and an android client to provide periodic location updates&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;create a proper Dockerfile for raspberry aarch&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano Dockerfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;paste&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FROM debian:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ENV TRACCAR_VERSION 4.10
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;WORKDIR /opt/traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;RUN set -ex &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    apt-get update &amp;amp;&amp;amp;\
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    TERM=xterm DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends unzip wget default-jre &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    wget -qO /tmp/traccar.zip https://github.com/traccar/traccar/releases/download/v$TRACCAR_VERSION/traccar-other-$TRACCAR_VERSION.zip &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    unzip -qo /tmp/traccar.zip -d /opt/traccar &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    apt-get autoremove --yes unzip wget &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    apt-get clean &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    rm -rf /var/lib/apt/lists/* /tmp/*
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ENTRYPOINT [&amp;#34;java&amp;#34;, &amp;#34;-Xms512m&amp;#34;, &amp;#34;-Xmx512m&amp;#34;, &amp;#34;-Djava.net.preferIPv4Stack=true&amp;#34;]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CMD [&amp;#34;-jar&amp;#34;, &amp;#34;tracker-server.jar&amp;#34;, &amp;#34;conf/traccar.xml&amp;#34;]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;build the Dockerfile&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker build -t debian-traccar-nginx .&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;create the volume&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker volume create traccar_raspberry&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;run the container&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --name Traccar \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5002:5002/tcp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5002:5002/udp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5055:5055/tcp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5093:5093/tcp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5093:5093/udp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 82:8082 \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --mount source=traccar_raspberry,target=/opt/traccar \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --restart=unless-stopped \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  debian-traccar-nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;update: the above Dockerfile is no longer needed
+tested the debian atm64 image and it works fine on raspberry400
+Digest:sha256:f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://hub.docker.com/layers/traccar/traccar/debian/images/sha256-f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412?context=explore&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://hub.docker.com/layers/traccar/traccar/debian/images/sha256-f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412?context=explore&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;android client needs tcp 5055 port so if you dont plan to use any of the supported hardware gps trackers
+you can skip listening to 5002,5093 tcp/udp ports and only keep 5055 for events and 8082 for the webui&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker-compose file&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;*assuming you have an external hard drive mounted as TOSHIBA  on  /run/media/ippo/TOSHIBA and your username is ippo&lt;/p&gt;
+&lt;p&gt;create dirs
+that will have all are files and db on our external drive for backup reasons&lt;/p&gt;
+&lt;p&gt;mkdir -p /run/media/ippo/TOSHIBA/traccar&lt;/p&gt;
+&lt;p&gt;mkdir -p /run/media/ippo/TOSHIBA/traccar/logs&lt;/p&gt;
+&lt;p&gt;mkdir -p /run/media/ippo/TOSHIBA/traccar/data&lt;/p&gt;
+&lt;p&gt;mkdirn-p /run/media/ippo/TOSHIBA/traccar/conf&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;get the trackar.xml configuration file from the builded image&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker run --rm --entrypoint cat debian-traccar-nginx:latest /opt/traccar/conf/traccar.xml &amp;gt; /run/media/ippo/TOSHIBA/traccar/conf/traccar.xml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;the actual yml&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-compose.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;version: &amp;#39;2&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    web:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        image: &amp;#39;debian-traccar-nginx:latest&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        hostname: &amp;#39;my.ddns.provider.com&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        container_name: traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;8082:8082&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;5055:5055/tcp&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/run/media/ippo/TOSHIBA/traccar/logs:/opt/traccar/logs:rw&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/run/media/ippo/TOSHIBA/traccar/conf/traccar.xml:/opt/traccar/conf/traccar.xml:ro&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/run/media/ippo/TOSHIBA/traccar/data:/opt/traccar/data:rw&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;run the container&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;doker-cmpose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;the above will spinup traccar with an  embedded h2 db that will not reset on container restart as its
+volume is mounted  on host and take periodic copies of the files but once corrupted those copies cant restore the traccar container
+Also I have no idea  how to properly backup an h2 db (if possible at all)
+the recomended way is to use an external postges or mariadb database
+i used a postgres docker imageb connected to the traccar image with a docker network and provided the apropriate network gateway url to the traccar xml for the database url&lt;/p&gt;
+&lt;p&gt;so:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;traccar-postgres&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;create a docker neywork&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker network create net&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;gwt the network subnet and ip&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker network inspect net&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;we need the&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    &amp;#34;Subnet&amp;#34;: &amp;#34;192.168.96.0/20&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    &amp;#34;Gateway&amp;#34;: &amp;#34;192.168.96.1&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;part&lt;/p&gt;
+&lt;p&gt;use the subnet on the&lt;/p&gt;
+&lt;p&gt;ipam:
+config:
+- subnet:192.168.96.0/20&lt;/p&gt;
+&lt;p&gt;in the docker-compose.yml&lt;/p&gt;
+&lt;p&gt;and the gateway in the database url in the traccar.xml
+jdbc:postgresql://192.168.96.1:5432/db&lt;/p&gt;
+&lt;p&gt;note that i used a  &lt;code&gt;POSTGRES_DB: db&lt;/code&gt; env var in docker-compose and so yhe /db in the database url you can use any other name&lt;/p&gt;
+&lt;p&gt;Replace the h2 contents in the xml with the postges according to
+&lt;a class=&#34;link&#34; href=&#34;https://www.traccar.org/postgresql/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.traccar.org/postgresql/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;docker-compose.yml&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;#34;3&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  traccar:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: traccar/traccar:debian
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    hostname: my.dyn-dns.domain.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    container_name: traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      POSTGRES_USER: user
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      POSTGRES_DB: db
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    depends_on:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - traccar-db
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/logs:/opt/traccar/logs:rw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/conf/traccar.xml:/opt/traccar/conf/traccar.xml:ro
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/data:/opt/traccar/web:rw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - &amp;#34;82:8082&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - &amp;#34;5055:5055/tcp&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  traccar-db:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    container_name: traccar-db
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: postgres:13
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - 5432:5432
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/db:/var/lib/postgresql/data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      POSTGRES_PASSWORD: password
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     - net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  net:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    driver: bridge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    enable_ipv6: false
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ipam:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      config:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        - subnet: 192.168.96.0/20
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;periodic postgres backups and how to restore a corrupted db&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Backup&lt;/p&gt;
+&lt;p&gt;docker exec -t your-db-container pg_dumpall -c -U your-db-user &amp;gt; /path/to/backup/folder/dump_$(date +%Y-%m-%d_%H_%M_%S).sql&lt;/p&gt;
+&lt;p&gt;A file like dump_20-11-2022_00_55_26.sql is created&lt;/p&gt;
+&lt;p&gt;Restore&lt;/p&gt;
+&lt;p&gt;cat your_dump.sql | docker exec -i your-db-container psql -U your-db-user -d your-db-name&lt;/p&gt;
+&lt;p&gt;Note the -U dbuser (set up as user in the &lt;code&gt;POSTGRES_USER: user&lt;/code&gt; env var and in the &lt;code&gt;&amp;lt;entry key=&#39;database.user&#39;&amp;gt;[USER]&amp;lt;/entry&amp;gt;&lt;/code&gt; on the traccar.xml)&lt;/p&gt;
+&lt;p&gt;and the -d bdname (set up as db in the &lt;code&gt;POSTGRES_DB: db&lt;/code&gt; env var and in the &lt;code&gt;postgresql://127.0.0.1:5432/[DATABASE]&lt;/code&gt; on the traccar.xml)&lt;/p&gt;
+&lt;p&gt;Put that on a crontab
+And there you go you have periodic db snapshots&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Caddyfile&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;*assuming you use caddy as a reverse proxy/ssl handler&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;a.random.ddns.name.duckdns.org {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    reverse_proxy localhost:8082
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Create admin and disable new users&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First you habe to register as a normal user&lt;/p&gt;
+&lt;p&gt;From the login page
+fill in email and prefered password
+And register&lt;/p&gt;
+&lt;p&gt;Then you can log in with those credestria&amp;rsquo;s&lt;/p&gt;
+&lt;p&gt;Its a good.idea for security reasons to disable sign ups&lt;/p&gt;
+&lt;p&gt;Login as default admin
+User:pass = admin:admin&lt;/p&gt;
+&lt;p&gt;On top left corner
+Settings
+Users
+Select your user
+Select the pencil icon
+From the permissions tab enable admin&lt;/p&gt;
+&lt;p&gt;Then
+From settings
+Server
+On permissions tab disable registration&lt;/p&gt;
+&lt;p&gt;Log out and re-login with your created user&lt;/p&gt;
+&lt;p&gt;From settings
+Users
+You can remove default admin now&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Traccar notifications&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m setting up notifications over telegram.
+There are many notification types
+Some interesting ones are enter / leave geofence (have to set up a geofence obvius&amp;rsquo;y first)
+Device moving
+Device stoped
+Device online
+Device offline&lt;/p&gt;
+&lt;p&gt;Useful if you monitor a second device e.g. a childs device&lt;/p&gt;
+&lt;p&gt;Edit the traccar.xml&lt;/p&gt;
+&lt;p&gt;In he docker-compose example above I maped /run/media/ippo/YOSHIBA/conf/traccar.xml as the config location&lt;/p&gt;
+&lt;p&gt;So&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /run/media/ippo/TOSHIBA/conf/traccar.xml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;entry key=&amp;#39;notificator.types&amp;#39;&amp;gt;web,mail,telegram&amp;lt;/entry&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;entry key=&amp;#39;notificator.telegram.key&amp;#39;&amp;gt;BOT_KEY&amp;lt;/entry&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;entry key=&amp;#39;notificator.telegram.chatId&amp;#39;&amp;gt;CHAT_ID&amp;lt;/entry&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;You have to create a bot
+get its api token
+Start a chat with it
+And get the chat id&lt;/p&gt;
+&lt;p&gt;To create the bot
+Visit @botfather
+/newbot
+Name it
+And get the token&lt;/p&gt;
+&lt;p&gt;To get the chat id
+Type @get_id_bot in the conversation chat with the bot&lt;/p&gt;
+&lt;p&gt;Restart the container&lt;/p&gt;
+&lt;p&gt;You can test the connection visiting your acount and sending a test message&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;public demo servers&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;you you just want to test traccar before start building and selfhosting it, there are some public servers available&lt;/p&gt;
+&lt;p&gt;Public servers (demo)
+&lt;a class=&#34;link&#34; href=&#34;https://www.traccar.org/demo-server/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.traccar.org/demo-server/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Android client app
+&lt;a class=&#34;link&#34; href=&#34;https://www.traccar.org/client/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.traccar.org/client/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Navigate to one of demo servers&lt;/p&gt;
+&lt;p&gt;demo4.traccar.org&lt;/p&gt;
+&lt;p&gt;demo3.traccar.org&lt;/p&gt;
+&lt;p&gt;demo2.traccar.org&lt;/p&gt;
+&lt;p&gt;demo.traccar.org&lt;/p&gt;
+&lt;p&gt;And register
+Select username
+Mail
+And password&lt;/p&gt;
+&lt;p&gt;Then use registered mail and password to login&lt;/p&gt;
+&lt;p&gt;On client app
+While service deactivated
+Copy identifier
+Insert the demo server URL you registered
+Select location accuracy (high)
+Select frequency report ~120 sec
+Let others as is
+and enable service&lt;/p&gt;
+&lt;p&gt;On status verify that the location is updating&lt;/p&gt;
+&lt;p&gt;On server
+Top left menu
+Select the plus icon to add a device
+Select a random name
+And the identifier from the client app
+And save&lt;/p&gt;
+&lt;p&gt;The you can select the device on the top left menu&lt;/p&gt;
+&lt;p&gt;It appears on the map
+From the refresh icon you can select a time period to show a location trail on the map and even animate the motion of tracks&lt;/p&gt;
+&lt;p&gt;From the reports tab you can you can view a table of location reports from a selected period&lt;/p&gt;
+&lt;p&gt;#disadvantages:
+The public servers are ephemeral and your data will disapear at some point
+you have to either buy a plan or selfhost the server&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Joplin Notes Webview</title>
+        <link>https://ippocratis.github.io/p/joplin/</link>
+        <pubDate>Sun, 11 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/joplin/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/joplin/Joplin-logo-wide.png" alt="Featured image of post Joplin Notes Webview" /&gt;&lt;p&gt;Joplin provides an appimage for linux distros&lt;/p&gt;
+&lt;p&gt;I found this heavy on resources to use on a raspberrypi&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/joplin-vieweb/joplin-vieweb&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Joplin-webview&lt;/a&gt; is an unofficial webui frontent for the official &lt;a class=&#34;link&#34; href=&#34;https://joplinapp.org/terminal/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;terminal app&lt;/a&gt; and packed to a docker container
+simple to setup and deploy.&lt;/p&gt;
+&lt;p&gt;Strangely it is not listed on the &lt;a class=&#34;link&#34; href=&#34;https://discourse.joplinapp.org/t/unofficial-alternative-joplin-distributions/23703&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;unofficial clients&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir joplin-vieweb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd joplin-vieweb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano doccker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;version: &amp;#39;3.4&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;x-common-variables: &amp;amp;common-variables
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ORIGINS: &amp;#34;&amp;#39;http://localhost&amp;#39;, &amp;#39;http://192.168.1.24&amp;#39; , &amp;#39;https://my-ddns-domain.com&amp;#39;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  django-joplin-vieweb:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: gri38/django-joplin-vieweb:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    depends_on:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-terminal-xapi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &amp;lt;&amp;lt;: *common-variables
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - xxxx:8000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin:/root/.config/joplin:ro
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-vieweb:/root/.config/joplin-vieweb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin-terminal-xapi:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: gri38/joplin-terminal-xapi:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin:/root/.config/joplin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin-vieweb:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin-net: {}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Then&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;first you set up url/admin and then login to url/joplin
+mind the /admin and /joplin&lt;/p&gt;
+&lt;p&gt;navigate to
+http://localhost:xxx/admin
+or &lt;a class=&#34;link&#34; href=&#34;http://192.168.1.xx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://192.168.1.xx&lt;/a&gt;:xxx/admin
+or &lt;a class=&#34;link&#34; href=&#34;https://my-ddns-domain.com/admin&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://my-ddns-domain.com/admin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;change password
+add user
+logout&lt;/p&gt;
+&lt;p&gt;navigate to
+http://localhost:xxx/joplin
+or &lt;a class=&#34;link&#34; href=&#34;http://192.168.1.xx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://192.168.1.xx&lt;/a&gt;:xxx/joplin
+or &lt;a class=&#34;link&#34; href=&#34;https://my-ddns-domain.com/joplin&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://my-ddns-domain.com/joplin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;go to settings
+on sync select nextcloud if you use nextcloud but it actually works with webdav shares too
+i.g. you know how to use nextcloud url&amp;rsquo;s
+For webdav you just create a dir and use that dir as your joplin data
+Just use the actual dir that stores your joplin data&lt;/p&gt;
+&lt;p&gt;Add your webdav/nexttcloud username and password and test then sync&lt;/p&gt;
+&lt;p&gt;After sync you have to to decrypt the notes&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker exec -ti joplin-vieweb_joplin-terminal-xapi_1 joplin e2ee decrypt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Thats all&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Simple Remote ssh with Wireguard</title>
+        <link>https://ippocratis.github.io/p/wireguard/</link>
+        <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/wireguard/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/wireguard/banner.png" alt="Featured image of post Simple Remote ssh with Wireguard" /&gt;&lt;p&gt;&lt;img src=&#34;https://i0.wp.com/www.randombrick.de/wp-content/uploads/2019/05/WireGuard-Logo.jpg?fit=1600%2C850&amp;amp;ssl=1&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;preperation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The docker setup needs the wireguard kernel module , an open udp port in router, a free  public subdomain ,  port forword the WG port to RPI lan IP in router settings&lt;/p&gt;
+&lt;p&gt;-&amp;gt; load kernel module&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;modprobe wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;-&amp;gt; make load on boot&lt;/p&gt;
+&lt;p&gt;create the config file:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/modules-load.d/wireguard.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add the module name&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;check status of modules&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lsmod |grep wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Check if systemd service loaded the module:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;systemctl status systemd-modules-load.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;grab the proccess id
+e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Main PID: 210 (code=exited, status=0/SUCCESS) PID = 210&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;status=0/SUCCESS means systemd succesfully loaded the module&lt;/p&gt;
+&lt;p&gt;double verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;journalctl -b _PID=210&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;systemd-modules-load[210]: Inserted module &amp;lsquo;wireguard&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;if lsmod is not confirming the journal  look for&lt;/p&gt;
+&lt;p&gt;blacklist wireguard at configs&lt;/p&gt;
+&lt;p&gt;Forword ipv4&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/sysctl.d/ipv4_forwarding.conf &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;net.ipv4.ip_forward=1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sysctl net.ipv4.ip_forward&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Setup&lt;/strong&gt;
+Docker &amp;amp; docker-compose&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/linuxserver/docker-wireguard&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kinuxserver Wireguard Docker image&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Documentation is pretty straightforword there but lets clarify some things&lt;/p&gt;
+&lt;p&gt;Client config is under path/to/appdata/config as was set in the volume env var as PNG and text&lt;/p&gt;
+&lt;p&gt;Docker run&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d   --name=wireguard   --cap-add=NET_ADMIN   --cap-add=SYS_MODULE   -e PUID=1000   -e PGID=1000   -e TZ=Europe/London   -e SERVERURL=your.ddns.domain.name.com `#optional`   -e SERVERPORT=51820 `#optional`   -e PEERS=1 `#optional`   -e PEERDNS=auto `#optional`   -e INTERNAL_SUBNET=10.13.13.0 `#optional`   -e SERVER_ALLOWEDIPS_PEER_phone=&amp;#34;192.168.1.x/24, 10.13.13.1&amp;#34;   -e LOG_CONFS=true `#optional`   -p 51820:51820/udp   -v path/to/appdata/config:/config   -v /lib/modules:/lib/modules   --sysctl=&amp;#34;net.ipv4.conf.all.src_valid_mark=1&amp;#34;   --restart unless-stopped   linuxserver/wireguard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;This will create
+path/to/appdata/config/wg0.conf
+which is your server config&lt;/p&gt;
+&lt;p&gt;And
+path/to/appdata/config/peer1/peer1.conf
+Which is your client config&lt;/p&gt;
+&lt;p&gt;You&amp;rsquo;ll add this to the android wiregurad app by either import the file or by scanning the path/to/appdata/config/peer1/peer1.png
+You can display the qr code in terminal with
+&lt;code&gt;docker exec -it wireguard /app/show-peer 1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Consider the
+&lt;code&gt;SERVER_ALLOWEDIPS_PEER_phone=&lt;/code&gt;
+And
+&lt;code&gt;INTERNAL_SUBNET=&lt;/code&gt;
+enviromental variables
+If you only need access to your RPI for remote ssh all you need is to add your its local lan IP e.g. 192.168.1.24 together with the servers  wireguard subnet address e.g. 10.13.13.1&lt;/p&gt;
+&lt;p&gt;Also consider the
+&lt;code&gt;SERVERURL=&lt;/code&gt;
+Env var
+Which is your domain through which you access your raspbery on its running port
+e.g.
+If you own the ippo subdomain in duckdns
+&lt;code&gt;SERVERURL=https://ippo.duckdns.org:51820&lt;/code&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Caddy2 web server</title>
+        <link>https://ippocratis.github.io/p/caddy2/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/caddy2/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/caddy2/caddy2.png" alt="Featured image of post Caddy2 web server" /&gt;&lt;p&gt;&lt;img src=&#34;https://www.tecmint.com/wp-content/uploads/2018/09/Install-Caddy-Webserver-on-CentOS.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Caddy is an open source web server with automatic HTTPS written in Go.
+reverse proxying widely used in selfhosed services is ded simple with one liner Caddyfile&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;from the official documentation for respberry &lt;a class=&#34;link&#34; href=&#34;https://caddyserver.com/docs/install#debian-ubuntu-raspbian&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;curl -1sLf &#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#39; | sudo apt-key add -&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;curl -1sLf &#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#39; | sudo tee -a /etc/apt/sources.list.d/caddy-&amp;gt;stable.list&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;install package suposed to install caddy as a service but it doesent
+so&lt;/p&gt;
+&lt;p&gt;verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ls /etc/systemd/system/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;look for caddy.service&lt;/p&gt;
+&lt;p&gt;if not there we follow the binary installation from the documentation and&lt;/p&gt;
+&lt;p&gt;download caddy.service from &lt;a class=&#34;link&#34; href=&#34;https://github.com/caddyserver/dist/tree/master/init&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;wget &lt;a class=&#34;link&#34; href=&#34;https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;and transfer it to&lt;/p&gt;
+&lt;p&gt;/etc/systemd/system&lt;/p&gt;
+&lt;p&gt;with&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mv caddy.service /etc/systemd/system&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;reload daemon&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl daemon-reload&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;enable&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl enable caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;start&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl start caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl status caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;if service is indeed started and active after rebot but not functional eg is not reverse proxying&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@reboot systemctl restart caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;save and exit&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ctrl+x&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;y&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;reverse proxy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ename or delete the stock one there&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;your_domain:port {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    reverse_proxy localhost:port  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;where&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;your_domain:port&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;your ddns domain and an open router port&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;localhost:port&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the local ip and the port that your self hosted service has open to the host&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>dnscrypt</title>
+        <link>https://ippocratis.github.io/p/dnscrypt/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/dnscrypt/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/dnscrypt/dnscrypt.png" alt="Featured image of post dnscrypt" /&gt;&lt;p&gt;&lt;img src=&#34;https://camo.githubusercontent.com/343bd54c914db0c390c6e5678b60755feb51834a4d82f828d147f1abb4288e73/68747470733a2f2f7261772e6769746875622e636f6d2f646e7363727970742f646e7363727970742d70726f78792f6d61737465722f6c6f676f2e706e673f33&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;dnscrypt proxy&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In order to harden our raspberry server we will install some services.
+Not too techy but strong.
+dnscrypt proxy is one of them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Domain Name System is one of the oldest protocols that we still use on our Networks.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Normal DNS queries and responses are not encrypted.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dnscrypt is a transport protocol that authenticates communications between a DNS client and a DNS resolver. It prevents DNS spoofing.
+It uses cryptographic signatures to verify that responses originate from the chosen DNS resolver and haven&amp;rsquo;t been tampered with.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;a dns proxy it acts as an intermediary between clients and servers while they resolv domain names with an IP address and vice versa&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dnscrypt proxy uses dnscrypt protocol&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install dnscrypt-proxy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;pick up a server name from this list &lt;a class=&#34;link&#34; href=&#34;https://dnscrypt.info/public-servers/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/dnscrypt-proxy/dnscrypt-proxy.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add your desired server to server_names&lt;/p&gt;
+&lt;p&gt;eg server_names = [&amp;lsquo;cloudflare&amp;rsquo;]&lt;/p&gt;
+&lt;p&gt;save and exit&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ctrl + x&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;y&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;restart service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl restart dnscrypt-proxy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;specify name server&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;apt install resolvconf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/resolvconf/resolv.conf.d/head&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;update values&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;resolvconf -u&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;configure interfaces&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/network/interfaces&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;under your using interfaces eg wlan add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;verify specified nameserver is added&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/resolv.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;if not add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cloudflare.com/ssl/encrypted-sni/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;test with cloudflare&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://1.1.1.1/help&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;test with 1.1.1.1&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

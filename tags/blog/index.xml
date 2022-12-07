@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>blog on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/blog/</link>
+        <description>Recent content in blog on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 30 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Heroku Login from Terminal</title>
+        <link>https://ippocratis.github.io/p/herokulogin/</link>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/herokulogin/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/herokulogin/heroku_login.png" alt="Featured image of post Heroku Login from Terminal" /&gt;&lt;p&gt;&lt;img src=&#34;https://miro.medium.com/max/3600/1*fIjRtO5P8zc3pjs0E5hYkw.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In raspberry we usually work from the host via ssh
+If we run an app on heroku and want to work on heroku cli we need to connect to it
+Unfortunately this can only be done through a browser
+But if we are on the host with ssh and give the command heroku login in the terminal the Login page will open but not on the host but on raspberry itself
+So we will manually put the credestrial login in ~ / .netrc&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;From &lt;a class=&#34;link&#34; href=&#34;https://dashboard.heroku.com/account&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://dashboard.heroku.com/account&lt;/a&gt; we reveal the api and copy it&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;nano ~ / .netrc&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Fill in the email of our account and in the place of the password we put the api that we copied&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Grav cms</title>
+        <link>https://ippocratis.github.io/p/grav/</link>
+        <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/grav/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/grav/grav.webp" alt="Featured image of post Grav cms" /&gt;&lt;blockquote&gt;
+&lt;p&gt;note that heroku is about to change their charging policy and their free dyno tier will be removed.
+therefor this deploy is no longer valid as.a.no cost option&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Grav is a self-hosted content management system (CMS) written in PHP.
+You can create web pages with it and modify their content online.
+It has an admin panel from which you add and modify your content
+it is rich in plugins and functions
+very easy to use for the simple user with several modern and classic templates and themes for everyone
+also has skeletons that are 100% ready to use sites that all you have to do is adapt their texts to your needs.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;we will use docker-compose with the grav files mapped in the current directory so that we have them in a folder in the host for immediate modification and easy copying in the working heroku folder.
+and yeah we&amp;rsquo;ll deploy it to heroku
+Heroku is a platform as a service (PaaS) service with which we create and run applications in the cloud.
+We will use it to upload our grav site and run it from heroku as opposed to selfhost it on the pi to avoid exposing our public ip as it is a service that will be open to the general public.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://miro.medium.com/max/2404/1*JUOITpaBdlrMP9D__-K5Fw.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;docker&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create the docker container&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir grav&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd grav&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/getgrav/docker-grav.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd docker-grav&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir grav&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano docker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;change port if you like&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;launch localhost:port/admin&lt;/p&gt;
+&lt;p&gt;create your account&lt;/p&gt;
+&lt;p&gt;** skeleton **&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://getgrav.org/downloads/skeletons&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Skeletons&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;has ready-to-use sites&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Try the demo in each one to watch it live
+Download the skeleton you want
+From downloaded file extract the user folder
+Delete the contents of  ~/grav/docker-grav/grav/user folder and keep the hidden .git folder
+replace the user folder with the files from the skeletons user folder we extracted&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;give rights&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;chown -R www-data:www-data /root/grav/docker-grav/grav/&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To see your site  visit&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;localhost:port in the browser&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.theskylab.net/user/pages/grav-cms/best-grav-plugins/grav-admin-dashboard-min.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;admin&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Admin panel&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The admin panel is located at&lt;/p&gt;
+&lt;p&gt;localhost:port/admin&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The structure of the site is arboreal
+Starts from the root directory / and adds folders and subfolders with pages inside
+From the pages tab we delete, add or modify the existing pages
+In content tab we write our text and title of the page using markdown and in the options we activate it while in the media field are the photos&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://miro.medium.com/max/3600/1*fIjRtO5P8zc3pjs0E5hYkw.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;heroku&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Host to heroku&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We need the javascript npm package manager which is installed along with nodejs
+Download according to our disstro from &lt;a class=&#34;link&#34; href=&#34;https://nodejs.org/en/download/package-manager&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For debian based we need the binary from &lt;a class=&#34;link&#34; href=&#34;https://github.com/nodesource/distributions/blob/master/README.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In ubuntu&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash - sudo apt-get install -y nodejs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;install heroku cli&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;npm install -g heroku&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;signup for a free acunt at &lt;a class=&#34;link&#34; href=&#34;https://signup.heroku.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://signup.heroku.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;heroku signin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We create a working directory for heroku and copy the grav files inside&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir heroku-gtav&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd heroku-grav&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cp ~ /grav/docker-grav/grav ~/heroku-grav&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git init&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;create the app&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;heroku create&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;chech how heroku has named your app.
+We can change this name from &lt;a class=&#34;link&#34; href=&#34;https://dashboard.heroku.com/apps/app-name/settings&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://dashboard.heroku.com/apps/app-name/settings&lt;/a&gt;
+either case we define heroku remote with the name of the app&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;heroku apps&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;heroku git: remote -a yourappname&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;deploy your site&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git add .&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git commit -am &amp;quot;any_text&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git push heroku master&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;launch it&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;heroku open&lt;/code&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

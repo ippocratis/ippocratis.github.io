@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='What is it
+microG core is a free and open surce clone of Google’s proprietary core libraries modified having most tracking elements removed. Their main function is to disguise themselves and declare to the applications that require google services to work properly that exist and are present.
+Services Framework Proxy (GsfProxy) undertakes cloud messaging, ie notifications from applications
+Store (Phonesky) undertakes the updates of the applications
+What is not'><title>some brief words aboout microG</title>
+
+<link rel='canonical' href='https://ippocratis.github.io/p/some-brief-words-aboout-microg/'>
+
+<link rel="stylesheet" href="/scss/style.min.ac77dcf8b111b51da39a92990f431923f210f3876d85798a2125667f96dc33a4.css"><meta property='og:title' content='some brief words aboout microG'>
+<meta property='og:description' content='What is it
+microG core is a free and open surce clone of Google’s proprietary core libraries modified having most tracking elements removed. Their main function is to disguise themselves and declare to the applications that require google services to work properly that exist and are present.
+Services Framework Proxy (GsfProxy) undertakes cloud messaging, ie notifications from applications
+Store (Phonesky) undertakes the updates of the applications
+What is not'>
+<meta property='og:url' content='https://ippocratis.github.io/p/some-brief-words-aboout-microg/'>
+<meta property='og:site_name' content='Depl0yed'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='og:image' content='https://ippocratis.github.io/microg.png' />
+<meta name="twitter:title" content="some brief words aboout microG">
+<meta name="twitter:description" content="What is it
+microG core is a free and open surce clone of Google’s proprietary core libraries modified having most tracking elements removed. Their main function is to disguise themselves and declare to the applications that require google services to work properly that exist and are present.
+Services Framework Proxy (GsfProxy) undertakes cloud messaging, ie notifications from applications
+Store (Phonesky) undertakes the updates of the applications
+What is not"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ippocratis.github.io/microg.png' />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53T8RWZ8BR"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-53T8RWZ8BR', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hue27fa0595436520d69d01a95cf7f15e5_36931_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Depl0yed</a></h1>
+            <h2 class="site-description">Self Host Use Foss and Drop Google</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://medium.com/@i.pyrgiotis'
+                        target="_blank"
+                        title="Medium"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <path d="M8 9h1l3 3l3 -3h1" />
+  <line x1="8" y1="15" x2="10" y2="15" />
+  <line x1="14" y1="15" x2="16" y2="15" />
+  <line x1="9" y1="9" x2="9" y2="15" />
+  <line x1="15" y1="9" x2="15" y2="15" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/ippossackofhacks'
+                        target="_blank"
+                        title="Telegram"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/abut/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/some-brief-words-aboout-microg/">
+                
+                    <img src="/microg.png" loading="lazy" alt="Featured image of post some brief words aboout microG" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/some-brief-words-aboout-microg/">some brief words aboout microG</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><img src="https://www.droidviews.com/wp-content/uploads/2017/09/microG.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="microg"
+	
+	
+></p>
+<p><strong>What is it</strong></p>
+<blockquote>
+<p>microG core is a free and open surce clone of Google’s proprietary core libraries modified having most tracking elements removed. Their main function is to disguise themselves and declare to the applications that require
+google services to work properly that exist and are present.</p>
+</blockquote>
+<blockquote>
+<p>Services Framework Proxy (GsfProxy) undertakes cloud messaging, ie notifications from applications</p>
+</blockquote>
+<blockquote>
+<p>Store (Phonesky) undertakes the updates of the applications</p>
+</blockquote>
+<p><strong>What is not</strong></p>
+<blockquote>
+<p>MicroG is not yet an &ldquo;alternative&rdquo; gapps package. You will not have the same user experience. However, there are packages that make the transition from a gapps environment to a de-googled environment smoother.</p>
+</blockquote>
+<p>** ROM with microG pre-installed **</p>
+<blockquote>
+<p>The most hassle-free way to use them is to have them pre-installed on the ROM</p>
+</blockquote>
+<blockquote>
+<p>CalyxOS (official)</p>
+</blockquote>
+<blockquote>
+<p>/ e / (official)</p>
+</blockquote>
+<blockquote>
+<p>omnirom (official)</p>
+</blockquote>
+<blockquote>
+<p>lineage for microg (unofficial community builds based on lineage official builds)</p>
+</blockquote>
+<p><strong>Prerequisites for installation</strong></p>
+<blockquote>
+<p>Must be installed on clean rom without gapps.</p>
+</blockquote>
+<blockquote>
+<p>There are debloat scripts of dubious effect.</p>
+</blockquote>
+<blockquote>
+<p>must be installed as system applications you can not just install an apk and use them as user apps.well youcan but they&rsquo;ll half work.</p>
+</blockquote>
+<blockquote>
+<p>ROM must support signature spoofing which means that it allows applications to declare that it is another application</p>
+</blockquote>
+<blockquote>
+<p>If it doesnt there is a patch available that we can apply to activate it but ROM must be deodexed</p>
+</blockquote>
+<p><strong>roms with active signature spoofing globaly</strong></p>
+<blockquote>
+<p>arrow</p>
+</blockquote>
+<blockquote>
+<p>carbon</p>
+</blockquote>
+<blockquote>
+<p>crdroid</p>
+</blockquote>
+<blockquote>
+<p>marshrom</p>
+</blockquote>
+<blockquote>
+<p>aospextended</p>
+</blockquote>
+<p><strong>roms containing the patch other must be enabled (Developer Options, AppOps)</strong></p>
+<blockquote>
+<p>AICP</p>
+</blockquote>
+<blockquote>
+<p>AimRom</p>
+</blockquote>
+<blockquote>
+<p>AOSGP</p>
+</blockquote>
+<blockquote>
+<p>AOSIP</p>
+</blockquote>
+<blockquote>
+<p>AtomicOS</p>
+</blockquote>
+<blockquote>
+<p>ardinal-AOSP</p>
+</blockquote>
+<blockquote>
+<p>CitrusCAF</p>
+</blockquote>
+<blockquote>
+<p>dotOS</p>
+</blockquote>
+<blockquote>
+<p>GZ</p>
+</blockquote>
+<blockquote>
+<p>HalogenOS</p>
+</blockquote>
+<blockquote>
+<p>Havoc-OS</p>
+</blockquote>
+<blockquote>
+<p>Hexa-Project</p>
+</blockquote>
+<blockquote>
+<p>MSM-Xtended</p>
+</blockquote>
+<blockquote>
+<p>nAOSProm</p>
+</blockquote>
+<blockquote>
+<p>NitrogenOS</p>
+</blockquote>
+<blockquote>
+<p>Tugapower</p>
+</blockquote>
+<blockquote>
+<p>viperOS</p>
+</blockquote>
+<blockquote>
+<p>XOSP</p>
+</blockquote>
+<blockquote>
+<p>POSP</p>
+</blockquote>
+<p><strong>install methods</strong></p>
+<blockquote>
+<p>The most prudent way of install is flashing an installer package through recovery or magisk</p>
+</blockquote>
+<p><strong>Packages</strong></p>
+<blockquote>
+<p>from time to time various dev packages microg in magisk / twrp mods</p>
+</blockquote>
+<p>currently active</p>
+<blockquote>
+<p>Nanodroid</p>
+</blockquote>
+<blockquote>
+<p>MinMicroG</p>
+</blockquote>
+<p><strong>Nanodroid</strong></p>
+<blockquote>
+<p>twrp / magisk .If it finds magisk it will be installed as a magisk module. you can not force installation directly on the system via twrp by choice.</p>
+</blockquote>
+<blockquote>
+<p>Ability to use debloat script</p>
+</blockquote>
+<blockquote>
+<p>Ability to use signature spoofing script</p>
+</blockquote>
+<blockquote>
+<p>patched store version with in app purchases</p>
+</blockquote>
+<blockquote>
+<p>can select what to install via config file</p>
+</blockquote>
+<blockquote>
+<p>addon.d survival script for survival after rom update
+NanoDroid, NanoDroid-microG, NanoDroid-fdroid, NanoDroid-BromiteWebView, NanoDroid-OsmAnd, NanoDroid-Google</p>
+</blockquote>
+<p>** MinMicroG **</p>
+<blockquote>
+<p>option for installation by selecting either as magisk mod or directly on the system from twrp via renaming flashable zip file</p>
+</blockquote>
+<blockquote>
+<p>patched store version with in app purchases</p>
+</blockquote>
+<blockquote>
+<p>addon.d survival script for survival after rom update</p>
+</blockquote>
+<blockquote>
+<p>stand alone sync adapter package</p>
+</blockquote>
+<blockquote>
+<p>editions: Standard, NoGoolag, UNLP, Minimal, MinimalIAP, AuroraServices</p>
+</blockquote>
+<p><strong>twrp vs magic</strong></p>
+<blockquote>
+<p>if you need to magisk hide microg core because some application does not work with root or coz of play store api violation.
+In this case the Microg will not work if installed with magisk since it is also a module
+So if you need hide install from twrp</p>
+</blockquote>
+<p><strong>ota</strong></p>
+<blockquote>
+<p>The packages are ota ready with addon.d survival scripts</p>
+</blockquote>
+<p><strong>fake store vs modded play store</strong></p>
+<blockquote>
+<p>The modded store provides better compatibility with applications and installs a real google play store with a user experience closer to the gapps environment</p>
+</blockquote>
+<blockquote>
+<p>The fake store simply states to the applications that are looking for it that it is there but in practice it is a dummy, empty app.</p>
+</blockquote>
+<p><strong>after installation</strong></p>
+<blockquote>
+<p>long tap on Microg, info and give rights</p>
+</blockquote>
+<blockquote>
+<p>open the microg app and activate everything from the selfcheck with spoofin first</p>
+</blockquote>
+<blockquote>
+<p>if you need it add google acount</p>
+</blockquote>
+<blockquote>
+<p>enable cloud messaging</p>
+</blockquote>
+<blockquote>
+<p>the safetynet does not work whether you activate it or not if you are rooted.</p>
+</blockquote>
+<blockquote>
+<p>activate location &amp; address lookup modules</p>
+</blockquote>
+<blockquote>
+<p>npem from terminal</p>
+</blockquote>
+<p><strong>useful apps / addon</strong></p>
+<blockquote>
+<p>fdroid: free open source app store. its applications does not contain proprietary code and google services dependencies</p>
+</blockquote>
+<blockquote>
+<p>fdroid prpivileged extention (magisk): undertakes the automatic installation (without the mediation of the adroid package installer) but also upgrading the applications contained in fdroid</p>
+</blockquote>
+<blockquote>
+<p>auorora store: google play store apk mirror</p>
+</blockquote>
+<blockquote>
+<p>auorora services (magisk): fdroid privileged extention fork undertakes the automatic installation (without the mediation of the adroid package installer) but also the upgrade of the applications contained in the aurora store</p>
+</blockquote>
+<p><strong>what does not work at all</strong></p>
+<blockquote>
+<p>safetynet</p>
+</blockquote>
+<blockquote>
+<p>cast</p>
+</blockquote>
+<blockquote>
+<p>google feed</p>
+</blockquote>
+<blockquote>
+<p>signin in other apps with the result that in applications such as viber, whatsup that use google drive for backup and restore you can not have this function (workaround, root and backup appdata)</p>
+</blockquote>
+<blockquote>
+<p>for a list of compatibility of various applications check in plexux</p>
+</blockquote>
+<p><strong>For which there is no degoogled solution</strong></p>
+<blockquote>
+<p>push notifications. all apps in the playstore use firebase (google) servers to issue push notifications. There are some foss selfhosted services but the application itself must support them. The microg uses striped down firebase and you normally get notifications.</p>
+</blockquote>
+<blockquote>
+<p>voice type (speech to text) gboard works but you have to install gboard (xD) other keyboards that use voice type want the google voice input of the google application. The only alternative I know is the konele but the public s2t servers are unmaintained you have to selfhost your own</p>
+</blockquote>
+<p><strong>google applications</strong></p>
+<blockquote>
+<p>sync works on everything using a package that includes sync adapter</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ippo-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Depl0yed
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.13.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

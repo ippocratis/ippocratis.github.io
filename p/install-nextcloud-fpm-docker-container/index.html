@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Install nextcloud-fpm with caddy2 docker container and caddy2 as reverse proxy on host
+The official docker images of nextcloud comes in 2 versions.
+One with a built-in apache web server and an fpm one for use with any web server we want and which is based on the php-fpm docker image and runs fastCGI-Process which serve the pages of Nextcloud.
+In their examples they provide an example using nginx docker image.'><title>install nextcloud-fpm docker container</title>
+
+<link rel='canonical' href='https://ippocratis.github.io/p/install-nextcloud-fpm-docker-container/'>
+
+<link rel="stylesheet" href="/scss/style.min.ac77dcf8b111b51da39a92990f431923f210f3876d85798a2125667f96dc33a4.css"><meta property='og:title' content='install nextcloud-fpm docker container'>
+<meta property='og:description' content='Install nextcloud-fpm with caddy2 docker container and caddy2 as reverse proxy on host
+The official docker images of nextcloud comes in 2 versions.
+One with a built-in apache web server and an fpm one for use with any web server we want and which is based on the php-fpm docker image and runs fastCGI-Process which serve the pages of Nextcloud.
+In their examples they provide an example using nginx docker image.'>
+<meta property='og:url' content='https://ippocratis.github.io/p/install-nextcloud-fpm-docker-container/'>
+<meta property='og:site_name' content='Depl0yed'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='og:image' content='https://ippocratis.github.io/nextcloud.jpeg' />
+<meta name="twitter:title" content="install nextcloud-fpm docker container">
+<meta name="twitter:description" content="Install nextcloud-fpm with caddy2 docker container and caddy2 as reverse proxy on host
+The official docker images of nextcloud comes in 2 versions.
+One with a built-in apache web server and an fpm one for use with any web server we want and which is based on the php-fpm docker image and runs fastCGI-Process which serve the pages of Nextcloud.
+In their examples they provide an example using nginx docker image."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ippocratis.github.io/nextcloud.jpeg' />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53T8RWZ8BR"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-53T8RWZ8BR', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hue27fa0595436520d69d01a95cf7f15e5_36931_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Depl0yed</a></h1>
+            <h2 class="site-description">Self Host Use Foss and Drop Google</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://medium.com/@i.pyrgiotis'
+                        target="_blank"
+                        title="Medium"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <path d="M8 9h1l3 3l3 -3h1" />
+  <line x1="8" y1="15" x2="10" y2="15" />
+  <line x1="14" y1="15" x2="16" y2="15" />
+  <line x1="9" y1="9" x2="9" y2="15" />
+  <line x1="15" y1="9" x2="15" y2="15" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/ippossackofhacks'
+                        target="_blank"
+                        title="Telegram"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/abut/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/install-nextcloud-fpm-docker-container/">
+                
+                    <img src="/nextcloud.jpeg" loading="lazy" alt="Featured image of post install nextcloud-fpm docker container" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/install-nextcloud-fpm-docker-container/">install nextcloud-fpm docker container</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><img src="https://blog.ssdnodes.com/blog/wp-content/uploads/2018/05/201805_nextcloud.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="aaa"
+	
+	
+></p>
+<p><strong>Install nextcloud-fpm with caddy2 docker container and caddy2 as reverse proxy on host</strong></p>
+<blockquote>
+<p>The official docker images of nextcloud comes in 2 versions.</p>
+</blockquote>
+<blockquote>
+<p>One with a built-in apache web server and an fpm one for use with any web server we want and which is based on the php-fpm docker image and runs fastCGI-Process
+which serve the pages of Nextcloud.</p>
+</blockquote>
+<blockquote>
+<p>In their examples they provide an example using nginx docker image.</p>
+</blockquote>
+<blockquote>
+<p>Here we will see how to use it with a caddy2 webserver docker container which will return the http requests to the FastCGI-port of the container.</p>
+</blockquote>
+<hr>
+<p><strong>Creating docker-compose.yml</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir ncfpm
+</span></span><span class="line"><span class="cl">cd ncfpm
+</span></span><span class="line"><span class="cl">nano docker-compose.yml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>paste</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> version: &#39;2&#39;
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"> volumes:
+</span></span><span class="line"><span class="cl">   nextcloud:
+</span></span><span class="line"><span class="cl">   db:
+</span></span><span class="line"><span class="cl">   caddy_data:
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> services:
+</span></span><span class="line"><span class="cl">   db:
+</span></span><span class="line"><span class="cl">     image: mariadb
+</span></span><span class="line"><span class="cl">     command: --transaction-isolation = READ-COMMITTED --binlog-format = ROW
+</span></span><span class="line"><span class="cl">     restart: always
+</span></span><span class="line"><span class="cl">     volumes:
+</span></span><span class="line"><span class="cl">       - db: / var / lib / mysql
+</span></span><span class="line"><span class="cl">     environment:
+</span></span><span class="line"><span class="cl">       - MYSQL_ROOT_PASSWORD =
+</span></span><span class="line"><span class="cl">       - MYSQL_PASSWORD =
+</span></span><span class="line"><span class="cl">       - MYSQL_DATABASE = nextcloud
+</span></span><span class="line"><span class="cl">       - MYSQL_USER = nextcloud
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   app:
+</span></span><span class="line"><span class="cl">      image: nextcloud: fpm
+</span></span><span class="line"><span class="cl">      links:
+</span></span><span class="line"><span class="cl">       - db
+</span></span><span class="line"><span class="cl">     volumes:
+</span></span><span class="line"><span class="cl">       - nextcloud: / var / www / html
+</span></span><span class="line"><span class="cl">     restart: always
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   web:
+</span></span><span class="line"><span class="cl">     image: caddy
+</span></span><span class="line"><span class="cl">     ports:
+</span></span><span class="line"><span class="cl">       - 8080: 80
+</span></span><span class="line"><span class="cl">     links:
+</span></span><span class="line"><span class="cl">       - app
+</span></span><span class="line"><span class="cl">      volumes:
+</span></span><span class="line"><span class="cl">        - ./Caddyfile:/etc/caddy/Caddyfile
+</span></span><span class="line"><span class="cl">        - caddy_data: / data
+</span></span><span class="line"><span class="cl">        - app
+</span></span><span class="line"><span class="cl">      restart: always
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>save</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ctrl + x
+</span></span><span class="line"><span class="cl">y
+</span></span><span class="line"><span class="cl">enter
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Create a Caddyfile under current dir (ncfpm in our example)</strong></p>
+<p><code>nano Caddyfile</code></p>
+<p>paste</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">: 80 {
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">         root * / var / www / html
+</span></span><span class="line"><span class="cl">         file_server
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">         php_fastcgi app: 9000
+</span></span><span class="line"><span class="cl">         header {
+</span></span><span class="line"><span class="cl">                 # enable HSTS
+</span></span><span class="line"><span class="cl">                 # Strict-Transport-Security max-age = 31536000;
+</span></span><span class="line"><span class="cl">         }
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">         redir /.well-known/carddav /remote.php/dav 301
+</span></span><span class="line"><span class="cl">         redir /.well-known/caldav /remote.php/dav 301
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">         # .htaccess / data / config / ... should not be accessible from outside
+</span></span><span class="line"><span class="cl">         @forbidden {
+</span></span><span class="line"><span class="cl">                 path /.htaccess
+</span></span><span class="line"><span class="cl">                 path / data / *
+</span></span><span class="line"><span class="cl">                 path / config / *
+</span></span><span class="line"><span class="cl">                 path / db_structure
+</span></span><span class="line"><span class="cl">                 path /.xml
+</span></span><span class="line"><span class="cl">                 path / README
+</span></span><span class="line"><span class="cl">                 path / 3rdparty / *
+</span></span><span class="line"><span class="cl">                 path / lib / *
+</span></span><span class="line"><span class="cl">                 path / templates / *
+</span></span><span class="line"><span class="cl">                 path / occ
+</span></span><span class="line"><span class="cl">                 path /console.php
+</span></span><span class="line"><span class="cl">         }
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">         respond @forbidden 404
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>save</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ctrl + x
+</span></span><span class="line"><span class="cl">y
+</span></span><span class="line"><span class="cl">enter
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>create the containers</strong></p>
+<p><code>docker-compose up -d</code></p>
+<blockquote>
+<p>go to localhost:8080
+create an admin account
+note down user name / password you&rsquo;ll have to I had to rebuild you you forget this</p>
+</blockquote>
+<p><strong>allowed domains</strong></p>
+<blockquote>
+<p>The container supports all php occ commands but we must first declare user and container name.</p>
+</blockquote>
+<p><code>docker ps</code></p>
+<blockquote>
+<p>copy nextcloud:fpm container id</p>
+</blockquote>
+<p><code>docker exec --user www-data container_id php occ config: system: set trusted_domains 2 --value = your_domain_name_here</code></p>
+<p><code>docker stop container_id</code></p>
+<p><code>docker start container_id</code></p>
+<p><img src="https://www.tecmint.com/wp-content/uploads/2018/09/Install-Caddy-Webserver-on-CentOS.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="hhh"
+	
+	
+></p>
+<p><strong>reverse proxy</strong></p>
+<p>if you have caddy2 on host</p>
+<p><code>nano /etc/caddy/Caddyfile</code></p>
+<p>add</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">your_domain_name: an_open_port {
+</span></span><span class="line"><span class="cl">    reverse_proxy localhost: 8080
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>rebuild</strong></p>
+<p>In case you need to rebuild the containers, you must delete what they have created</p>
+<p><code>docker ps -a</code></p>
+<p><code>copy cotnainer id</code></p>
+<p><code>docker kill container_id</code></p>
+<p><code>docker rm container_id</code></p>
+<p><code>docker volume ls</code></p>
+<p><code>copy volume id</code></p>
+<p><code>docker volume inspect volume_id</code></p>
+<p>copy mount point</p>
+<p><code>ls mount_point</code></p>
+<p>check what is inside if it is what you want to delete</p>
+<p><code>docker volume rm volume_id</code></p>
+<p>repeat for ncfpm_web_1, ncfpm_app_1, ncfpm_db_1</p>
+<p>alternatevly</p>
+<p><code>docker system prune</code></p>
+<p><code>docker volume prune</code></p>
+<p><code>docker image prune -a</code></p>
+<p>rebuild with</p>
+<p><code>docker-compose up -d</code></p>
+<p>If android clients can not sign in or grant access</p>
+<p><code>nano /var/lib/docker/volumes/ncfpm_nextcloud/_data/config/config.php</code></p>
+<p>and add</p>
+<p><code>'overwriteprotocol' =&gt; 'https'</code></p>
+<p><strong>mount external storage on nextcloud: fpm docker container</strong></p>
+<p>The external storage nextcloud app did&rsquo;t worked for me
+the official docker syntax for bind mount volues also did not work
+I did mount &ndash;bind manually</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker volume ls
+</span></span><span class="line"><span class="cl">docker volume inspect ncfpm_nextcloud
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>copy path</p>
+<p><code>ls path/data/user_name/files</code></p>
+<p><code>mkdir /var/lib/docker/volumes/ncfpm_nextcloud/_data/data/user_name/files/folder_name</code></p>
+<p><code>mount --bind /mnt/storage_name/photos /var/lib/docker/volumes/ncfpm_nextcloud/_data/data/user_name/files/folder_name</code></p>
+<p><code>docker exec --user www-data container_id php occ files:scan --al</code></p>
+<p><code>umount /var/lib/docker/volumes/ncfpm_nextcloud/_data/data/user_name/files/folder_name</code></p>
+<p><a class="link" href="https://caddy.community/t/example-docker-nextcloud-fpm-caddy-v2-webserver/9407"  target="_blank" rel="noopener"
+    >source</a></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ippo-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Depl0yed
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.13.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Security on Depl0yed</title>
+        <link>https://ippocratis.github.io/categories/security/</link>
+        <description>Recent content in Security on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/categories/security/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>hatdware watchdog on raspberry pi 4</title>
+        <link>https://ippocratis.github.io/p/watchdog/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/watchdog/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/watchdog/watch.jpg" alt="Featured image of post hatdware watchdog on raspberry pi 4" /&gt;&lt;p&gt;&lt;strong&gt;Automatic restart on kernel panic, hardware freeze and wlan disconnections&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you run some servers on raspberry, you always want them available.
+So you need some kind of solution for cases where it gets stuck for any reason and does not respond.
+The answer, even at the hardware level, is called watchdog and its operation is simple.
+It is a microcontroller that has a timer in which it must receive a signal from the system. As long as the system is operational it communicates with the controller normally. But if it sticks for some reason the timer will go to zero and will send the reset signal and our system will restart.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Activate hardware dog&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On raspberry 3 and 4 the kernel module is available by deffault and you do not require its installation but only its activation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo su echo &#39;dtparam = watchdog = on&#39; &amp;gt;&amp;gt; /boot/config.txt reboot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation of system service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Arch:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yay -S watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Debian:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Configure service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo su echo &#39;watchdog-device = / dev / watchdog&#39; &amp;gt;&amp;gt; /etc/watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;watchdog-timeout = 15&#39; &amp;gt;&amp;gt; / etc / watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;max-load-1 = 24&#39; &amp;gt;&amp;gt; / etc / watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;interface = wlan0&#39; &amp;gt;&amp;gt; /etc/watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Activate and start the service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl enable watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl start watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl status watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;fork bomb (testing)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo bash -c &#39;: () {: |: &amp;amp;} ;:&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Simple Remote ssh with Wireguard</title>
+        <link>https://ippocratis.github.io/p/wireguard/</link>
+        <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/wireguard/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/wireguard/banner.png" alt="Featured image of post Simple Remote ssh with Wireguard" /&gt;&lt;p&gt;&lt;img src=&#34;https://i0.wp.com/www.randombrick.de/wp-content/uploads/2019/05/WireGuard-Logo.jpg?fit=1600%2C850&amp;amp;ssl=1&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;preperation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The docker setup needs the wireguard kernel module , an open udp port in router, a free  public subdomain ,  port forword the WG port to RPI lan IP in router settings&lt;/p&gt;
+&lt;p&gt;-&amp;gt; load kernel module&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;modprobe wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;-&amp;gt; make load on boot&lt;/p&gt;
+&lt;p&gt;create the config file:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/modules-load.d/wireguard.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add the module name&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;check status of modules&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lsmod |grep wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Check if systemd service loaded the module:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;systemctl status systemd-modules-load.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;grab the proccess id
+e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Main PID: 210 (code=exited, status=0/SUCCESS) PID = 210&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;status=0/SUCCESS means systemd succesfully loaded the module&lt;/p&gt;
+&lt;p&gt;double verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;journalctl -b _PID=210&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;systemd-modules-load[210]: Inserted module &amp;lsquo;wireguard&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;if lsmod is not confirming the journal  look for&lt;/p&gt;
+&lt;p&gt;blacklist wireguard at configs&lt;/p&gt;
+&lt;p&gt;Forword ipv4&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/sysctl.d/ipv4_forwarding.conf &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;net.ipv4.ip_forward=1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sysctl net.ipv4.ip_forward&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Setup&lt;/strong&gt;
+Docker &amp;amp; docker-compose&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/linuxserver/docker-wireguard&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kinuxserver Wireguard Docker image&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Documentation is pretty straightforword there but lets clarify some things&lt;/p&gt;
+&lt;p&gt;Client config is under path/to/appdata/config as was set in the volume env var as PNG and text&lt;/p&gt;
+&lt;p&gt;Docker run&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d   --name=wireguard   --cap-add=NET_ADMIN   --cap-add=SYS_MODULE   -e PUID=1000   -e PGID=1000   -e TZ=Europe/London   -e SERVERURL=your.ddns.domain.name.com `#optional`   -e SERVERPORT=51820 `#optional`   -e PEERS=1 `#optional`   -e PEERDNS=auto `#optional`   -e INTERNAL_SUBNET=10.13.13.0 `#optional`   -e SERVER_ALLOWEDIPS_PEER_phone=&amp;#34;192.168.1.x/24, 10.13.13.1&amp;#34;   -e LOG_CONFS=true `#optional`   -p 51820:51820/udp   -v path/to/appdata/config:/config   -v /lib/modules:/lib/modules   --sysctl=&amp;#34;net.ipv4.conf.all.src_valid_mark=1&amp;#34;   --restart unless-stopped   linuxserver/wireguard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;This will create
+path/to/appdata/config/wg0.conf
+which is your server config&lt;/p&gt;
+&lt;p&gt;And
+path/to/appdata/config/peer1/peer1.conf
+Which is your client config&lt;/p&gt;
+&lt;p&gt;You&amp;rsquo;ll add this to the android wiregurad app by either import the file or by scanning the path/to/appdata/config/peer1/peer1.png
+You can display the qr code in terminal with
+&lt;code&gt;docker exec -it wireguard /app/show-peer 1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Consider the
+&lt;code&gt;SERVER_ALLOWEDIPS_PEER_phone=&lt;/code&gt;
+And
+&lt;code&gt;INTERNAL_SUBNET=&lt;/code&gt;
+enviromental variables
+If you only need access to your RPI for remote ssh all you need is to add your its local lan IP e.g. 192.168.1.24 together with the servers  wireguard subnet address e.g. 10.13.13.1&lt;/p&gt;
+&lt;p&gt;Also consider the
+&lt;code&gt;SERVERURL=&lt;/code&gt;
+Env var
+Which is your domain through which you access your raspbery on its running port
+e.g.
+If you own the ippo subdomain in duckdns
+&lt;code&gt;SERVERURL=https://ippo.duckdns.org:51820&lt;/code&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>dnscrypt</title>
+        <link>https://ippocratis.github.io/p/dnscrypt/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/dnscrypt/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/dnscrypt/dnscrypt.png" alt="Featured image of post dnscrypt" /&gt;&lt;p&gt;&lt;img src=&#34;https://camo.githubusercontent.com/343bd54c914db0c390c6e5678b60755feb51834a4d82f828d147f1abb4288e73/68747470733a2f2f7261772e6769746875622e636f6d2f646e7363727970742f646e7363727970742d70726f78792f6d61737465722f6c6f676f2e706e673f33&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;dnscrypt proxy&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In order to harden our raspberry server we will install some services.
+Not too techy but strong.
+dnscrypt proxy is one of them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Domain Name System is one of the oldest protocols that we still use on our Networks.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Normal DNS queries and responses are not encrypted.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dnscrypt is a transport protocol that authenticates communications between a DNS client and a DNS resolver. It prevents DNS spoofing.
+It uses cryptographic signatures to verify that responses originate from the chosen DNS resolver and haven&amp;rsquo;t been tampered with.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;a dns proxy it acts as an intermediary between clients and servers while they resolv domain names with an IP address and vice versa&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dnscrypt proxy uses dnscrypt protocol&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install dnscrypt-proxy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;pick up a server name from this list &lt;a class=&#34;link&#34; href=&#34;https://dnscrypt.info/public-servers/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/dnscrypt-proxy/dnscrypt-proxy.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add your desired server to server_names&lt;/p&gt;
+&lt;p&gt;eg server_names = [&amp;lsquo;cloudflare&amp;rsquo;]&lt;/p&gt;
+&lt;p&gt;save and exit&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ctrl + x&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;y&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;restart service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl restart dnscrypt-proxy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;specify name server&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;apt install resolvconf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/resolvconf/resolv.conf.d/head&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;update values&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;resolvconf -u&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;configure interfaces&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/network/interfaces&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;under your using interfaces eg wlan add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;verify specified nameserver is added&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/resolv.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;if not add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cloudflare.com/ssl/encrypted-sni/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;test with cloudflare&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://1.1.1.1/help&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;test with 1.1.1.1&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Knockd</title>
+        <link>https://ippocratis.github.io/p/knockd/</link>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/knockd/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/knockd/network-security.jpg" alt="Featured image of post Knockd" /&gt;&lt;p&gt;&lt;strong&gt;knockd&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In order to harden our raspberry server we will install some services.
+Not too techy but strong.
+Knockd is one of them.
+Knockd listens on ports and waits for a specific sequence in them. When this happens it executes a command from its configuration file.
+Here we will execute an openSSH command and open the ssh port on our firewall.
+So we do not need to have the ssh port permanently open, except when requested with the right combination.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;First copy the name of the Interface in which we do ssh and knocking&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ifconfig&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;install knockd&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;apt install knockd&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;configure the config file to request 3 ports which should be called within 5sec. Within This time we should also call ssh.
+To open the ssh port and delete our ip after 15sec without Log us out but require a knockd after that time&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/knockd.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;modify&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[options]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        UseSyslog
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        Interface = wlan0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[openSSH]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        sequence = xxxx, xxxx, xxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        seq_timeout = 5
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        command = / sbin / iptables -A INPUT -s% IP% -p tcp --dport 22 -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        tcpflags = syn
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        cmd_timeout = 15
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        stop_command = / sbin / iptables -D INPUT -s% IP% -p tcp --dport 22 -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Where&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;xxxx = 3 available doors on which we want knocked
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dport = The ssh port
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Interface = The interface
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;activate the service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/default/knockd&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;START_KNOCKD = 1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In debian knockd cannot start at boot.
+so&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /lib/systemd/system/knockd.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and add at the end&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[Install]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;WantedBy = multi-user.target
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Alias ​​= knockd.service
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Also in the unit section to make sure that the service will start after the networking is restored during boot add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;After = network-online.target
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Wants = network-online.target
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;otherwise if it starts before the wlan0 interface connects to the inernet knockd will fail&lt;/p&gt;
+&lt;p&gt;activate the service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;systemctl enable knockd.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;watch it live&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;knockd -D -v&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;start the service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;service knockd start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;From this point onwards in the host in order to be able to enter raspberry with ssh we must first knock&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;knock -v IP port1 port2 port3&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;where&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ip = rpi ip&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ports = configured xxxx pors&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;now we can enter with&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ssh user @ ip&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Android&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Install knock on ports &lt;a class=&#34;link&#34; href=&#34;https://f-droid.org/packages/me.impa.knockonports&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;select Plus icon&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;put a name in Name&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;under Host we put the ip of raspberrry&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;change Udp to tcp&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;add the knocking ports one by one&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;and now we are ready to enter Rpi within time limit from some terminal emulator eg termux&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

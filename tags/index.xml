@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tags on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/</link>
+        <description>Recent content in Tags on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>mariadb</title>
+        <link>https://ippocratis.github.io/tags/mariadb/</link>
+        <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/mariadb/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>mysql</title>
+        <link>https://ippocratis.github.io/tags/mysql/</link>
+        <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/mysql/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>postgres</title>
+        <link>https://ippocratis.github.io/tags/postgres/</link>
+        <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/postgres/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>alternative</title>
+        <link>https://ippocratis.github.io/tags/alternative/</link>
+        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/alternative/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>location</title>
+        <link>https://ippocratis.github.io/tags/location/</link>
+        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/location/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>raspberry pi</title>
+        <link>https://ippocratis.github.io/tags/raspberry-pi/</link>
+        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/raspberry-pi/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>raspberry</title>
+        <link>https://ippocratis.github.io/tags/raspberry/</link>
+        <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/raspberry/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>server</title>
+        <link>https://ippocratis.github.io/tags/server/</link>
+        <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/server/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>kernel</title>
+        <link>https://ippocratis.github.io/tags/kernel/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/kernel/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>nginx</title>
+        <link>https://ippocratis.github.io/tags/nginx/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/nginx/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>webfav</title>
+        <link>https://ippocratis.github.io/tags/webfav/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/webfav/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>notes</title>
+        <link>https://ippocratis.github.io/tags/notes/</link>
+        <pubDate>Sun, 11 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/notes/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>maps</title>
+        <link>https://ippocratis.github.io/tags/maps/</link>
+        <pubDate>Tue, 06 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/maps/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>selfhost</title>
+        <link>https://ippocratis.github.io/tags/selfhost/</link>
+        <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/selfhost/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>reverse proxy</title>
+        <link>https://ippocratis.github.io/tags/reverse-proxy/</link>
+        <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/reverse-proxy/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SSL</title>
+        <link>https://ippocratis.github.io/tags/ssl/</link>
+        <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/ssl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>blog</title>
+        <link>https://ippocratis.github.io/tags/blog/</link>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/blog/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>security</title>
+        <link>https://ippocratis.github.io/tags/security/</link>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/security/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>back up</title>
+        <link>https://ippocratis.github.io/tags/back-up/</link>
+        <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/back-up/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

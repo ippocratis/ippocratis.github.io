@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='SelfHosted Google Photos Alternative'><title>UhuruPhotos a LibrePhotos Android Client</title>
+
+<link rel='canonical' href='https://ippocratis.github.io/p/librephotos/'>
+
+<link rel="stylesheet" href="/scss/style.min.ac77dcf8b111b51da39a92990f431923f210f3876d85798a2125667f96dc33a4.css"><meta property='og:title' content='UhuruPhotos a LibrePhotos Android Client'>
+<meta property='og:description' content='SelfHosted Google Photos Alternative'>
+<meta property='og:url' content='https://ippocratis.github.io/p/librephotos/'>
+<meta property='og:site_name' content='Depl0yed'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='server' /><meta property='article:tag' content='raspberry' /><meta property='article:tag' content='alternative' /><meta property='article:published_time' content='2022-11-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-11-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://ippocratis.github.io/p/librephotos/banner.png' />
+<meta name="twitter:title" content="UhuruPhotos a LibrePhotos Android Client">
+<meta name="twitter:description" content="SelfHosted Google Photos Alternative"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ippocratis.github.io/p/librephotos/banner.png' />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53T8RWZ8BR"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-53T8RWZ8BR', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hue27fa0595436520d69d01a95cf7f15e5_36931_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Depl0yed</a></h1>
+            <h2 class="site-description">Self Host Use Foss and Drop Google</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://medium.com/@i.pyrgiotis'
+                        target="_blank"
+                        title="Medium"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <path d="M8 9h1l3 3l3 -3h1" />
+  <line x1="8" y1="15" x2="10" y2="15" />
+  <line x1="14" y1="15" x2="16" y2="15" />
+  <line x1="9" y1="9" x2="9" y2="15" />
+  <line x1="15" y1="9" x2="15" y2="15" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/ippossackofhacks'
+                        target="_blank"
+                        title="Telegram"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/abut/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/librephotos/">
+                <img src="/p/librephotos/banner_hu575a65300035375844704813ff033aca_31232_800x0_resize_box_3.png"
+                        srcset="/p/librephotos/banner_hu575a65300035375844704813ff033aca_31232_800x0_resize_box_3.png 800w, /p/librephotos/banner_hu575a65300035375844704813ff033aca_31232_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post UhuruPhotos a LibrePhotos Android Client" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/docker/" style="background-color: #2a9d8f; color: #5a0f15;">
+                Docker
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/librephotos/">UhuruPhotos a LibrePhotos Android Client</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            SelfHosted Google Photos Alternative
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 21, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    11 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>update:</p>
+<p>1</p>
+<p>the .env has changed the &ldquo;naming&rdquo; of the dir tha contain your photos  from myPhotos to scanDirectory
+also the variables                                         <br>
+adminEmail=                                                <br>
+userName=                                                  <br>
+userPass=                                                                                                                <br>
+mapApiKey=                                                                                                               <br>
+skipPatterns=                                              <br>
+HEAVYWEIGHT_PROCESS=                                       <br>
+SECRET_KEY=
+allowUpload=                                               <br>
+are missing from the .env but can still need to be used</p>
+<p>2</p>
+<p>I added my workaround on how to take periodic backups on the postgres datatbe and how to restore them</p>
+<p><strong>What is it</strong></p>
+<p>It is an android client for librephotos
+And Librephotos is a photo manager server</p>
+<p><strong>so what?</strong></p>
+<p>Well uhuruphotos is what was missing from all selfhosting photo galleries</p>
+<p>A fast and  beatufull google photos alternative</p>
+<p>It caches photos so there is offline view for cached items</p>
+<p>Fast image loads means a well writen app and a.well writen librephotos api</p>
+<p>Fast scrolling and thumbnail loads on time feed</p>
+<p><a class="link" href="https://github.com/savvasdalkitsis/uhuruphotos-android"  target="_blank" rel="noopener"
+    >Project page</a></p>
+<p><strong>backround info</strong></p>
+<p>Its been for a long time that google had provided an excelent service for free.</p>
+<p>Unlimited cloud storage for photos at a fair analysis / size (16mp).</p>
+<p>Its been a while that they have changed their charging policy and limited the storage to just 15gb at user have to pay above that li.it.</p>
+<p>So the need for an android app that can sync with self hosted gallerries and be as  good as google photos in displaying photos timeline</p>
+<p>and providing helpfull  features like photos on map and face tags arise.</p>
+<p>There where already good selfhosted softwhare around , great projects like photoprism , photoview AND librephotos but with a major flow.</p>
+<p>There was no android app.</p>
+<p>Well to be more precise photoprism and librephotos have android apps but are proof of concept project incomplete and unusable.</p>
+<p>That means you only have a webui.</p>
+<p>Progressive web apps are OK for certain jobs but not for images galleries.</p>
+<p>Photos are not cached and lag is furstrating as everything gets reloaded all the time</p>
+<p><strong>What we&rsquo;ll walk through</strong></p>
+<ul>
+<li>How to get librephotos server running on your raspberry</li>
+<li>Basic requirements for securelly remotely access your librephotos server</li>
+<li>Auto upload photos from phone to raspberry</li>
+<li>Auto categorise photos in your gallery folder by year,month,day</li>
+<li>Auto scan and import photos from your gallery folder with librephotos</li>
+<li>Setup Uhuru photos</li>
+</ul>
+<p><strong>requirements</strong></p>
+<ul>
+<li>Open ports on your router 80 and 443 and port forword these ports in to your raspberry Lan ip</li>
+</ul>
+<p>That is specific to your router model and requires that your router is not behind a Nat by your isp</p>
+<ul>
+<li>A free dynamic subdomain from a provider
+e.g. duckdns</li>
+</ul>
+<p>Navigate to <a class="link" href="http://www.duckdns.org/"  target="_blank" rel="noopener"
+    >http://www.duckdns.org/</a></p>
+<p>For quick signup use oauth from the provider list e.g. github</p>
+<p>On domains use a subdomain name e.g. &ldquo;libre&rdquo; and click add domain . now your domain is <a class="link" href="https://libre.duckdns.org"  target="_blank" rel="noopener"
+    >https://libre.duckdns.org</a></p>
+<p>and it will link to your raspberry</p>
+<p>To auto audate it use a cronjob</p>
+<p><code>*/5 * * * * sleep 38 ; curl -s &quot;https://www.duckdns.org/update?domains=libre.duckdns.org&amp;token=your-duckdns-token&quot;</code></p>
+<p>Your duckdns token is on your duckdns acount page</p>
+<ul>
+<li>A web server to reverse proxy requests from the dynamic subdomain IP to the localhost port librephotos is running and handling SSL certs</li>
+</ul>
+<p>For installing caddy web server and how it handles SSL read.my blogpost <a class="link" href="http://depl0yed.herokuapp.com/blog/caddy2"  target="_blank" rel="noopener"
+    >here</a></p>
+<p>In our example all you need to do is edit the Caddyfile</p>
+<p><code>nano /etc/caddy/Caddyfile</code></p>
+<p>add</p>
+<p><code>libre.duckdns.org { reverse_proxy localhost:3000}</code></p>
+<p>To it</p>
+<p>And restart caddy</p>
+<p><code>sudo systemctl restart caddy</code></p>
+<p>Assuming your domain is libre.duckdns.org and librephotos is running in 3000 port</p>
+<ul>
+<li>Docker and docker-compose plus python</li>
+</ul>
+<p>To install docker on raspberry</p>
+<p><code>&gt;curl -fsSL https://get.docker.com -o get-docker.sh</code></p>
+<p>Then</p>
+<p><code>&gt;sudo sh get-docker.sh</code></p>
+<p>To install docker-compose</p>
+<p><code>sudo pip3 -v install docker-compose</code></p>
+<p><a class="link" href="https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl"  target="_blank" rel="noopener"
+    >Guide</a></p>
+<p><strong>get librephotos server running on your raspberry</strong></p>
+<p><a class="link" href="https://docs.librephotos.com/1/"  target="_blank" rel="noopener"
+    >Link</a></p>
+<p>Clone the repo</p>
+<p><code>git clone https://github.com/LibrePhotos/librephotos-docker.git</code></p>
+<p>CD to the folder</p>
+<p><code>cd librephotos-docker</code></p>
+<p>Copy .env template</p>
+<p><code>cp librephotos.env .env</code></p>
+<p>Edit it</p>
+<p><code>nano .env</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Location of your photos.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">myPhotos=/run/media/user/TOSHIBA/photos/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The photos folder filepath
+e.g.
+assuming you store your photos on an external Toshiba drive</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Comma delimited list of patterns to ignore
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">skipPatterns=.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you have file types you want to skip scan</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># The location where you would like to store the log files. The full path must exist as it will not be created for you.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">logLocation=/run/media/user/TOSHIBA/uhuru-logs          
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Again I use my external drive as the logs location to be stored</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Protected media directory. This is where we store some files like the thumbnails of your images.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">proMedia=/run/media/ippo/TOSHIBA/media
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Thumbnails folder again on external drive</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Where shall we store the cache files.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cachedir=/run/media/ippo/TOSHIBA/cache
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Cache files , same</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">dbLocation=/run/media/ippo/TOSHIBA/uhuru-db
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Database filepath , same</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Username for the Administrator login.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">username=user
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Your username</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Password for the administrative user you set above.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">userPass=pass
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Your password</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Secret Key. Get one here https://rb.gy/emgmwo (Shortened random.org link)             
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Secret Key. Get one here https://rb.gy/emgmwo (Shortened random.org link)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">shhhhKey=globefish-goes-here
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Generate a key from the link and paste here .used to encrypt the db</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#What port should Libre Photos be accessed at (Default 3000)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">httpPort=3333
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Just use an available port on your raspberry
+You can scan for used ports with nmap</p>
+<p><code>sudo nmap -sT -p- 192.168.1.x</code>
+Where 192.168.1.x your your raspberry lan ip
+Use a not used port</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Get a Map box API Key https://account.mapbox.com/auth/signup/   
+</span></span><span class="line"><span class="cl"># Get a Map box API Key https://account.mapbox.com/auth/signup/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mapApiKey=pk.yourmapboxkey
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>sign up at mapbox and get an api . mapbox is optional and alternative to google maps</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># What branch should we install the latest weekly build or the development branch (dev)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">tag=dev
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Choose your branch latest (weekly) or dev (rolling)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># You can set the database name. Did you know Libre Photos was forked from OwnPhotos?
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dbName=librephotos
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Your dB name</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Here you can change the user name for the database.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dbUser=docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>DB username</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># The password used by the database.                              
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dbPass=pass
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>DB password</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Number of workers, which take care of the request to the api. This setting can dramatically affect the ram usage.     
+</span></span><span class="line"><span class="cl"># A positive integer generally in the 2-4 x $(NUM_CORES) range.
+</span></span><span class="line"><span class="cl"># You’ll want to vary this a bit to find the best for your particular workload.
+</span></span><span class="line"><span class="cl"># Each worker needs 800MB of RAM. Change at your own will. Default is 2.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gunniWorkers=2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Number of workers that handles api requests (talk with the android client</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Number of workers, when scanning pictures. This setting can dramatically affect the ram usage.
+</span></span><span class="line"><span class="cl"># Each worker needs 800MB of RAM. Change at your own will. Default is 1.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">HEAVYWEIGHT_PROCESS=2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Number of workers that handles the photo scans
+I found fit for my RPI400 to use 2 workers for both cases</p>
+<p><strong>Start containers</strong></p>
+<p>The docker-compose.yml is filed with our env vars from the .env file
+you can review it</p>
+<p><code>cat docker-compose.yml</code></p>
+<p>Run the containers as daemons</p>
+<p><code>docker-compose up -d</code></p>
+<p>App is available at localhost:3333  or otherwise specified port (default 3000)</p>
+<blockquote>
+<p>note that librephotos api needs the folder contaning the ohotos to have 7 permissions for others</p>
+</blockquote>
+<p><code>sudo chmod 777 -R ~/photos</code> is what i did</p>
+<p><strong>Update images</strong></p>
+<p>CD to librephotos-docker folder and Stop containers</p>
+<p><code>docker-compose down</code></p>
+<p>Pull the new images</p>
+<p><code>docker-compose pull</code></p>
+<p>And re-compose</p>
+<p><code>docker-compose up -d</code></p>
+<p><strong>some remarks</strong></p>
+<p>For face classification you&rsquo;ll have to access the webui tag some pics and name some faces and then train it</p>
+<p>then you can verify/add from the infered tab</p>
+<p>Auto import from phone to an import folder and then auto organise them to folders by year month day and move them to at image library .
+Then scan our library with librephotos</p>
+<p><strong>periodic postgres backups (snapshots) and restore</strong></p>
+<p>create a folder to store the backups</p>
+<p><code>mkdir db-backup</code></p>
+<p>cd to the folder</p>
+<p><code>cd db-backup</code></p>
+<p>Grab postgres container id</p>
+<p><code>docker ps</code></p>
+<p>e.g.40b12de38945</p>
+<p><strong>Backup</strong></p>
+<p>the command should look like:</p>
+<p><code>docker exec -t your-db-container pg_dumpall -c -U your-db-user &gt; dump_$(date +%Y-%m-%d_%H_%M_%S).sql</code></p>
+<p>your-db-container is the postgres contaimer id</p>
+<p>your-db-user is docker in .env</p>
+<p>unless it was changed</p>
+<p>A file like dump_20-11-2022_00_55_26.sql is created</p>
+<p><strong>Restore</strong></p>
+<p><code>cat your_dump.sql | docker exec -i your-db-container psql -U your-db-user -d your-db-name</code></p>
+<p>again</p>
+<p>your-db-container is the postgres contaimer id</p>
+<p>your-db-user is docker in .env unless it was changed</p>
+<p>your-db-name is librephotos in the .env unless it was changed</p>
+<p>so in our example the command should be</p>
+<p><code>cat dump_20-11-2022_00_55_26.sql | docker exec -i 40b12de38945 psql -U docker -d librephotos</code></p>
+<p>add the backup command</p>
+<p>to a crontab and take db snapshots @daily , @weekly etc</p>
+<p>e.g.</p>
+<p><code>crontab -e</code></p>
+<p><code>@weekly docker exec -t 40b12de38945 pg_dumpall -c -U docker &gt; /path/to/where/you/save/your/backups/dump_$(date +%Y-%m-%d_%H_%M_%S).sql</code></p>
+<p>another idea is to scan periodicaly the db backup folder and delete very old backups to keep size at a minimum</p>
+<p>you can do this with find , ntime and rm</p>
+<p>e.g.</p>
+<p><code>find /path/to/where/you/save/your/backups -type f -mtime +30 -exec rm -f {} \;</code></p>
+<p>this will delete entries older than 30 days in that folder</p>
+<p><strong>auto import from phone</strong></p>
+<blockquote>
+<p>note that the android app aims to add auto upload but atm it is not available.
+the bellow procedure will be unnecesery when auto upload becomes available</p>
+</blockquote>
+<p>needs a webdav server e.g. webdav nononsense docker image. Read my &ldquo;webdav&rdquo; post about running a webdav server on raspberry</p>
+<p><a class="link" href="http://depl0yed.herokuapp.com/blog/webdav&#43;"  target="_blank" rel="noopener"
+    >here</a></p>
+<p>create a folder named photoimport and chmod 777 it</p>
+<p>For syncing I use foldersync android app it is a paid app but its the best for the job and you can sync with the full featured</p>
+<p>free version just fine if you can stand some adds</p>
+<p>Also the Dev can provide app licence for 3 devices outside the playstore for devices without google services</p>
+<p>worth the money</p>
+<p><a class="link" href="https://www.tacit.dk/foldersync"  target="_blank" rel="noopener"
+    >Link</a></p>
+<p><strong>app settings</strong></p>
+<p>On foldersync android app add account
+select webdav
+add your webdav ddns https url , username and password</p>
+<p>On folderpairs add a pair</p>
+<p>In general tab</p>
+<p>On local select your dcim folder</p>
+<p>On remote select photoimport folder</p>
+<p>On sync type sect &ldquo;to remote&rdquo;</p>
+<p>On scheduling tab
+enable scheduled sync daily</p>
+<p>On sync options tab
+enable sync subfolders</p>
+<p>On advanced tab
+enable retry sync
+and disable temp file scheme
+Also on &ldquo;one way sync options&rdquo; enable &ldquo;only resync source if modified (ignore target deletion)
+As we are gonna move the files from target folder (photoimport folder) to our photo gallery after we organise them with exit tool.</p>
+<p>On conection tab
+as desired but i guess it makes.sense to sync only.on wifi</p>
+<p>On notification
+enble all</p>
+<p><strong>auto organise with exif tool</strong></p>
+<p>download and install exiftool for unix from</p>
+<p><code>https://exiftool.org/index.html</code></p>
+<p><code>cd</code></p>
+<p><code>gzip -dc Image-ExifTool-12.42.tar.gz | tar -xf -</code></p>
+<p><code>cd Image-ExifTool-12.42</code></p>
+<p><code>perl Makefile.PL</code></p>
+<p><code>make test</code></p>
+<p><code>sudo make install</code></p>
+<p>The exiftool command should be like</p>
+<p><code>exiftool '-Directory&lt;CreateDate' -d /destination/directory/%Y/%m   /source/directory</code></p>
+<p>we can create a script that runs this command</p>
+<p>Later we will call this script in a crontab</p>
+<p>directly executing exiftool in crontab fails</p>
+<p>So</p>
+<p><code>nano exiftool-photos.sh</code></p>
+<p>and paste</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>sudo /usr/bin/site_perl/exiftool <span class="s1">&#39;-Directory&lt;CreateDate&#39;</span> -d /run/media/ippo/TOSHIBA/photos/%Y/%m  /run/media/ippo/TOSHIBA/photoimport<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Added a hashbag in the beginning of the script and calling the full path of the exiftool executable</p>
+<p>Then create a cron job</p>
+<p><code>export VISUAL=nano; crontab -e</code></p>
+<p>And paste</p>
+<p><code># Every day at 2 AM 0 2 * * * bash /home/ippo/photos-exif.sh</code></p>
+<p>Or the full path of where ever your script is</p>
+<p><strong>Autoscan server for new photos</strong></p>
+<p>The docker command is</p>
+<p><code>sudo docker exec --user root CONTAINER_NAME python3 manage.py scan</code></p>
+<p>CONTAINER_NAME is the librephotos backend
+you can get it with</p>
+<p><code>docker ps</code></p>
+<p>it should be</p>
+<p><code>brephotos-docker-backend-1</code></p>
+<p>in this case the command is</p>
+<p><code>sudo docker exec --user root brephotos-docker-backend-1 python3 manage.py scan</code></p>
+<p>We can create a cron job to regularly call this command</p>
+<p>Create a new crontab with nano</p>
+<p><code>export VISUAL=nano; crontab -e</code></p>
+<p>And paste</p>
+<p><code># Every day at 3 AM 0 3 * * * sudo docker exec --user root brephotos-docker-backend-1 python3 manage.py scan &gt;/dev/null 2&gt;&amp;1</code></p>
+<p><strong>timeline</strong></p>
+<ul>
+<li>
+<p>Our photos are transfered directly  from our phone to the photoimport folder  as long as we are connected to WiFi (or any network)</p>
+</li>
+<li>
+<p>organised to y/m/d and moved to image library every day at 2</p>
+</li>
+<li>
+<p>image library scaned from librephotos everyday at 3</p>
+</li>
+</ul>
+<p><strong>Android app</strong></p>
+<p>Uhuruphotos
+<a class="link" href="https://github.com/savvasdalkitsis/uhuruphotos-android"  target="_blank" rel="noopener"
+    >GitHub project link</a></p>
+<p>As stated there</p>
+<p>The app is currently in closed beta on the Google Play store.
+You have to Contact the Dev  on twitter for access and playstore link.</p>
+<p><a class="link" href="https://twitter.com/geeky_android"  target="_blank" rel="noopener"
+    >Twitter link</a></p>
+<p>*update:</p>
+<p>for installs uotside the playstore apk releases are available at  <a class="link" href="https://github.com/savvasdalkitsis/uhuruphotos-android/releases"  target="_blank" rel="noopener"
+    >github</a></p>
+<p><strong>About the app</strong></p>
+<p>While still early days, it already has a lot of features:</p>
+<ul>
+<li>
+<p>Photo feed with multiple views which can be changed by pinch to zoom gestures</p>
+</li>
+<li>
+<p>Multiple select in feed to share/delete multiple items at once</p>
+</li>
+<li>
+<p>Periodic background synchronization with LibrePhotos server</p>
+</li>
+<li>
+<p>Photo details view with information like date, location, gps map, people view, sharing, adding/removing</p>
+</li>
+</ul>
+<p>from favourites (synced with LibrePhotos server)</p>
+<ul>
+<li>
+<p>Video details view with all the above features and video playback</p>
+</li>
+<li>
+<p>Search your photos using LibrePhotos&rsquo; search engine. Get search suggestions based on your photos.</p>
+</li>
+<li>
+<p>People view and suggestions for people with most photos.</p>
+</li>
+<li>
+<p>Photo map. See a heatmap of your photos. Navigate around the globe with the interactive map and see photos taken</p>
+</li>
+</ul>
+<p>in the location currently viewed.</p>
+<ul>
+<li>
+<p>User created and auto generated albums from LibrePhotos</p>
+</li>
+<li>
+<p>Dark/Light mode (manual and auto)</p>
+</li>
+<li>
+<p>Tablet support</p>
+</li>
+<li>
+<p>A lot of settings to help you control the app storage and memory requirements along with how frequently to perform synchronization</p>
+</li>
+</ul>
+<p>with the LibrePhotos server.</p>
+<ul>
+<li>
+<p>up to 2GB of images cache</p>
+</li>
+<li>
+<p>up to 2GB of video cache</p>
+</li>
+<li>
+<p>Fingerprint authentication to lock the app</p>
+</li>
+</ul>
+<p>As mentioned above, a lot of features will soon be implemented before the full public release, mainly:</p>
+<ul>
+<li>
+<p>Local photo support. This will make UhuruPhotos a viable Google Photos alternative which can be used as your primary camera roll viewer.</p>
+</li>
+<li>
+<p>Backup/Sync local images with librephotos server. Take control of your data by never having to worry about photo backups.</p>
+</li>
+<li>
+<p>Basic photo editing capabilities.</p>
+</li>
+<li>
+<p>Biometric authentication</p>
+</li>
+</ul>
+<p>all you need to access your photos is your dynamic dns subdomain through which you access your server
+libre.duckdns.org in our example
+the libre photos user name and password as provided in the .env file when composing it</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/server/">server</a>
+        
+            <a href="/tags/raspberry/">raspberry</a>
+        
+            <a href="/tags/alternative/">alternative</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/traccar/">
+        
+        
+            <div class="article-image">
+                <img src="/p/traccar/traccar.c06be392eee1d8c5bb998163f5374fc3_hu4f4d748acb69c0f52e2340aac180cda5_35275_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post traccar location tracker"
+                        data-key="traccar" 
+                        data-hash="md5-wGvjku7h2MW7mYFj9TdPww==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">traccar location tracker</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/webdav/">
+        
+        
+            <div class="article-image">
+                <img src="/p/webdav/dav.e42bba1568903b8a5227b3097ac5c1ac_hucc5274772045ef90d438f77c2bc6bf84_90674_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post webdav server"
+                        data-key="webdav" 
+                        data-hash="md5-5Cu6FWiQO4pSJ7MJesXBrA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">webdav server</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/owntracks/">
+        
+        
+            <div class="article-image">
+                <img src="/p/owntracks/gpstracker.41192a2d849d36a958b24a8d0f5d630f_huf0f38596c1e1c2f966d5a3d609ba36e9_13767_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Owntracks"
+                        data-key="owntracks" 
+                        data-hash="md5-QRkqLYSdNqlYskqND11jDw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Owntracks</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/caddy2/">
+        
+        
+            <div class="article-image">
+                <img src="/p/caddy2/caddy2.6e9be528596ce31014bc7bbfb2c3106e_hu7f44f2cf8653a2192c6216f2cdb94ab1_82794_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Caddy2 web server"
+                        data-key="Caddy2" 
+                        data-hash="md5-bpvlKFls4xAUvHu/ssMQbg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Caddy2 web server</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/db-backup/">
+        
+        
+            <div class="article-image">
+                <img src="/p/db-backup/db.e9d5bbafef28ab1f9c48e94737f407f8_hu221805094edaf16ace288aae0d01fad6_13847_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post backup and restore dockerised datatbases"
+                        data-key="db-backup" 
+                        data-hash="md5-6dW7r&#43;8oqx&#43;cSOlHN/QH&#43;A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">backup and restore dockerised datatbases</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ippo-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Depl0yed
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.13.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>back up on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/back-up/</link>
+        <description>Recent content in back up on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 29 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/back-up/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>docker backup</title>
+        <link>https://ippocratis.github.io/p/docker-backup/</link>
+        <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/docker-backup/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/docker-backup/dockerv.jpg" alt="Featured image of post docker backup" /&gt;&lt;p&gt;&lt;img src=&#34;https://venturebeat.com/wp-content/uploads/2020/05/ownCloud-docker-e1590574184529.png?fit=800%2C400&amp;amp;strip=all&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When you run your selfhosted services in docker containers you want to have your data safe in a backup
+Especially in services like nextcloud etc&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The container data management docker gives you the option
+to use mount binds where the data is directory dependent
+structure of the host and therefore easier to copy
+&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/storage/bind-mounts/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;documentation&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The integrated option, however, is the volumes which are managed by the docker itself and which are advantageous and suggested by the docker itself&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/storage/volumes/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;documentation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;However, there is no clear and fully documented description of how to back up docker volumes.&lt;/p&gt;
+&lt;p&gt;anyway&lt;/p&gt;
+&lt;p&gt;** docker volumes backup **&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;One approach is to commit the container to an Image&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;docker commit -p [container-id] backup01&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and then save the image to a tarball.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker save -o backup01.tar backup01&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;do restore with docker load&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker load -i / tmp / backup01.tar&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/reference/commandline/commit/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;docker commit&lt;/a&gt;,
+&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/reference/commandline/save/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;docker save&lt;/a&gt;,
+&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/reference/commandline/load/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;docker load&lt;/a&gt;,
+&lt;a class=&#34;link&#34; href=&#34;https://www.baculasystems.com/blog/docker-backup-containers/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;example&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The other approach is to back up not the entire container but specifically the volume&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Well,&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker run --rm -v volume_name: / volume -v filepath_to_backup_foler: / backup alpine tar -cjf /backup/archive_name.bz2 -C / volume .&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;here we have&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We create a temporary volume to which we attach the volume we want to get backup volume_name: / volume&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Create another temporary volume to which we attach the dir to which we will export the backup filepath_to_backup_foler: / backup&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In a minimal alpine image&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;and export the backup to an archive tar&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;With options
+-c create made
+-j bzip2 type archive
+-f filename archive_name&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;and create the archive in the docker dir / volume
+-C change to dir&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Respectively to restore&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;docker run &amp;ndash;rm -v volume_name: / volume -v filepath_to_backup_foler: / backup alpine sh -c &amp;ldquo;rm -rf / volume / * /volume/..?* /volume/.[!.]*; tar -C / volume / -xjf /backup/archive_name.tar.bz2 &amp;quot;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We create temporary volumes again for the volume we want to restore and the dir where you find the backup, delete the existing volumes and restore from tar.bz2 the temporary volume we created&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The wizard who created the commands has also made a docker container with a script that simplifies the process but not for arm64 architecture&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;link &lt;a class=&#34;link&#34; href=&#34;https://github.com/loomchild/volume-backup&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

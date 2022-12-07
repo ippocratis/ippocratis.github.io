@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>maps on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/maps/</link>
+        <description>Recent content in maps on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 06 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/maps/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Owntracks</title>
+        <link>https://ippocratis.github.io/p/owntracks/</link>
+        <pubDate>Tue, 06 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/owntracks/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/owntracks/gpstracker.png" alt="Featured image of post Owntracks" /&gt;&lt;p&gt;Dockerised Owntracks recorder&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What is it:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OwnTracks allows you to keep track of your own location. You can build your private location diary.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;how:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An android app sends location in fixed intervals to the owntracks server&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DDNS:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You&amp;rsquo;ll need a free subdomain name and redirect that to your localhost port owntracks is running
+Get one from freedns,ydns,duckdns etc
+You&amp;rsquo;ll also need a cronjob to auto update you ip&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Caddyfile:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Reverse proxy with basic auth and auto-ssl&lt;/p&gt;
+&lt;p&gt;Get hash:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;caddy hash-password --plaintext your_password_here
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Caddyfile:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;recorder.example.com {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; encode gzip
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; reverse_proxy http://localhost:8083
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; basicauth * {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ippo your_password_hash_here
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Mary your_password_hash_here
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Docker&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The docker-compose.yml&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;version: &amp;#39;3&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  otrecorder:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    container_name: ot-recorder
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: jessestuart/owntracks
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - OTR_PORT=0  # disables MQTT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /etc/localtime:/etc/localtime:ro
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/owntracks-recorder/config:/config
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/owntracks-recorder/store:/owntracks/recorder/store
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - 8083:8083
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;Note that the jessestuart/owntracks image was used as owntracks provide no arm64 image also there are build instructions but with lots of dependencies&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Android client (for sending location to server)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With gservices dependencies&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.f-droid.org/el/packages/org.owntracks.android/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.f-droid.org/el/packages/org.owntracks.android/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;And without&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.f-droid.org/el/packages/org.nexttracks.android/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.f-droid.org/el/packages/org.nexttracks.android/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;setup:&lt;/p&gt;
+&lt;p&gt;Mode: HTTP&lt;/p&gt;
+&lt;p&gt;Host:https://example.com/pub&lt;/p&gt;
+&lt;p&gt;Identification:&lt;/p&gt;
+&lt;p&gt;Username: yourname&lt;/p&gt;
+&lt;p&gt;Password: non-hashed-password&lt;/p&gt;
+&lt;p&gt;Device ID: phone&lt;/p&gt;
+&lt;p&gt;Tracker ID: YN&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Launch from any browser&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Format geojson = dots,  linestring = trails,  period = from ymd till ymd&lt;/p&gt;
+&lt;p&gt;e.g.
+&lt;a class=&#34;link&#34; href=&#34;https://recorder.example.com/map/index.html?user=username&amp;amp;device=phone&amp;amp;format=linestring&amp;amp;from=2022-09-02&amp;amp;till=2022-09-03&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://recorder.example.com/map/index.html?user=username&amp;device=phone&amp;format=linestring&amp;from=2022-09-02&amp;till=2022-09-03&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Find My Device</title>
+        <link>https://ippocratis.github.io/p/fmd/</link>
+        <pubDate>Thu, 26 Aug 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/fmd/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/fmd/fmd.png" alt="Featured image of post Find My Device" /&gt;&lt;p&gt;image: fmd.png&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe_Ub3w9KCzEEh1sIODNqHkqHsgRNvfz6RMQ&amp;amp;usqp=CAU&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;find my devide&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It&amp;rsquo;s an open source app that  remote controls by sms and server the android device by means of &amp;raquo;
+getting the curent location, the location history,make it ring,get stats,or completely wipe/factory rreset it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;here we will see how to selfhost the server that handles tge web interface&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;requires go lang installed on the host machine&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;i had to install it over aur on manjaro arm&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo pacman -S yay&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yay install -S go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;debian&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install golang-go &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;or if you dont like package manager from source&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://golang.org/doc/install&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;clone the repo&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;git clone https://gitlab.com/Nulide/findmydeviceserver.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;or download and extract the source&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://gitlab.com/Nulide/findmydeviceserver/-/releases&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;navigate on the apropriate cloned/extracted folder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;cd ~/findmydeviceserver/src&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;build the project&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo go build fmdserver.go&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;test that it runs smooth&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;~/findmydeviceserver/src/fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;navigate to localhost:1020&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;stop the server&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;ctrl + c&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;edit the .service file&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;nano etc/systemd/system/fmdserver.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;replace the executable filepath&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ExecStart=/home/user/findmydeviceserver/src/fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;filepath have to be ansolute . replace user with your username&lt;/p&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;copy file to systemd&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo cp /home/ippo/findmydeviceserver/src/etc/systemd/system/fmdserver.service /usr/lib/systemd/system/fmdserver.service&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;start the service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl start fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;11&#34;&gt;
+&lt;li&gt;enable the service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl enable fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;12&#34;&gt;
+&lt;li&gt;for https i am using caddy and reverse proxying the unsecure 1020 port with another port as caddy adds automaticly the certificate and encryption&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;your.domain.name:an.open.router.port { reverse_proxy localhost:1020 }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;so if lets say you have a ddns names ippo.cratis.net and have opened 8000 port on your router and port forwording that port on your raspberry/linux machine that caddyfile should look like&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ippo.cratis.net:8000 { reverse_proxy localhost:1020 } &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;now you can saffely access your fmd server froom ippo.cratis.net:8000&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on Depl0yed</title>
+        <link>https://ippocratis.github.io/categories/</link>
+        <description>Recent content in Categories on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker</title>
+        <link>https://ippocratis.github.io/categories/docker/</link>
+        <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/categories/docker/</guid>
+        <description>&lt;img src="https://w7.pngwing.com/pngs/237/269/png-transparent-docker-logo-docker-logo-kubernetes-software-deployment-engineer-logo-logo-area-line.png" alt="Featured image of post Docker" /&gt;</description>
+        </item>
+        <item>
+        <title>alternative</title>
+        <link>https://ippocratis.github.io/categories/alternative/</link>
+        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/categories/alternative/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Security</title>
+        <link>https://ippocratis.github.io/categories/security/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/categories/security/</guid>
+        <description>&lt;img src="https://academy.avast.com/hs-fs/hubfs/New_Avast_Academy/What%20is%20server%20security/secure-server.png" alt="Featured image of post Security" /&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

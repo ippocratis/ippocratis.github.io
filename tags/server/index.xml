@@ -1,0 +1,988 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>server on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/server/</link>
+        <description>Recent content in server on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 21 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/server/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>UhuruPhotos a LibrePhotos Android Client</title>
+        <link>https://ippocratis.github.io/p/librephotos/</link>
+        <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/librephotos/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/librephotos/banner.png" alt="Featured image of post UhuruPhotos a LibrePhotos Android Client" /&gt;&lt;p&gt;update:&lt;/p&gt;
+&lt;p&gt;1&lt;/p&gt;
+&lt;p&gt;the .env has changed the &amp;ldquo;naming&amp;rdquo; of the dir tha contain your photos  from myPhotos to scanDirectory
+also the variables                                         &lt;br&gt;
+adminEmail=                                                &lt;br&gt;
+userName=                                                  &lt;br&gt;
+userPass=                                                                                                                &lt;br&gt;
+mapApiKey=                                                                                                               &lt;br&gt;
+skipPatterns=                                              &lt;br&gt;
+HEAVYWEIGHT_PROCESS=                                       &lt;br&gt;
+SECRET_KEY=
+allowUpload=                                               &lt;br&gt;
+are missing from the .env but can still need to be used&lt;/p&gt;
+&lt;p&gt;2&lt;/p&gt;
+&lt;p&gt;I added my workaround on how to take periodic backups on the postgres datatbe and how to restore them&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is it&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is an android client for librephotos
+And Librephotos is a photo manager server&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;so what?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Well uhuruphotos is what was missing from all selfhosting photo galleries&lt;/p&gt;
+&lt;p&gt;A fast and  beatufull google photos alternative&lt;/p&gt;
+&lt;p&gt;It caches photos so there is offline view for cached items&lt;/p&gt;
+&lt;p&gt;Fast image loads means a well writen app and a.well writen librephotos api&lt;/p&gt;
+&lt;p&gt;Fast scrolling and thumbnail loads on time feed&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/savvasdalkitsis/uhuruphotos-android&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Project page&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;backround info&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Its been for a long time that google had provided an excelent service for free.&lt;/p&gt;
+&lt;p&gt;Unlimited cloud storage for photos at a fair analysis / size (16mp).&lt;/p&gt;
+&lt;p&gt;Its been a while that they have changed their charging policy and limited the storage to just 15gb at user have to pay above that li.it.&lt;/p&gt;
+&lt;p&gt;So the need for an android app that can sync with self hosted gallerries and be as  good as google photos in displaying photos timeline&lt;/p&gt;
+&lt;p&gt;and providing helpfull  features like photos on map and face tags arise.&lt;/p&gt;
+&lt;p&gt;There where already good selfhosted softwhare around , great projects like photoprism , photoview AND librephotos but with a major flow.&lt;/p&gt;
+&lt;p&gt;There was no android app.&lt;/p&gt;
+&lt;p&gt;Well to be more precise photoprism and librephotos have android apps but are proof of concept project incomplete and unusable.&lt;/p&gt;
+&lt;p&gt;That means you only have a webui.&lt;/p&gt;
+&lt;p&gt;Progressive web apps are OK for certain jobs but not for images galleries.&lt;/p&gt;
+&lt;p&gt;Photos are not cached and lag is furstrating as everything gets reloaded all the time&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What we&amp;rsquo;ll walk through&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How to get librephotos server running on your raspberry&lt;/li&gt;
+&lt;li&gt;Basic requirements for securelly remotely access your librephotos server&lt;/li&gt;
+&lt;li&gt;Auto upload photos from phone to raspberry&lt;/li&gt;
+&lt;li&gt;Auto categorise photos in your gallery folder by year,month,day&lt;/li&gt;
+&lt;li&gt;Auto scan and import photos from your gallery folder with librephotos&lt;/li&gt;
+&lt;li&gt;Setup Uhuru photos&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;requirements&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open ports on your router 80 and 443 and port forword these ports in to your raspberry Lan ip&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That is specific to your router model and requires that your router is not behind a Nat by your isp&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A free dynamic subdomain from a provider
+e.g. duckdns&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Navigate to &lt;a class=&#34;link&#34; href=&#34;http://www.duckdns.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://www.duckdns.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For quick signup use oauth from the provider list e.g. github&lt;/p&gt;
+&lt;p&gt;On domains use a subdomain name e.g. &amp;ldquo;libre&amp;rdquo; and click add domain . now your domain is &lt;a class=&#34;link&#34; href=&#34;https://libre.duckdns.org&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://libre.duckdns.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;and it will link to your raspberry&lt;/p&gt;
+&lt;p&gt;To auto audate it use a cronjob&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;*/5 * * * * sleep 38 ; curl -s &amp;quot;https://www.duckdns.org/update?domains=libre.duckdns.org&amp;amp;token=your-duckdns-token&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Your duckdns token is on your duckdns acount page&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A web server to reverse proxy requests from the dynamic subdomain IP to the localhost port librephotos is running and handling SSL certs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For installing caddy web server and how it handles SSL read.my blogpost &lt;a class=&#34;link&#34; href=&#34;http://depl0yed.herokuapp.com/blog/caddy2&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In our example all you need to do is edit the Caddyfile&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;libre.duckdns.org { reverse_proxy localhost:3000}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To it&lt;/p&gt;
+&lt;p&gt;And restart caddy&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl restart caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assuming your domain is libre.duckdns.org and librephotos is running in 3000 port&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker and docker-compose plus python&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To install docker on raspberry&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;gt;curl -fsSL https://get.docker.com -o get-docker.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Then&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;gt;sudo sh get-docker.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To install docker-compose&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo pip3 -v install docker-compose&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Guide&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;get librephotos server running on your raspberry&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.librephotos.com/1/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Clone the repo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/LibrePhotos/librephotos-docker.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;CD to the folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd librephotos-docker&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Copy .env template&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cp librephotos.env .env&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Edit it&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano .env&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Location of your photos.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;myPhotos=/run/media/user/TOSHIBA/photos/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The photos folder filepath
+e.g.
+assuming you store your photos on an external Toshiba drive&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Comma delimited list of patterns to ignore
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;skipPatterns=.json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;If you have file types you want to skip scan&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# The location where you would like to store the log files. The full path must exist as it will not be created for you.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;logLocation=/run/media/user/TOSHIBA/uhuru-logs          
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Again I use my external drive as the logs location to be stored&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Protected media directory. This is where we store some files like the thumbnails of your images.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;proMedia=/run/media/ippo/TOSHIBA/media
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Thumbnails folder again on external drive&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Where shall we store the cache files.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cachedir=/run/media/ippo/TOSHIBA/cache
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Cache files , same&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbLocation=/run/media/ippo/TOSHIBA/uhuru-db
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Database filepath , same&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Username for the Administrator login.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;username=user
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Your username&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Password for the administrative user you set above.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;userPass=pass
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Your password&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Secret Key. Get one here https://rb.gy/emgmwo (Shortened random.org link)             
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Secret Key. Get one here https://rb.gy/emgmwo (Shortened random.org link)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;shhhhKey=globefish-goes-here
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Generate a key from the link and paste here .used to encrypt the db&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#What port should Libre Photos be accessed at (Default 3000)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;httpPort=3333
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Just use an available port on your raspberry
+You can scan for used ports with nmap&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nmap -sT -p- 192.168.1.x&lt;/code&gt;
+Where 192.168.1.x your your raspberry lan ip
+Use a not used port&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Get a Map box API Key https://account.mapbox.com/auth/signup/   
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Get a Map box API Key https://account.mapbox.com/auth/signup/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mapApiKey=pk.yourmapboxkey
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;sign up at mapbox and get an api . mapbox is optional and alternative to google maps&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# What branch should we install the latest weekly build or the development branch (dev)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tag=dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Choose your branch latest (weekly) or dev (rolling)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# You can set the database name. Did you know Libre Photos was forked from OwnPhotos?
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbName=librephotos
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Your dB name&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Here you can change the user name for the database.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbUser=docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;DB username&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# The password used by the database.                              
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbPass=pass
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;DB password&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Number of workers, which take care of the request to the api. This setting can dramatically affect the ram usage.     
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# A positive integer generally in the 2-4 x $(NUM_CORES) range.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# You’ll want to vary this a bit to find the best for your particular workload.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Each worker needs 800MB of RAM. Change at your own will. Default is 2.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gunniWorkers=2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Number of workers that handles api requests (talk with the android client&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Number of workers, when scanning pictures. This setting can dramatically affect the ram usage.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Each worker needs 800MB of RAM. Change at your own will. Default is 1.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HEAVYWEIGHT_PROCESS=2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Number of workers that handles the photo scans
+I found fit for my RPI400 to use 2 workers for both cases&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Start containers&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The docker-compose.yml is filed with our env vars from the .env file
+you can review it&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cat docker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Run the containers as daemons&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;App is available at localhost:3333  or otherwise specified port (default 3000)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;note that librephotos api needs the folder contaning the ohotos to have 7 permissions for others&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;sudo chmod 777 -R ~/photos&lt;/code&gt; is what i did&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update images&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;CD to librephotos-docker folder and Stop containers&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose down&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Pull the new images&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose pull&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And re-compose&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;some remarks&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For face classification you&amp;rsquo;ll have to access the webui tag some pics and name some faces and then train it&lt;/p&gt;
+&lt;p&gt;then you can verify/add from the infered tab&lt;/p&gt;
+&lt;p&gt;Auto import from phone to an import folder and then auto organise them to folders by year month day and move them to at image library .
+Then scan our library with librephotos&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;periodic postgres backups (snapshots) and restore&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;create a folder to store the backups&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir db-backup&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;cd to the folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd db-backup&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Grab postgres container id&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker ps&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;e.g.40b12de38945&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Backup&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;the command should look like:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker exec -t your-db-container pg_dumpall -c -U your-db-user &amp;gt; dump_$(date +%Y-%m-%d_%H_%M_%S).sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;your-db-container is the postgres contaimer id&lt;/p&gt;
+&lt;p&gt;your-db-user is docker in .env&lt;/p&gt;
+&lt;p&gt;unless it was changed&lt;/p&gt;
+&lt;p&gt;A file like dump_20-11-2022_00_55_26.sql is created&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Restore&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cat your_dump.sql | docker exec -i your-db-container psql -U your-db-user -d your-db-name&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;again&lt;/p&gt;
+&lt;p&gt;your-db-container is the postgres contaimer id&lt;/p&gt;
+&lt;p&gt;your-db-user is docker in .env unless it was changed&lt;/p&gt;
+&lt;p&gt;your-db-name is librephotos in the .env unless it was changed&lt;/p&gt;
+&lt;p&gt;so in our example the command should be&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cat dump_20-11-2022_00_55_26.sql | docker exec -i 40b12de38945 psql -U docker -d librephotos&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add the backup command&lt;/p&gt;
+&lt;p&gt;to a crontab and take db snapshots @daily , @weekly etc&lt;/p&gt;
+&lt;p&gt;e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@weekly docker exec -t 40b12de38945 pg_dumpall -c -U docker &amp;gt; /path/to/where/you/save/your/backups/dump_$(date +%Y-%m-%d_%H_%M_%S).sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;another idea is to scan periodicaly the db backup folder and delete very old backups to keep size at a minimum&lt;/p&gt;
+&lt;p&gt;you can do this with find , ntime and rm&lt;/p&gt;
+&lt;p&gt;e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;find /path/to/where/you/save/your/backups -type f -mtime +30 -exec rm -f {} \;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;this will delete entries older than 30 days in that folder&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;auto import from phone&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;note that the android app aims to add auto upload but atm it is not available.
+the bellow procedure will be unnecesery when auto upload becomes available&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;needs a webdav server e.g. webdav nononsense docker image. Read my &amp;ldquo;webdav&amp;rdquo; post about running a webdav server on raspberry&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://depl0yed.herokuapp.com/blog/webdav&amp;#43;&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;create a folder named photoimport and chmod 777 it&lt;/p&gt;
+&lt;p&gt;For syncing I use foldersync android app it is a paid app but its the best for the job and you can sync with the full featured&lt;/p&gt;
+&lt;p&gt;free version just fine if you can stand some adds&lt;/p&gt;
+&lt;p&gt;Also the Dev can provide app licence for 3 devices outside the playstore for devices without google services&lt;/p&gt;
+&lt;p&gt;worth the money&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.tacit.dk/foldersync&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;app settings&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On foldersync android app add account
+select webdav
+add your webdav ddns https url , username and password&lt;/p&gt;
+&lt;p&gt;On folderpairs add a pair&lt;/p&gt;
+&lt;p&gt;In general tab&lt;/p&gt;
+&lt;p&gt;On local select your dcim folder&lt;/p&gt;
+&lt;p&gt;On remote select photoimport folder&lt;/p&gt;
+&lt;p&gt;On sync type sect &amp;ldquo;to remote&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;On scheduling tab
+enable scheduled sync daily&lt;/p&gt;
+&lt;p&gt;On sync options tab
+enable sync subfolders&lt;/p&gt;
+&lt;p&gt;On advanced tab
+enable retry sync
+and disable temp file scheme
+Also on &amp;ldquo;one way sync options&amp;rdquo; enable &amp;ldquo;only resync source if modified (ignore target deletion)
+As we are gonna move the files from target folder (photoimport folder) to our photo gallery after we organise them with exit tool.&lt;/p&gt;
+&lt;p&gt;On conection tab
+as desired but i guess it makes.sense to sync only.on wifi&lt;/p&gt;
+&lt;p&gt;On notification
+enble all&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;auto organise with exif tool&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;download and install exiftool for unix from&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://exiftool.org/index.html&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;gzip -dc Image-ExifTool-12.42.tar.gz | tar -xf -&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd Image-ExifTool-12.42&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;perl Makefile.PL&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make test&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo make install&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The exiftool command should be like&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;exiftool &#39;-Directory&amp;lt;CreateDate&#39; -d /destination/directory/%Y/%m   /source/directory&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;we can create a script that runs this command&lt;/p&gt;
+&lt;p&gt;Later we will call this script in a crontab&lt;/p&gt;
+&lt;p&gt;directly executing exiftool in crontab fails&lt;/p&gt;
+&lt;p&gt;So&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano exiftool-photos.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and paste&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;sudo /usr/bin/site_perl/exiftool &lt;span class=&#34;s1&#34;&gt;&amp;#39;-Directory&amp;lt;CreateDate&amp;#39;&lt;/span&gt; -d /run/media/ippo/TOSHIBA/photos/%Y/%m  /run/media/ippo/TOSHIBA/photoimport&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Added a hashbag in the beginning of the script and calling the full path of the exiftool executable&lt;/p&gt;
+&lt;p&gt;Then create a cron job&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;export VISUAL=nano; crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And paste&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# Every day at 2 AM 0 2 * * * bash /home/ippo/photos-exif.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Or the full path of where ever your script is&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Autoscan server for new photos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The docker command is&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo docker exec --user root CONTAINER_NAME python3 manage.py scan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;CONTAINER_NAME is the librephotos backend
+you can get it with&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker ps&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;it should be&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;brephotos-docker-backend-1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;in this case the command is&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo docker exec --user root brephotos-docker-backend-1 python3 manage.py scan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We can create a cron job to regularly call this command&lt;/p&gt;
+&lt;p&gt;Create a new crontab with nano&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;export VISUAL=nano; crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And paste&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# Every day at 3 AM 0 3 * * * sudo docker exec --user root brephotos-docker-backend-1 python3 manage.py scan &amp;gt;/dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;timeline&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Our photos are transfered directly  from our phone to the photoimport folder  as long as we are connected to WiFi (or any network)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;organised to y/m/d and moved to image library every day at 2&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;image library scaned from librephotos everyday at 3&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Android app&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Uhuruphotos
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/savvasdalkitsis/uhuruphotos-android&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub project link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As stated there&lt;/p&gt;
+&lt;p&gt;The app is currently in closed beta on the Google Play store.
+You have to Contact the Dev  on twitter for access and playstore link.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://twitter.com/geeky_android&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Twitter link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;*update:&lt;/p&gt;
+&lt;p&gt;for installs uotside the playstore apk releases are available at  &lt;a class=&#34;link&#34; href=&#34;https://github.com/savvasdalkitsis/uhuruphotos-android/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;About the app&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;While still early days, it already has a lot of features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Photo feed with multiple views which can be changed by pinch to zoom gestures&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Multiple select in feed to share/delete multiple items at once&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Periodic background synchronization with LibrePhotos server&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Photo details view with information like date, location, gps map, people view, sharing, adding/removing&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;from favourites (synced with LibrePhotos server)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Video details view with all the above features and video playback&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Search your photos using LibrePhotos&amp;rsquo; search engine. Get search suggestions based on your photos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;People view and suggestions for people with most photos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Photo map. See a heatmap of your photos. Navigate around the globe with the interactive map and see photos taken&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;in the location currently viewed.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;User created and auto generated albums from LibrePhotos&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Dark/Light mode (manual and auto)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Tablet support&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A lot of settings to help you control the app storage and memory requirements along with how frequently to perform synchronization&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;with the LibrePhotos server.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;up to 2GB of images cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;up to 2GB of video cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fingerprint authentication to lock the app&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As mentioned above, a lot of features will soon be implemented before the full public release, mainly:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Local photo support. This will make UhuruPhotos a viable Google Photos alternative which can be used as your primary camera roll viewer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Backup/Sync local images with librephotos server. Take control of your data by never having to worry about photo backups.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Basic photo editing capabilities.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Biometric authentication&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;all you need to access your photos is your dynamic dns subdomain through which you access your server
+libre.duckdns.org in our example
+the libre photos user name and password as provided in the .env file when composing it&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>hatdware watchdog on raspberry pi 4</title>
+        <link>https://ippocratis.github.io/p/watchdog/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/watchdog/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/watchdog/watch.jpg" alt="Featured image of post hatdware watchdog on raspberry pi 4" /&gt;&lt;p&gt;&lt;strong&gt;Automatic restart on kernel panic, hardware freeze and wlan disconnections&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you run some servers on raspberry, you always want them available.
+So you need some kind of solution for cases where it gets stuck for any reason and does not respond.
+The answer, even at the hardware level, is called watchdog and its operation is simple.
+It is a microcontroller that has a timer in which it must receive a signal from the system. As long as the system is operational it communicates with the controller normally. But if it sticks for some reason the timer will go to zero and will send the reset signal and our system will restart.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Activate hardware dog&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On raspberry 3 and 4 the kernel module is available by deffault and you do not require its installation but only its activation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo su echo &#39;dtparam = watchdog = on&#39; &amp;gt;&amp;gt; /boot/config.txt reboot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation of system service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Arch:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yay -S watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Debian:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Configure service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo su echo &#39;watchdog-device = / dev / watchdog&#39; &amp;gt;&amp;gt; /etc/watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;watchdog-timeout = 15&#39; &amp;gt;&amp;gt; / etc / watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;max-load-1 = 24&#39; &amp;gt;&amp;gt; / etc / watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &#39;interface = wlan0&#39; &amp;gt;&amp;gt; /etc/watchdog.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Activate and start the service&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl enable watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl start watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl status watchdog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;fork bomb (testing)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo bash -c &#39;: () {: |: &amp;amp;} ;:&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>webdav server</title>
+        <link>https://ippocratis.github.io/p/webdav/</link>
+        <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/webdav/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/webdav/dav.png" alt="Featured image of post webdav server" /&gt;&lt;p&gt;&lt;img src=&#34;https://4allportal.net/fileadmin/user_upload/integrations/WebDAV-Logo.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;webdav&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Docker-nginx-webdav-nononsense is a nginx webserver with the webdav module enabled and set up and ready to work like a file server using the webdav protocol and all packaged in a docker container.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Webdav server folders can be mounted on a remote file system and accessed by the remote file manager&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The result is an easy and fast personal cloud without useless functions without meaning&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/dgraziotin/docker-nginx-webdav-nononsense&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We clone the repo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git clone https: // github.com / dgraziotin / docker-nginx-webdav-nononsense.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We enter the folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd docker-nginx-webdav-nononsense&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Open the file for editing&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano doocker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In the volumes section we declare the path of the root dir. I have put the root folder of my external hard drive.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/ path / to / data / folder / on / host: / data&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We declare the user id &amp;amp; group id&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PUID = 1000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;UUID = 1000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We put in the timezone Athens&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TZ = Europe / Athens&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We set the username and password as enviromental variables&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;WEBDAV_USERNAME = xxxxxx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;WEBDAV_PASSWORD = xxxxx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We declare the allowed hostnames from where we will visit the server separately with comma&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SERVER_NAMES = localhost, myddns.domain.net&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;All available enviromenatal variables such as various nginx timeouts, file upload size etc can be found on the github project page&lt;/p&gt;
+&lt;p&gt;** build from source and run the container **&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose build &amp;amp;&amp;amp; docker-compose up&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;reverse proxy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The container does not support ssl cert. Dev encourages the use of reverse proxy and the management of ssl cert from it. I personally use caddy&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano / etc / caddy / Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ddns.domain.name:open_router_port { reverse_proxy localhost: 32080&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The webdav server runs on localhost: 32080 and we have access to it with ssl encryption outside the local network through our ddns. Caddy takes over the certificate and redirection to localhost.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Android&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On android we have access with any webdav capable filemanager eg mixplorer, solid, fe, cx&lt;/p&gt;
+&lt;p&gt;Some also offer automatic synchronization as a paid feature though.
+The only free app I found that has automatic synchronization is foldersync&lt;/p&gt;
+&lt;p&gt;accountstab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;new acount&lt;/li&gt;
+&lt;li&gt;webdav&lt;/li&gt;
+&lt;li&gt;I put a custom title&lt;/li&gt;
+&lt;li&gt;username (WEBDAV_USERNAME)&lt;/li&gt;
+&lt;li&gt;password (WEBDAV_PASSWORD)&lt;/li&gt;
+&lt;li&gt;ip (the ddns domain name)&lt;/li&gt;
+&lt;li&gt;port (the open port on the router we gave and the caddy)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;sync tab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;enter&lt;/li&gt;
+&lt;li&gt;I select send anly (send &amp;amp; receive, whatever suits us)&lt;/li&gt;
+&lt;li&gt;select local folder to sync&lt;/li&gt;
+&lt;li&gt;select remote folder (server)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I do not select automatic synchronization from here but later in &amp;ldquo;more&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;In the more settings of the sync tab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In the replacement of an older file I choose &amp;ldquo;to exclude&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;enable automatic sending&lt;/li&gt;
+&lt;li&gt;disable the temporary file name during transfer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the connect of the sync tab&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I choose wifi only or data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Every time a new file is added to the local folder you will automatically sync to the webdav server&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Simple Remote ssh with Wireguard</title>
+        <link>https://ippocratis.github.io/p/wireguard/</link>
+        <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/wireguard/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/wireguard/banner.png" alt="Featured image of post Simple Remote ssh with Wireguard" /&gt;&lt;p&gt;&lt;img src=&#34;https://i0.wp.com/www.randombrick.de/wp-content/uploads/2019/05/WireGuard-Logo.jpg?fit=1600%2C850&amp;amp;ssl=1&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;preperation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The docker setup needs the wireguard kernel module , an open udp port in router, a free  public subdomain ,  port forword the WG port to RPI lan IP in router settings&lt;/p&gt;
+&lt;p&gt;-&amp;gt; load kernel module&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;modprobe wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;-&amp;gt; make load on boot&lt;/p&gt;
+&lt;p&gt;create the config file:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/modules-load.d/wireguard.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add the module name&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;check status of modules&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lsmod |grep wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Check if systemd service loaded the module:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;systemctl status systemd-modules-load.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;grab the proccess id
+e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Main PID: 210 (code=exited, status=0/SUCCESS) PID = 210&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;status=0/SUCCESS means systemd succesfully loaded the module&lt;/p&gt;
+&lt;p&gt;double verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;journalctl -b _PID=210&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;systemd-modules-load[210]: Inserted module &amp;lsquo;wireguard&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;if lsmod is not confirming the journal  look for&lt;/p&gt;
+&lt;p&gt;blacklist wireguard at configs&lt;/p&gt;
+&lt;p&gt;Forword ipv4&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/sysctl.d/ipv4_forwarding.conf &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;net.ipv4.ip_forward=1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sysctl net.ipv4.ip_forward&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Setup&lt;/strong&gt;
+Docker &amp;amp; docker-compose&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/linuxserver/docker-wireguard&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kinuxserver Wireguard Docker image&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Documentation is pretty straightforword there but lets clarify some things&lt;/p&gt;
+&lt;p&gt;Client config is under path/to/appdata/config as was set in the volume env var as PNG and text&lt;/p&gt;
+&lt;p&gt;Docker run&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d   --name=wireguard   --cap-add=NET_ADMIN   --cap-add=SYS_MODULE   -e PUID=1000   -e PGID=1000   -e TZ=Europe/London   -e SERVERURL=your.ddns.domain.name.com `#optional`   -e SERVERPORT=51820 `#optional`   -e PEERS=1 `#optional`   -e PEERDNS=auto `#optional`   -e INTERNAL_SUBNET=10.13.13.0 `#optional`   -e SERVER_ALLOWEDIPS_PEER_phone=&amp;#34;192.168.1.x/24, 10.13.13.1&amp;#34;   -e LOG_CONFS=true `#optional`   -p 51820:51820/udp   -v path/to/appdata/config:/config   -v /lib/modules:/lib/modules   --sysctl=&amp;#34;net.ipv4.conf.all.src_valid_mark=1&amp;#34;   --restart unless-stopped   linuxserver/wireguard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;This will create
+path/to/appdata/config/wg0.conf
+which is your server config&lt;/p&gt;
+&lt;p&gt;And
+path/to/appdata/config/peer1/peer1.conf
+Which is your client config&lt;/p&gt;
+&lt;p&gt;You&amp;rsquo;ll add this to the android wiregurad app by either import the file or by scanning the path/to/appdata/config/peer1/peer1.png
+You can display the qr code in terminal with
+&lt;code&gt;docker exec -it wireguard /app/show-peer 1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Consider the
+&lt;code&gt;SERVER_ALLOWEDIPS_PEER_phone=&lt;/code&gt;
+And
+&lt;code&gt;INTERNAL_SUBNET=&lt;/code&gt;
+enviromental variables
+If you only need access to your RPI for remote ssh all you need is to add your its local lan IP e.g. 192.168.1.24 together with the servers  wireguard subnet address e.g. 10.13.13.1&lt;/p&gt;
+&lt;p&gt;Also consider the
+&lt;code&gt;SERVERURL=&lt;/code&gt;
+Env var
+Which is your domain through which you access your raspbery on its running port
+e.g.
+If you own the ippo subdomain in duckdns
+&lt;code&gt;SERVERURL=https://ippo.duckdns.org:51820&lt;/code&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Caddy2 web server</title>
+        <link>https://ippocratis.github.io/p/caddy2/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/caddy2/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/caddy2/caddy2.png" alt="Featured image of post Caddy2 web server" /&gt;&lt;p&gt;&lt;img src=&#34;https://www.tecmint.com/wp-content/uploads/2018/09/Install-Caddy-Webserver-on-CentOS.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Caddy is an open source web server with automatic HTTPS written in Go.
+reverse proxying widely used in selfhosed services is ded simple with one liner Caddyfile&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;from the official documentation for respberry &lt;a class=&#34;link&#34; href=&#34;https://caddyserver.com/docs/install#debian-ubuntu-raspbian&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;curl -1sLf &#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#39; | sudo apt-key add -&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;curl -1sLf &#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#39; | sudo tee -a /etc/apt/sources.list.d/caddy-&amp;gt;stable.list&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;install package suposed to install caddy as a service but it doesent
+so&lt;/p&gt;
+&lt;p&gt;verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ls /etc/systemd/system/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;look for caddy.service&lt;/p&gt;
+&lt;p&gt;if not there we follow the binary installation from the documentation and&lt;/p&gt;
+&lt;p&gt;download caddy.service from &lt;a class=&#34;link&#34; href=&#34;https://github.com/caddyserver/dist/tree/master/init&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;wget &lt;a class=&#34;link&#34; href=&#34;https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;and transfer it to&lt;/p&gt;
+&lt;p&gt;/etc/systemd/system&lt;/p&gt;
+&lt;p&gt;with&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mv caddy.service /etc/systemd/system&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;reload daemon&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl daemon-reload&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;enable&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl enable caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;start&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl start caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;verify&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl status caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;if service is indeed started and active after rebot but not functional eg is not reverse proxying&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@reboot systemctl restart caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;save and exit&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ctrl+x&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;y&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;reverse proxy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ename or delete the stock one there&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;your_domain:port {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    reverse_proxy localhost:port  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;where&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;your_domain:port&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;your ddns domain and an open router port&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;localhost:port&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the local ip and the port that your self hosted service has open to the host&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>dnscrypt</title>
+        <link>https://ippocratis.github.io/p/dnscrypt/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/dnscrypt/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/dnscrypt/dnscrypt.png" alt="Featured image of post dnscrypt" /&gt;&lt;p&gt;&lt;img src=&#34;https://camo.githubusercontent.com/343bd54c914db0c390c6e5678b60755feb51834a4d82f828d147f1abb4288e73/68747470733a2f2f7261772e6769746875622e636f6d2f646e7363727970742f646e7363727970742d70726f78792f6d61737465722f6c6f676f2e706e673f33&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;dnscrypt proxy&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In order to harden our raspberry server we will install some services.
+Not too techy but strong.
+dnscrypt proxy is one of them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Domain Name System is one of the oldest protocols that we still use on our Networks.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Normal DNS queries and responses are not encrypted.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dnscrypt is a transport protocol that authenticates communications between a DNS client and a DNS resolver. It prevents DNS spoofing.
+It uses cryptographic signatures to verify that responses originate from the chosen DNS resolver and haven&amp;rsquo;t been tampered with.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;a dns proxy it acts as an intermediary between clients and servers while they resolv domain names with an IP address and vice versa&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dnscrypt proxy uses dnscrypt protocol&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install dnscrypt-proxy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;pick up a server name from this list &lt;a class=&#34;link&#34; href=&#34;https://dnscrypt.info/public-servers/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/dnscrypt-proxy/dnscrypt-proxy.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add your desired server to server_names&lt;/p&gt;
+&lt;p&gt;eg server_names = [&amp;lsquo;cloudflare&amp;rsquo;]&lt;/p&gt;
+&lt;p&gt;save and exit&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ctrl + x&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;y&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;restart service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl restart dnscrypt-proxy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;specify name server&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;apt install resolvconf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;configure&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/resolvconf/resolv.conf.d/head&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;update values&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;resolvconf -u&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;configure interfaces&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/network/interfaces&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;under your using interfaces eg wlan add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;verify specified nameserver is added&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/resolv.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;if not add&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nameserver 127.0.2.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cloudflare.com/ssl/encrypted-sni/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;test with cloudflare&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://1.1.1.1/help&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;test with 1.1.1.1&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

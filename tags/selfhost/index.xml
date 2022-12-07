@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>selfhost on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/selfhost/</link>
+        <description>Recent content in selfhost on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 01 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/selfhost/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>SelfHost Firefox Sync Server</title>
+        <link>https://ippocratis.github.io/p/ffsync/</link>
+        <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/ffsync/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/ffsync/ffsync.jpg" alt="Featured image of post SelfHost Firefox Sync Server" /&gt;&lt;p&gt;Mozilla browser can be completelly selfhosted.
+Comes in two servers a sync server which will sync passwords , browse history ,bookmarks and a acounts server
+here we&amp;rsquo;ll see how to self host the sync server using docker
+The dockerfile builds
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/mozilla-services/syncserver&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/mozilla-services/syncserver&lt;/a&gt;
+Which is an all-in-one package for running a self-hosted Firefox Sync server. It bundles the &amp;ldquo;tokenserver&amp;rdquo; project for authentication and the &amp;ldquo;syncstorage&amp;rdquo; project for storage
+Firefox marked  the project as &lt;strong&gt;deprecated&lt;/strong&gt; and moved to  &lt;a class=&#34;link&#34; href=&#34;https://github.com/mozilla-services/syncstorage-rs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;storageServer&lt;/a&gt; to provide a sync server the will serve as a backup solution  with a &amp;ldquo;distributed database to store the data secure&amp;rdquo; as the curent sync server was not created as a backup solution in mind and the dB could be reseted  at times.
+Let me clarify that a bit &lt;a class=&#34;link&#34; href=&#34;https://blog.mozilla.org/services/2020/09/15/the-future-of-sync/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;source&lt;/a&gt;
+Your ff data leaves in every device you use it amd syncs with the server . so the server is always to the newest copy of your data.periodicaly mozilla shuts down servers.that in most cases is not a problem if you have an active device as their new server will sync to your newest version of your data from that device.In an extreme scenario when you only have one active device amd havent used it for a.long time amd you uninstall your firefox.there qell then there.is a chance.you&amp;rsquo;ll loose your server db.
+that said lets clarify that when self hosting firefox this is not a problem as you are not going to reset your raspberry amd you are keeping backuos of your db . right?&lt;br&gt;
+anyway their new sync server is more than wellcome and Until that becomes stable and a docker image becomes available we can still continue use the curent server *at our own risk.
+You can track down the issue &lt;a class=&#34;link&#34; href=&#34;https://github.com/mozilla-services/syncserver/pull/294&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://mozilla-services.readthedocs.io/en/latest/howtos/run-sync-1.5.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;documentation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;install&lt;/p&gt;
+&lt;p&gt;For the raspberrypi we&amp;rsquo;ll use the arm64 docker image maintained by crazy Max &lt;a class=&#34;link&#34; href=&#34;https://github.com/crazy-max/docker-firefox-syncserver&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;
+It is activelly updated in dockerhub &lt;a class=&#34;link&#34; href=&#34;https://hub.docker.com/r/crazymax/firefox-syncserver/#!&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;
+We&amp;rsquo;ll use the docker-compose template from &lt;a class=&#34;link&#34; href=&#34;https://github.com/crazy-max/docker-firefox-syncserver/blob/master/examples/compose/docker-compose.yml&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir ffsync&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd ffsync&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Nano docker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;version: &amp;#34;3.2&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  firefox-syncserver:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: crazymax/firefox-syncserver:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    container_name: firefox_syncserver
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - target: 5000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        published: 5000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        protocol: tcp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - &amp;#34;/local/filepath/for/your/data:/data&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    env_file:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - &amp;#34;./firefox-syncserver.env&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: always
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  firefox-syncserver:
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Notice the data  volume that you&amp;rsquo;ll have to map to a dir to your machine
+And the .env file in the current dir&lt;/p&gt;
+&lt;p&gt;Data dir will store the dB with the sync data&lt;/p&gt;
+&lt;p&gt;The firefox-syncserver.env will have to be created
+Use the template from &lt;a class=&#34;link&#34; href=&#34;https://github.com/crazy-max/docker-firefox-syncserver/blob/master/examples/compose/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano firefox-syncserver.env&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;TZ=Europe/Athens
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;PUID=1000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;PGID=1000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FF_SYNCSERVER_PUBLIC_URL=https://selfhoster.duckdns.org/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FF_SYNCSERVER_SECRET=kcnsmlzonenldbfk
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FF_SYNCSERVER_ALLOW_NEW_USERS=true
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FF_SYNCSERVER_FORCE_WSGI_ENVIRON=true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Notice
+&lt;code&gt;FF_SYNCSERVER_SECRET&lt;/code&gt; it will be used for signing authentication tokens.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;FF_SYNCSERVER_PUBLIC_URL&lt;/code&gt; which is the domain name throught which you access your raspberry e.g. the &amp;ldquo;selfhoster&amp;rdquo; subdomain in duckdns&lt;/p&gt;
+&lt;p&gt;Create&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Firefox sync server not runs on localhost:5000&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;reverse proxy and SSL cert&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Assuming you have caddy installed
+you&amp;rsquo;ll reversing your ddns to your localhost also auto genereta SSL serf for that domain&lt;/p&gt;
+&lt;p&gt;e.g.
+lets say you have a ddns dmain from duckdns named selfhoster.duckdns.org
+and you reverse that to localhost:5000 using caddy adding&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;selfhoster.duckdns.org  { reverse_proxy localhost:5000 }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;in your /etc/caddy/Caddyfile&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;accessing you ff sync server&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;PC&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;open about:config&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;open identity.sync.tokenserver.uri&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;change from
+&lt;a class=&#34;link&#34; href=&#34;https://token.services.mozilla.com/1.0/sync/1.5&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://token.services.mozilla.com/1.0/sync/1.5&lt;/a&gt;
+to
+&lt;a class=&#34;link&#34; href=&#34;http://selfhoster.duckdns.org/token/1.0/sync/1.5&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://selfhoster.duckdns.org/token/1.0/sync/1.5&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;android&lt;/p&gt;
+&lt;p&gt;Before logging in&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;App Menu&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Settings&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;About Firefox&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;click logo 5 times&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The debug menu is now enabled&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;main menu&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;custom Sync server&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Set to
+&lt;a class=&#34;link&#34; href=&#34;http://selfhoster.duckdns.org/token/1.0/sync/1.5/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://selfhoster.duckdns.org/token/1.0/sync/1.5/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;*note the trailing slash&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/mozilla-mobile/fenix/issues/15590#issuecomment-722001692&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;logs&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;about:sync-log&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;troubleshoot&lt;/strong&gt;
+rm -rf /home/ippo/.mozilla/firefox/ntbou42o.default-release/weave/failed/&lt;/p&gt;
+&lt;p&gt;assuming your user is ippo&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

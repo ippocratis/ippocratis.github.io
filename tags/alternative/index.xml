@@ -1,0 +1,1370 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>alternative on Depl0yed</title>
+        <link>https://ippocratis.github.io/tags/alternative/</link>
+        <description>Recent content in alternative on Depl0yed</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 22 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/alternative/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>traccar location tracker</title>
+        <link>https://ippocratis.github.io/p/traccar/</link>
+        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/traccar/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/traccar/traccar.png" alt="Featured image of post traccar location tracker" /&gt;&lt;p&gt;get location history with a selfhosted dockerised location tracking server and an android client to provide periodic location updates&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;create a proper Dockerfile for raspberry aarch&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano Dockerfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;paste&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FROM debian:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ENV TRACCAR_VERSION 4.10
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;WORKDIR /opt/traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;RUN set -ex &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    apt-get update &amp;amp;&amp;amp;\
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    TERM=xterm DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends unzip wget default-jre &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    wget -qO /tmp/traccar.zip https://github.com/traccar/traccar/releases/download/v$TRACCAR_VERSION/traccar-other-$TRACCAR_VERSION.zip &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    unzip -qo /tmp/traccar.zip -d /opt/traccar &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    apt-get autoremove --yes unzip wget &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    apt-get clean &amp;amp;&amp;amp; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    rm -rf /var/lib/apt/lists/* /tmp/*
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ENTRYPOINT [&amp;#34;java&amp;#34;, &amp;#34;-Xms512m&amp;#34;, &amp;#34;-Xmx512m&amp;#34;, &amp;#34;-Djava.net.preferIPv4Stack=true&amp;#34;]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CMD [&amp;#34;-jar&amp;#34;, &amp;#34;tracker-server.jar&amp;#34;, &amp;#34;conf/traccar.xml&amp;#34;]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;build the Dockerfile&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker build -t debian-traccar-nginx .&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;create the volume&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker volume create traccar_raspberry&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;run the container&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --name Traccar \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5002:5002/tcp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5002:5002/udp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5055:5055/tcp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5093:5093/tcp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 5093:5093/udp \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -p 82:8082 \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --mount source=traccar_raspberry,target=/opt/traccar \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --restart=unless-stopped \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  debian-traccar-nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;update: the above Dockerfile is no longer needed
+tested the debian atm64 image and it works fine on raspberry400
+Digest:sha256:f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://hub.docker.com/layers/traccar/traccar/debian/images/sha256-f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412?context=explore&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://hub.docker.com/layers/traccar/traccar/debian/images/sha256-f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412?context=explore&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;android client needs tcp 5055 port so if you dont plan to use any of the supported hardware gps trackers
+you can skip listening to 5002,5093 tcp/udp ports and only keep 5055 for events and 8082 for the webui&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker-compose file&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;*assuming you have an external hard drive mounted as TOSHIBA  on  /run/media/ippo/TOSHIBA and your username is ippo&lt;/p&gt;
+&lt;p&gt;create dirs
+that will have all are files and db on our external drive for backup reasons&lt;/p&gt;
+&lt;p&gt;mkdir -p /run/media/ippo/TOSHIBA/traccar&lt;/p&gt;
+&lt;p&gt;mkdir -p /run/media/ippo/TOSHIBA/traccar/logs&lt;/p&gt;
+&lt;p&gt;mkdir -p /run/media/ippo/TOSHIBA/traccar/data&lt;/p&gt;
+&lt;p&gt;mkdirn-p /run/media/ippo/TOSHIBA/traccar/conf&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;get the trackar.xml configuration file from the builded image&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker run --rm --entrypoint cat debian-traccar-nginx:latest /opt/traccar/conf/traccar.xml &amp;gt; /run/media/ippo/TOSHIBA/traccar/conf/traccar.xml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;the actual yml&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-compose.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;version: &amp;#39;2&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    web:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        image: &amp;#39;debian-traccar-nginx:latest&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        hostname: &amp;#39;my.ddns.provider.com&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        container_name: traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;8082:8082&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;5055:5055/tcp&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/run/media/ippo/TOSHIBA/traccar/logs:/opt/traccar/logs:rw&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/run/media/ippo/TOSHIBA/traccar/conf/traccar.xml:/opt/traccar/conf/traccar.xml:ro&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            - &amp;#39;/run/media/ippo/TOSHIBA/traccar/data:/opt/traccar/data:rw&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;run the container&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;doker-cmpose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;the above will spinup traccar with an  embedded h2 db that will not reset on container restart as its
+volume is mounted  on host and take periodic copies of the files but once corrupted those copies cant restore the traccar container
+Also I have no idea  how to properly backup an h2 db (if possible at all)
+the recomended way is to use an external postges or mariadb database
+i used a postgres docker imageb connected to the traccar image with a docker network and provided the apropriate network gateway url to the traccar xml for the database url&lt;/p&gt;
+&lt;p&gt;so:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;traccar-postgres&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;create a docker neywork&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker network create net&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;gwt the network subnet and ip&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker network inspect net&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;we need the&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    &amp;#34;Subnet&amp;#34;: &amp;#34;192.168.96.0/20&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    &amp;#34;Gateway&amp;#34;: &amp;#34;192.168.96.1&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;part&lt;/p&gt;
+&lt;p&gt;use the subnet on the&lt;/p&gt;
+&lt;p&gt;ipam:
+config:
+- subnet:192.168.96.0/20&lt;/p&gt;
+&lt;p&gt;in the docker-compose.yml&lt;/p&gt;
+&lt;p&gt;and the gateway in the database url in the traccar.xml
+jdbc:postgresql://192.168.96.1:5432/db&lt;/p&gt;
+&lt;p&gt;note that i used a  &lt;code&gt;POSTGRES_DB: db&lt;/code&gt; env var in docker-compose and so yhe /db in the database url you can use any other name&lt;/p&gt;
+&lt;p&gt;Replace the h2 contents in the xml with the postges according to
+&lt;a class=&#34;link&#34; href=&#34;https://www.traccar.org/postgresql/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.traccar.org/postgresql/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;docker-compose.yml&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;#34;3&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  traccar:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: traccar/traccar:debian
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    hostname: my.dyn-dns.domain.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    container_name: traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      POSTGRES_USER: user
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      POSTGRES_DB: db
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    depends_on:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - traccar-db
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/logs:/opt/traccar/logs:rw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/conf/traccar.xml:/opt/traccar/conf/traccar.xml:ro
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/data:/opt/traccar/web:rw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - &amp;#34;82:8082&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - &amp;#34;5055:5055/tcp&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  traccar-db:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    container_name: traccar-db
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: postgres:13
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - 5432:5432
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/traccar/db:/var/lib/postgresql/data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      POSTGRES_PASSWORD: password
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     - net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  net:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    driver: bridge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    enable_ipv6: false
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ipam:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      config:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        - subnet: 192.168.96.0/20
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;periodic postgres backups and how to restore a corrupted db&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Backup&lt;/p&gt;
+&lt;p&gt;docker exec -t your-db-container pg_dumpall -c -U your-db-user &amp;gt; /path/to/backup/folder/dump_$(date +%Y-%m-%d_%H_%M_%S).sql&lt;/p&gt;
+&lt;p&gt;A file like dump_20-11-2022_00_55_26.sql is created&lt;/p&gt;
+&lt;p&gt;Restore&lt;/p&gt;
+&lt;p&gt;cat your_dump.sql | docker exec -i your-db-container psql -U your-db-user -d your-db-name&lt;/p&gt;
+&lt;p&gt;Note the -U dbuser (set up as user in the &lt;code&gt;POSTGRES_USER: user&lt;/code&gt; env var and in the &lt;code&gt;&amp;lt;entry key=&#39;database.user&#39;&amp;gt;[USER]&amp;lt;/entry&amp;gt;&lt;/code&gt; on the traccar.xml)&lt;/p&gt;
+&lt;p&gt;and the -d bdname (set up as db in the &lt;code&gt;POSTGRES_DB: db&lt;/code&gt; env var and in the &lt;code&gt;postgresql://127.0.0.1:5432/[DATABASE]&lt;/code&gt; on the traccar.xml)&lt;/p&gt;
+&lt;p&gt;Put that on a crontab
+And there you go you have periodic db snapshots&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Caddyfile&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;*assuming you use caddy as a reverse proxy/ssl handler&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#traccar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;a.random.ddns.name.duckdns.org {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    reverse_proxy localhost:8082
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Create admin and disable new users&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First you habe to register as a normal user&lt;/p&gt;
+&lt;p&gt;From the login page
+fill in email and prefered password
+And register&lt;/p&gt;
+&lt;p&gt;Then you can log in with those credestria&amp;rsquo;s&lt;/p&gt;
+&lt;p&gt;Its a good.idea for security reasons to disable sign ups&lt;/p&gt;
+&lt;p&gt;Login as default admin
+User:pass = admin:admin&lt;/p&gt;
+&lt;p&gt;On top left corner
+Settings
+Users
+Select your user
+Select the pencil icon
+From the permissions tab enable admin&lt;/p&gt;
+&lt;p&gt;Then
+From settings
+Server
+On permissions tab disable registration&lt;/p&gt;
+&lt;p&gt;Log out and re-login with your created user&lt;/p&gt;
+&lt;p&gt;From settings
+Users
+You can remove default admin now&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Traccar notifications&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m setting up notifications over telegram.
+There are many notification types
+Some interesting ones are enter / leave geofence (have to set up a geofence obvius&amp;rsquo;y first)
+Device moving
+Device stoped
+Device online
+Device offline&lt;/p&gt;
+&lt;p&gt;Useful if you monitor a second device e.g. a childs device&lt;/p&gt;
+&lt;p&gt;Edit the traccar.xml&lt;/p&gt;
+&lt;p&gt;In he docker-compose example above I maped /run/media/ippo/YOSHIBA/conf/traccar.xml as the config location&lt;/p&gt;
+&lt;p&gt;So&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /run/media/ippo/TOSHIBA/conf/traccar.xml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;entry key=&amp;#39;notificator.types&amp;#39;&amp;gt;web,mail,telegram&amp;lt;/entry&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;entry key=&amp;#39;notificator.telegram.key&amp;#39;&amp;gt;BOT_KEY&amp;lt;/entry&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;entry key=&amp;#39;notificator.telegram.chatId&amp;#39;&amp;gt;CHAT_ID&amp;lt;/entry&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;You have to create a bot
+get its api token
+Start a chat with it
+And get the chat id&lt;/p&gt;
+&lt;p&gt;To create the bot
+Visit @botfather
+/newbot
+Name it
+And get the token&lt;/p&gt;
+&lt;p&gt;To get the chat id
+Type @get_id_bot in the conversation chat with the bot&lt;/p&gt;
+&lt;p&gt;Restart the container&lt;/p&gt;
+&lt;p&gt;You can test the connection visiting your acount and sending a test message&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;public demo servers&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;you you just want to test traccar before start building and selfhosting it, there are some public servers available&lt;/p&gt;
+&lt;p&gt;Public servers (demo)
+&lt;a class=&#34;link&#34; href=&#34;https://www.traccar.org/demo-server/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.traccar.org/demo-server/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Android client app
+&lt;a class=&#34;link&#34; href=&#34;https://www.traccar.org/client/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.traccar.org/client/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Navigate to one of demo servers&lt;/p&gt;
+&lt;p&gt;demo4.traccar.org&lt;/p&gt;
+&lt;p&gt;demo3.traccar.org&lt;/p&gt;
+&lt;p&gt;demo2.traccar.org&lt;/p&gt;
+&lt;p&gt;demo.traccar.org&lt;/p&gt;
+&lt;p&gt;And register
+Select username
+Mail
+And password&lt;/p&gt;
+&lt;p&gt;Then use registered mail and password to login&lt;/p&gt;
+&lt;p&gt;On client app
+While service deactivated
+Copy identifier
+Insert the demo server URL you registered
+Select location accuracy (high)
+Select frequency report ~120 sec
+Let others as is
+and enable service&lt;/p&gt;
+&lt;p&gt;On status verify that the location is updating&lt;/p&gt;
+&lt;p&gt;On server
+Top left menu
+Select the plus icon to add a device
+Select a random name
+And the identifier from the client app
+And save&lt;/p&gt;
+&lt;p&gt;The you can select the device on the top left menu&lt;/p&gt;
+&lt;p&gt;It appears on the map
+From the refresh icon you can select a time period to show a location trail on the map and even animate the motion of tracks&lt;/p&gt;
+&lt;p&gt;From the reports tab you can you can view a table of location reports from a selected period&lt;/p&gt;
+&lt;p&gt;#disadvantages:
+The public servers are ephemeral and your data will disapear at some point
+you have to either buy a plan or selfhost the server&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>UhuruPhotos a LibrePhotos Android Client</title>
+        <link>https://ippocratis.github.io/p/librephotos/</link>
+        <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/librephotos/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/librephotos/banner.png" alt="Featured image of post UhuruPhotos a LibrePhotos Android Client" /&gt;&lt;p&gt;update:&lt;/p&gt;
+&lt;p&gt;1&lt;/p&gt;
+&lt;p&gt;the .env has changed the &amp;ldquo;naming&amp;rdquo; of the dir tha contain your photos  from myPhotos to scanDirectory
+also the variables                                         &lt;br&gt;
+adminEmail=                                                &lt;br&gt;
+userName=                                                  &lt;br&gt;
+userPass=                                                                                                                &lt;br&gt;
+mapApiKey=                                                                                                               &lt;br&gt;
+skipPatterns=                                              &lt;br&gt;
+HEAVYWEIGHT_PROCESS=                                       &lt;br&gt;
+SECRET_KEY=
+allowUpload=                                               &lt;br&gt;
+are missing from the .env but can still need to be used&lt;/p&gt;
+&lt;p&gt;2&lt;/p&gt;
+&lt;p&gt;I added my workaround on how to take periodic backups on the postgres datatbe and how to restore them&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is it&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is an android client for librephotos
+And Librephotos is a photo manager server&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;so what?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Well uhuruphotos is what was missing from all selfhosting photo galleries&lt;/p&gt;
+&lt;p&gt;A fast and  beatufull google photos alternative&lt;/p&gt;
+&lt;p&gt;It caches photos so there is offline view for cached items&lt;/p&gt;
+&lt;p&gt;Fast image loads means a well writen app and a.well writen librephotos api&lt;/p&gt;
+&lt;p&gt;Fast scrolling and thumbnail loads on time feed&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/savvasdalkitsis/uhuruphotos-android&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Project page&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;backround info&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Its been for a long time that google had provided an excelent service for free.&lt;/p&gt;
+&lt;p&gt;Unlimited cloud storage for photos at a fair analysis / size (16mp).&lt;/p&gt;
+&lt;p&gt;Its been a while that they have changed their charging policy and limited the storage to just 15gb at user have to pay above that li.it.&lt;/p&gt;
+&lt;p&gt;So the need for an android app that can sync with self hosted gallerries and be as  good as google photos in displaying photos timeline&lt;/p&gt;
+&lt;p&gt;and providing helpfull  features like photos on map and face tags arise.&lt;/p&gt;
+&lt;p&gt;There where already good selfhosted softwhare around , great projects like photoprism , photoview AND librephotos but with a major flow.&lt;/p&gt;
+&lt;p&gt;There was no android app.&lt;/p&gt;
+&lt;p&gt;Well to be more precise photoprism and librephotos have android apps but are proof of concept project incomplete and unusable.&lt;/p&gt;
+&lt;p&gt;That means you only have a webui.&lt;/p&gt;
+&lt;p&gt;Progressive web apps are OK for certain jobs but not for images galleries.&lt;/p&gt;
+&lt;p&gt;Photos are not cached and lag is furstrating as everything gets reloaded all the time&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What we&amp;rsquo;ll walk through&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How to get librephotos server running on your raspberry&lt;/li&gt;
+&lt;li&gt;Basic requirements for securelly remotely access your librephotos server&lt;/li&gt;
+&lt;li&gt;Auto upload photos from phone to raspberry&lt;/li&gt;
+&lt;li&gt;Auto categorise photos in your gallery folder by year,month,day&lt;/li&gt;
+&lt;li&gt;Auto scan and import photos from your gallery folder with librephotos&lt;/li&gt;
+&lt;li&gt;Setup Uhuru photos&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;requirements&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open ports on your router 80 and 443 and port forword these ports in to your raspberry Lan ip&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That is specific to your router model and requires that your router is not behind a Nat by your isp&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A free dynamic subdomain from a provider
+e.g. duckdns&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Navigate to &lt;a class=&#34;link&#34; href=&#34;http://www.duckdns.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://www.duckdns.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For quick signup use oauth from the provider list e.g. github&lt;/p&gt;
+&lt;p&gt;On domains use a subdomain name e.g. &amp;ldquo;libre&amp;rdquo; and click add domain . now your domain is &lt;a class=&#34;link&#34; href=&#34;https://libre.duckdns.org&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://libre.duckdns.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;and it will link to your raspberry&lt;/p&gt;
+&lt;p&gt;To auto audate it use a cronjob&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;*/5 * * * * sleep 38 ; curl -s &amp;quot;https://www.duckdns.org/update?domains=libre.duckdns.org&amp;amp;token=your-duckdns-token&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Your duckdns token is on your duckdns acount page&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A web server to reverse proxy requests from the dynamic subdomain IP to the localhost port librephotos is running and handling SSL certs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For installing caddy web server and how it handles SSL read.my blogpost &lt;a class=&#34;link&#34; href=&#34;http://depl0yed.herokuapp.com/blog/caddy2&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In our example all you need to do is edit the Caddyfile&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;libre.duckdns.org { reverse_proxy localhost:3000}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To it&lt;/p&gt;
+&lt;p&gt;And restart caddy&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl restart caddy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assuming your domain is libre.duckdns.org and librephotos is running in 3000 port&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker and docker-compose plus python&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To install docker on raspberry&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;gt;curl -fsSL https://get.docker.com -o get-docker.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Then&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;gt;sudo sh get-docker.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To install docker-compose&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo pip3 -v install docker-compose&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Guide&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;get librephotos server running on your raspberry&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.librephotos.com/1/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Clone the repo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/LibrePhotos/librephotos-docker.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;CD to the folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd librephotos-docker&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Copy .env template&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cp librephotos.env .env&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Edit it&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano .env&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Location of your photos.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;myPhotos=/run/media/user/TOSHIBA/photos/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The photos folder filepath
+e.g.
+assuming you store your photos on an external Toshiba drive&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Comma delimited list of patterns to ignore
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;skipPatterns=.json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;If you have file types you want to skip scan&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# The location where you would like to store the log files. The full path must exist as it will not be created for you.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;logLocation=/run/media/user/TOSHIBA/uhuru-logs          
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Again I use my external drive as the logs location to be stored&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Protected media directory. This is where we store some files like the thumbnails of your images.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;proMedia=/run/media/ippo/TOSHIBA/media
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Thumbnails folder again on external drive&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Where shall we store the cache files.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cachedir=/run/media/ippo/TOSHIBA/cache
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Cache files , same&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbLocation=/run/media/ippo/TOSHIBA/uhuru-db
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Database filepath , same&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Username for the Administrator login.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;username=user
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Your username&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Password for the administrative user you set above.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;userPass=pass
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Your password&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Secret Key. Get one here https://rb.gy/emgmwo (Shortened random.org link)             
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Secret Key. Get one here https://rb.gy/emgmwo (Shortened random.org link)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;shhhhKey=globefish-goes-here
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Generate a key from the link and paste here .used to encrypt the db&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#What port should Libre Photos be accessed at (Default 3000)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;httpPort=3333
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Just use an available port on your raspberry
+You can scan for used ports with nmap&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo nmap -sT -p- 192.168.1.x&lt;/code&gt;
+Where 192.168.1.x your your raspberry lan ip
+Use a not used port&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Get a Map box API Key https://account.mapbox.com/auth/signup/   
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Get a Map box API Key https://account.mapbox.com/auth/signup/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mapApiKey=pk.yourmapboxkey
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;sign up at mapbox and get an api . mapbox is optional and alternative to google maps&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# What branch should we install the latest weekly build or the development branch (dev)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tag=dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Choose your branch latest (weekly) or dev (rolling)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# You can set the database name. Did you know Libre Photos was forked from OwnPhotos?
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbName=librephotos
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Your dB name&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Here you can change the user name for the database.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbUser=docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;DB username&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# The password used by the database.                              
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dbPass=pass
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;DB password&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Number of workers, which take care of the request to the api. This setting can dramatically affect the ram usage.     
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# A positive integer generally in the 2-4 x $(NUM_CORES) range.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# You’ll want to vary this a bit to find the best for your particular workload.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Each worker needs 800MB of RAM. Change at your own will. Default is 2.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gunniWorkers=2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Number of workers that handles api requests (talk with the android client&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Number of workers, when scanning pictures. This setting can dramatically affect the ram usage.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Each worker needs 800MB of RAM. Change at your own will. Default is 1.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HEAVYWEIGHT_PROCESS=2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Number of workers that handles the photo scans
+I found fit for my RPI400 to use 2 workers for both cases&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Start containers&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The docker-compose.yml is filed with our env vars from the .env file
+you can review it&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cat docker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Run the containers as daemons&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;App is available at localhost:3333  or otherwise specified port (default 3000)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;note that librephotos api needs the folder contaning the ohotos to have 7 permissions for others&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;sudo chmod 777 -R ~/photos&lt;/code&gt; is what i did&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update images&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;CD to librephotos-docker folder and Stop containers&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose down&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Pull the new images&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose pull&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And re-compose&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;some remarks&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For face classification you&amp;rsquo;ll have to access the webui tag some pics and name some faces and then train it&lt;/p&gt;
+&lt;p&gt;then you can verify/add from the infered tab&lt;/p&gt;
+&lt;p&gt;Auto import from phone to an import folder and then auto organise them to folders by year month day and move them to at image library .
+Then scan our library with librephotos&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;periodic postgres backups (snapshots) and restore&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;create a folder to store the backups&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir db-backup&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;cd to the folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd db-backup&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Grab postgres container id&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker ps&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;e.g.40b12de38945&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Backup&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;the command should look like:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker exec -t your-db-container pg_dumpall -c -U your-db-user &amp;gt; dump_$(date +%Y-%m-%d_%H_%M_%S).sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;your-db-container is the postgres contaimer id&lt;/p&gt;
+&lt;p&gt;your-db-user is docker in .env&lt;/p&gt;
+&lt;p&gt;unless it was changed&lt;/p&gt;
+&lt;p&gt;A file like dump_20-11-2022_00_55_26.sql is created&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Restore&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cat your_dump.sql | docker exec -i your-db-container psql -U your-db-user -d your-db-name&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;again&lt;/p&gt;
+&lt;p&gt;your-db-container is the postgres contaimer id&lt;/p&gt;
+&lt;p&gt;your-db-user is docker in .env unless it was changed&lt;/p&gt;
+&lt;p&gt;your-db-name is librephotos in the .env unless it was changed&lt;/p&gt;
+&lt;p&gt;so in our example the command should be&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cat dump_20-11-2022_00_55_26.sql | docker exec -i 40b12de38945 psql -U docker -d librephotos&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add the backup command&lt;/p&gt;
+&lt;p&gt;to a crontab and take db snapshots @daily , @weekly etc&lt;/p&gt;
+&lt;p&gt;e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@weekly docker exec -t 40b12de38945 pg_dumpall -c -U docker &amp;gt; /path/to/where/you/save/your/backups/dump_$(date +%Y-%m-%d_%H_%M_%S).sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;another idea is to scan periodicaly the db backup folder and delete very old backups to keep size at a minimum&lt;/p&gt;
+&lt;p&gt;you can do this with find , ntime and rm&lt;/p&gt;
+&lt;p&gt;e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;find /path/to/where/you/save/your/backups -type f -mtime +30 -exec rm -f {} \;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;this will delete entries older than 30 days in that folder&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;auto import from phone&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;note that the android app aims to add auto upload but atm it is not available.
+the bellow procedure will be unnecesery when auto upload becomes available&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;needs a webdav server e.g. webdav nononsense docker image. Read my &amp;ldquo;webdav&amp;rdquo; post about running a webdav server on raspberry&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://depl0yed.herokuapp.com/blog/webdav&amp;#43;&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;create a folder named photoimport and chmod 777 it&lt;/p&gt;
+&lt;p&gt;For syncing I use foldersync android app it is a paid app but its the best for the job and you can sync with the full featured&lt;/p&gt;
+&lt;p&gt;free version just fine if you can stand some adds&lt;/p&gt;
+&lt;p&gt;Also the Dev can provide app licence for 3 devices outside the playstore for devices without google services&lt;/p&gt;
+&lt;p&gt;worth the money&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.tacit.dk/foldersync&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;app settings&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On foldersync android app add account
+select webdav
+add your webdav ddns https url , username and password&lt;/p&gt;
+&lt;p&gt;On folderpairs add a pair&lt;/p&gt;
+&lt;p&gt;In general tab&lt;/p&gt;
+&lt;p&gt;On local select your dcim folder&lt;/p&gt;
+&lt;p&gt;On remote select photoimport folder&lt;/p&gt;
+&lt;p&gt;On sync type sect &amp;ldquo;to remote&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;On scheduling tab
+enable scheduled sync daily&lt;/p&gt;
+&lt;p&gt;On sync options tab
+enable sync subfolders&lt;/p&gt;
+&lt;p&gt;On advanced tab
+enable retry sync
+and disable temp file scheme
+Also on &amp;ldquo;one way sync options&amp;rdquo; enable &amp;ldquo;only resync source if modified (ignore target deletion)
+As we are gonna move the files from target folder (photoimport folder) to our photo gallery after we organise them with exit tool.&lt;/p&gt;
+&lt;p&gt;On conection tab
+as desired but i guess it makes.sense to sync only.on wifi&lt;/p&gt;
+&lt;p&gt;On notification
+enble all&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;auto organise with exif tool&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;download and install exiftool for unix from&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://exiftool.org/index.html&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;gzip -dc Image-ExifTool-12.42.tar.gz | tar -xf -&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd Image-ExifTool-12.42&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;perl Makefile.PL&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make test&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo make install&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The exiftool command should be like&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;exiftool &#39;-Directory&amp;lt;CreateDate&#39; -d /destination/directory/%Y/%m   /source/directory&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;we can create a script that runs this command&lt;/p&gt;
+&lt;p&gt;Later we will call this script in a crontab&lt;/p&gt;
+&lt;p&gt;directly executing exiftool in crontab fails&lt;/p&gt;
+&lt;p&gt;So&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano exiftool-photos.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and paste&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;sudo /usr/bin/site_perl/exiftool &lt;span class=&#34;s1&#34;&gt;&amp;#39;-Directory&amp;lt;CreateDate&amp;#39;&lt;/span&gt; -d /run/media/ippo/TOSHIBA/photos/%Y/%m  /run/media/ippo/TOSHIBA/photoimport&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Added a hashbag in the beginning of the script and calling the full path of the exiftool executable&lt;/p&gt;
+&lt;p&gt;Then create a cron job&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;export VISUAL=nano; crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And paste&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# Every day at 2 AM 0 2 * * * bash /home/ippo/photos-exif.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Or the full path of where ever your script is&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Autoscan server for new photos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The docker command is&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo docker exec --user root CONTAINER_NAME python3 manage.py scan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;CONTAINER_NAME is the librephotos backend
+you can get it with&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker ps&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;it should be&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;brephotos-docker-backend-1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;in this case the command is&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo docker exec --user root brephotos-docker-backend-1 python3 manage.py scan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We can create a cron job to regularly call this command&lt;/p&gt;
+&lt;p&gt;Create a new crontab with nano&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;export VISUAL=nano; crontab -e&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And paste&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# Every day at 3 AM 0 3 * * * sudo docker exec --user root brephotos-docker-backend-1 python3 manage.py scan &amp;gt;/dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;timeline&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Our photos are transfered directly  from our phone to the photoimport folder  as long as we are connected to WiFi (or any network)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;organised to y/m/d and moved to image library every day at 2&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;image library scaned from librephotos everyday at 3&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Android app&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Uhuruphotos
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/savvasdalkitsis/uhuruphotos-android&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub project link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As stated there&lt;/p&gt;
+&lt;p&gt;The app is currently in closed beta on the Google Play store.
+You have to Contact the Dev  on twitter for access and playstore link.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://twitter.com/geeky_android&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Twitter link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;*update:&lt;/p&gt;
+&lt;p&gt;for installs uotside the playstore apk releases are available at  &lt;a class=&#34;link&#34; href=&#34;https://github.com/savvasdalkitsis/uhuruphotos-android/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;About the app&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;While still early days, it already has a lot of features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Photo feed with multiple views which can be changed by pinch to zoom gestures&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Multiple select in feed to share/delete multiple items at once&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Periodic background synchronization with LibrePhotos server&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Photo details view with information like date, location, gps map, people view, sharing, adding/removing&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;from favourites (synced with LibrePhotos server)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Video details view with all the above features and video playback&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Search your photos using LibrePhotos&amp;rsquo; search engine. Get search suggestions based on your photos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;People view and suggestions for people with most photos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Photo map. See a heatmap of your photos. Navigate around the globe with the interactive map and see photos taken&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;in the location currently viewed.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;User created and auto generated albums from LibrePhotos&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Dark/Light mode (manual and auto)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Tablet support&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A lot of settings to help you control the app storage and memory requirements along with how frequently to perform synchronization&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;with the LibrePhotos server.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;up to 2GB of images cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;up to 2GB of video cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fingerprint authentication to lock the app&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As mentioned above, a lot of features will soon be implemented before the full public release, mainly:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Local photo support. This will make UhuruPhotos a viable Google Photos alternative which can be used as your primary camera roll viewer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Backup/Sync local images with librephotos server. Take control of your data by never having to worry about photo backups.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Basic photo editing capabilities.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Biometric authentication&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;all you need to access your photos is your dynamic dns subdomain through which you access your server
+libre.duckdns.org in our example
+the libre photos user name and password as provided in the .env file when composing it&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Joplin Notes Webview</title>
+        <link>https://ippocratis.github.io/p/joplin/</link>
+        <pubDate>Sun, 11 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/joplin/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/joplin/Joplin-logo-wide.png" alt="Featured image of post Joplin Notes Webview" /&gt;&lt;p&gt;Joplin provides an appimage for linux distros&lt;/p&gt;
+&lt;p&gt;I found this heavy on resources to use on a raspberrypi&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/joplin-vieweb/joplin-vieweb&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Joplin-webview&lt;/a&gt; is an unofficial webui frontent for the official &lt;a class=&#34;link&#34; href=&#34;https://joplinapp.org/terminal/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;terminal app&lt;/a&gt; and packed to a docker container
+simple to setup and deploy.&lt;/p&gt;
+&lt;p&gt;Strangely it is not listed on the &lt;a class=&#34;link&#34; href=&#34;https://discourse.joplinapp.org/t/unofficial-alternative-joplin-distributions/23703&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;unofficial clients&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir joplin-vieweb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd joplin-vieweb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nano doccker-compose.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;version: &amp;#39;3.4&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;x-common-variables: &amp;amp;common-variables
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ORIGINS: &amp;#34;&amp;#39;http://localhost&amp;#39;, &amp;#39;http://192.168.1.24&amp;#39; , &amp;#39;https://my-ddns-domain.com&amp;#39;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  django-joplin-vieweb:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: gri38/django-joplin-vieweb:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    depends_on:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-terminal-xapi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &amp;lt;&amp;lt;: *common-variables
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - xxxx:8000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin:/root/.config/joplin:ro
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-vieweb:/root/.config/joplin-vieweb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin-terminal-xapi:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: gri38/joplin-terminal-xapi:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin:/root/.config/joplin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - joplin-net
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin-vieweb:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  joplin-net: {}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Then&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose up -d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;first you set up url/admin and then login to url/joplin
+mind the /admin and /joplin&lt;/p&gt;
+&lt;p&gt;navigate to
+http://localhost:xxx/admin
+or &lt;a class=&#34;link&#34; href=&#34;http://192.168.1.xx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://192.168.1.xx&lt;/a&gt;:xxx/admin
+or &lt;a class=&#34;link&#34; href=&#34;https://my-ddns-domain.com/admin&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://my-ddns-domain.com/admin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;change password
+add user
+logout&lt;/p&gt;
+&lt;p&gt;navigate to
+http://localhost:xxx/joplin
+or &lt;a class=&#34;link&#34; href=&#34;http://192.168.1.xx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://192.168.1.xx&lt;/a&gt;:xxx/joplin
+or &lt;a class=&#34;link&#34; href=&#34;https://my-ddns-domain.com/joplin&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://my-ddns-domain.com/joplin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;go to settings
+on sync select nextcloud if you use nextcloud but it actually works with webdav shares too
+i.g. you know how to use nextcloud url&amp;rsquo;s
+For webdav you just create a dir and use that dir as your joplin data
+Just use the actual dir that stores your joplin data&lt;/p&gt;
+&lt;p&gt;Add your webdav/nexttcloud username and password and test then sync&lt;/p&gt;
+&lt;p&gt;After sync you have to to decrypt the notes&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker exec -ti joplin-vieweb_joplin-terminal-xapi_1 joplin e2ee decrypt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Thats all&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Owntracks</title>
+        <link>https://ippocratis.github.io/p/owntracks/</link>
+        <pubDate>Tue, 06 Sep 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/owntracks/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/owntracks/gpstracker.png" alt="Featured image of post Owntracks" /&gt;&lt;p&gt;Dockerised Owntracks recorder&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What is it:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OwnTracks allows you to keep track of your own location. You can build your private location diary.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;how:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An android app sends location in fixed intervals to the owntracks server&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DDNS:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You&amp;rsquo;ll need a free subdomain name and redirect that to your localhost port owntracks is running
+Get one from freedns,ydns,duckdns etc
+You&amp;rsquo;ll also need a cronjob to auto update you ip&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Caddyfile:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Reverse proxy with basic auth and auto-ssl&lt;/p&gt;
+&lt;p&gt;Get hash:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;caddy hash-password --plaintext your_password_here
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Caddyfile:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;recorder.example.com {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; encode gzip
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; reverse_proxy http://localhost:8083
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; basicauth * {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ippo your_password_hash_here
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Mary your_password_hash_here
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Docker&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The docker-compose.yml&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;version: &amp;#39;3&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  otrecorder:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    container_name: ot-recorder
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    image: jessestuart/owntracks
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - OTR_PORT=0  # disables MQTT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /etc/localtime:/etc/localtime:ro
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/owntracks-recorder/config:/config
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - /run/media/ippo/TOSHIBA/owntracks-recorder/store:/owntracks/recorder/store
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      - 8083:8083
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restart: unless-stopped
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;Note that the jessestuart/owntracks image was used as owntracks provide no arm64 image also there are build instructions but with lots of dependencies&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Android client (for sending location to server)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With gservices dependencies&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.f-droid.org/el/packages/org.owntracks.android/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.f-droid.org/el/packages/org.owntracks.android/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;And without&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.f-droid.org/el/packages/org.nexttracks.android/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.f-droid.org/el/packages/org.nexttracks.android/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;setup:&lt;/p&gt;
+&lt;p&gt;Mode: HTTP&lt;/p&gt;
+&lt;p&gt;Host:https://example.com/pub&lt;/p&gt;
+&lt;p&gt;Identification:&lt;/p&gt;
+&lt;p&gt;Username: yourname&lt;/p&gt;
+&lt;p&gt;Password: non-hashed-password&lt;/p&gt;
+&lt;p&gt;Device ID: phone&lt;/p&gt;
+&lt;p&gt;Tracker ID: YN&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Launch from any browser&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Format geojson = dots,  linestring = trails,  period = from ymd till ymd&lt;/p&gt;
+&lt;p&gt;e.g.
+&lt;a class=&#34;link&#34; href=&#34;https://recorder.example.com/map/index.html?user=username&amp;amp;device=phone&amp;amp;format=linestring&amp;amp;from=2022-09-02&amp;amp;till=2022-09-03&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://recorder.example.com/map/index.html?user=username&amp;device=phone&amp;format=linestring&amp;from=2022-09-02&amp;till=2022-09-03&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        <item>
+        <title>Find My Device</title>
+        <link>https://ippocratis.github.io/p/fmd/</link>
+        <pubDate>Thu, 26 Aug 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/p/fmd/</guid>
+        <description>&lt;img src="https://ippocratis.github.io/p/fmd/fmd.png" alt="Featured image of post Find My Device" /&gt;&lt;p&gt;image: fmd.png&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe_Ub3w9KCzEEh1sIODNqHkqHsgRNvfz6RMQ&amp;amp;usqp=CAU&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;find my devide&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It&amp;rsquo;s an open source app that  remote controls by sms and server the android device by means of &amp;raquo;
+getting the curent location, the location history,make it ring,get stats,or completely wipe/factory rreset it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;here we will see how to selfhost the server that handles tge web interface&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;requires go lang installed on the host machine&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;i had to install it over aur on manjaro arm&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo pacman -S yay&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yay install -S go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;debian&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install golang-go &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;or if you dont like package manager from source&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://golang.org/doc/install&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;clone the repo&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;git clone https://gitlab.com/Nulide/findmydeviceserver.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;or download and extract the source&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://gitlab.com/Nulide/findmydeviceserver/-/releases&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;navigate on the apropriate cloned/extracted folder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;cd ~/findmydeviceserver/src&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;build the project&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo go build fmdserver.go&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;test that it runs smooth&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;~/findmydeviceserver/src/fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;navigate to localhost:1020&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;stop the server&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;ctrl + c&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;edit the .service file&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;nano etc/systemd/system/fmdserver.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;replace the executable filepath&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ExecStart=/home/user/findmydeviceserver/src/fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;filepath have to be ansolute . replace user with your username&lt;/p&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;copy file to systemd&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo cp /home/ippo/findmydeviceserver/src/etc/systemd/system/fmdserver.service /usr/lib/systemd/system/fmdserver.service&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;start the service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl start fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;11&#34;&gt;
+&lt;li&gt;enable the service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo systemctl enable fmdserver&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;12&#34;&gt;
+&lt;li&gt;for https i am using caddy and reverse proxying the unsecure 1020 port with another port as caddy adds automaticly the certificate and encryption&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;sudo nano /etc/caddy/Caddyfile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;your.domain.name:an.open.router.port { reverse_proxy localhost:1020 }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;so if lets say you have a ddns names ippo.cratis.net and have opened 8000 port on your router and port forwording that port on your raspberry/linux machine that caddyfile should look like&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ippo.cratis.net:8000 { reverse_proxy localhost:1020 } &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;now you can saffely access your fmd server froom ippo.cratis.net:8000&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='photoprism
+-&amp;gt; photoprism is a selfhosted photo management application.
+-&amp;gt; It is docker ready with a very rich config -&amp;gt; Raspberry pi ready
+-&amp;gt; offers a number of categorizations eg infinite timeline but google photos, original folder structure, year-month-date, map, but also tensorflow object categorization
+-&amp;gt; Progressive web app structure -&amp;gt; Comunity android app that solves some caching &amp;amp; reloading issues of the web app as well as offers an experimental auto upload'><title>install photoprism image gallery</title>
+
+<link rel='canonical' href='https://ippocratis.github.io/p/install-photoprism-image-gallery/'>
+
+<link rel="stylesheet" href="/scss/style.min.ac77dcf8b111b51da39a92990f431923f210f3876d85798a2125667f96dc33a4.css"><meta property='og:title' content='install photoprism image gallery'>
+<meta property='og:description' content='photoprism
+-&amp;gt; photoprism is a selfhosted photo management application.
+-&amp;gt; It is docker ready with a very rich config -&amp;gt; Raspberry pi ready
+-&amp;gt; offers a number of categorizations eg infinite timeline but google photos, original folder structure, year-month-date, map, but also tensorflow object categorization
+-&amp;gt; Progressive web app structure -&amp;gt; Comunity android app that solves some caching &amp;amp; reloading issues of the web app as well as offers an experimental auto upload'>
+<meta property='og:url' content='https://ippocratis.github.io/p/install-photoprism-image-gallery/'>
+<meta property='og:site_name' content='Depl0yed'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='og:image' content='https://ippocratis.github.io/prism.jpg' />
+<meta name="twitter:title" content="install photoprism image gallery">
+<meta name="twitter:description" content="photoprism
+-&amp;gt; photoprism is a selfhosted photo management application.
+-&amp;gt; It is docker ready with a very rich config -&amp;gt; Raspberry pi ready
+-&amp;gt; offers a number of categorizations eg infinite timeline but google photos, original folder structure, year-month-date, map, but also tensorflow object categorization
+-&amp;gt; Progressive web app structure -&amp;gt; Comunity android app that solves some caching &amp;amp; reloading issues of the web app as well as offers an experimental auto upload"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ippocratis.github.io/prism.jpg' />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53T8RWZ8BR"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-53T8RWZ8BR', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hue27fa0595436520d69d01a95cf7f15e5_36931_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Depl0yed</a></h1>
+            <h2 class="site-description">Self Host Use Foss and Drop Google</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://medium.com/@i.pyrgiotis'
+                        target="_blank"
+                        title="Medium"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <path d="M8 9h1l3 3l3 -3h1" />
+  <line x1="8" y1="15" x2="10" y2="15" />
+  <line x1="14" y1="15" x2="16" y2="15" />
+  <line x1="9" y1="9" x2="9" y2="15" />
+  <line x1="15" y1="9" x2="15" y2="15" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/ippossackofhacks'
+                        target="_blank"
+                        title="Telegram"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/abut/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/install-photoprism-image-gallery/">
+                
+                    <img src="/prism.jpg" loading="lazy" alt="Featured image of post install photoprism image gallery" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/install-photoprism-image-gallery/">install photoprism image gallery</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><strong>photoprism</strong></p>
+<p>-&gt; photoprism is a selfhosted photo management application.</p>
+<p>-&gt; It is docker ready with a very rich config
+-&gt; Raspberry pi ready</p>
+<p>-&gt; offers a number of categorizations eg infinite timeline but google photos, original folder structure, year-month-date, map, but also tensorflow object categorization</p>
+<p>-&gt; Progressive web app structure
+-&gt; Comunity android app that solves some caching &amp; reloading issues of the web app as well as offers an experimental auto upload</p>
+<p>-&gt; It is webdav ready and you can both attach your collection to any file manager that supports it and to nextcloud but the most important thing is that with it you can automatically upload your photos using a webdav client from your phone and also sync automatically to your library</p>
+<p>-&gt; Indexing options both manual with command from the web ui but also using import folder</p>
+<p><strong>links</strong></p>
+<p><a class="link" href="https://photoprism.app/"  target="_blank" rel="noopener"
+    >main site</a></p>
+<p><a class="link" href="https://demo.photoprism.org/browse"  target="_blank" rel="noopener"
+    >demo site</a></p>
+<p><a class="link" href="https://docs.photoprism.org/"  target="_blank" rel="noopener"
+    >documentation</a></p>
+<p>** install **</p>
+<p>Follow the installation instructions for rpi from <a class="link" href="https://docs.photoprism.org/getting-started/raspberry-pi/"  target="_blank" rel="noopener"
+    >here</a></p>
+<p>We create a work folder</p>
+<p><code>mkdir photoprism</code></p>
+<p>and enter the folder</p>
+<p><code>cd photoprism</code></p>
+<p>we download the doker-compose.yml file based on which we will create the docker container</p>
+<p><code>wget https: // dl.photoprism.org / docker / arm64 / docker-compose.yml</code></p>
+<p>and open it for editing</p>
+<p><code>nano docker-compose.yml</code></p>
+<ul>
+<li>I copy its content here</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">version: &#39;3.5&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Example Docker Compose config file for PhotoPrism (Raspberry Pi / ARM64)
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl"># Documentation : https://docs.photoprism.org/getting-started/raspberry-pi/
+</span></span><span class="line"><span class="cl"># Docker Hub URL: https://hub.docker.com/r/photoprism/photoprism-arm64/
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl"># Please run behind a reverse proxy like Caddy, Traefik or Nginx if you need HTTPS / SSL support
+</span></span><span class="line"><span class="cl"># e.g. when running PhotoPrism on a public server outside your home network.
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl"># -------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"># DOCKER COMPOSE COMMAND REFERENCE
+</span></span><span class="line"><span class="cl"># -------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"># Start    | docker-compose up -d
+</span></span><span class="line"><span class="cl"># Stop     | docker-compose stop
+</span></span><span class="line"><span class="cl"># Update   | docker-compose pull
+</span></span><span class="line"><span class="cl"># Logs     | docker-compose logs --tail=25 -f
+</span></span><span class="line"><span class="cl"># Terminal | docker-compose exec photoprism bash
+</span></span><span class="line"><span class="cl"># Help     | docker-compose exec photoprism photoprism help
+</span></span><span class="line"><span class="cl"># Config   | docker-compose exec photoprism photoprism config
+</span></span><span class="line"><span class="cl"># Reset    | docker-compose exec photoprism photoprism reset
+</span></span><span class="line"><span class="cl"># Backup   | docker-compose exec photoprism photoprism backup -a -i
+</span></span><span class="line"><span class="cl"># Restore  | docker-compose exec photoprism photoprism restore -a -i
+</span></span><span class="line"><span class="cl"># Index    | docker-compose exec photoprism photoprism index
+</span></span><span class="line"><span class="cl"># Reindex  | docker-compose exec photoprism photoprism index -a
+</span></span><span class="line"><span class="cl"># Import   | docker-compose exec photoprism photoprism import
+</span></span><span class="line"><span class="cl"># -------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"># Note: All commands may have to be prefixed with &#34;sudo&#34; when not running as root.
+</span></span><span class="line"><span class="cl">#       This will change the home directory &#34;~&#34; to &#34;/root&#34; in your configuration.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  photoprism:
+</span></span><span class="line"><span class="cl">    # Use photoprism/photoprism-arm64:preview instead for testing preview builds:
+</span></span><span class="line"><span class="cl">    image: photoprism/photoprism-arm64:latest
+</span></span><span class="line"><span class="cl">    container_name: photoprism
+</span></span><span class="line"><span class="cl">    # Only enable automatic restarts once your installation is properly
+</span></span><span class="line"><span class="cl">    # configured as it otherwise may get stuck in a restart loop:
+</span></span><span class="line"><span class="cl">    # https://docs.photoprism.org/getting-started/faq/#why-is-photoprism-getting-stuck-in-a-restart-loop
+</span></span><span class="line"><span class="cl">    # restart: unless-stopped
+</span></span><span class="line"><span class="cl">    security_opt:
+</span></span><span class="line"><span class="cl">      - seccomp:unconfined
+</span></span><span class="line"><span class="cl">      - apparmor:unconfined
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 2342:2342 # [local port]:[container port]
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_ADMIN_PASSWORD: &#34;insecure&#34;          # PLEASE CHANGE: Your initial admin password (min 4 characters)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_ORIGINALS_LIMIT: 1000               # File size limit for originals in MB (increase for high-res video)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_HTTP_COMPRESSION: &#34;none&#34;            # Improves transfer speed and bandwidth utilization (none or gzip)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_WORKERS: 2                          # Limits the number of indexing workers to reduce system load
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DEBUG: &#34;false&#34;                      # Run in debug mode (shows additional log messages)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_PUBLIC: &#34;false&#34;                     # No authentication required (disables password protection)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_READONLY: &#34;false&#34;                   # Don&#39;t modify originals directory (reduced functionality)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_EXPERIMENTAL: &#34;false&#34;               # Enables experimental features
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DISABLE_WEBDAV: &#34;false&#34;             # Disables built-in WebDAV server
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DISABLE_SETTINGS: &#34;false&#34;           # Disables Settings in Web UI
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DISABLE_TENSORFLOW: &#34;false&#34;         # Disables using TensorFlow for image classification
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DARKTABLE_PRESETS: &#34;true&#34;           # Enables Darktable presets and disables concurrent RAW conversion
+</span></span><span class="line"><span class="cl">      # PHOTOPRISM_FFMPEG_ENCODER: &#34;h264_v4l2m2m&#34;    # FFmpeg AVC encoder for video transcoding (default: libx264)
+</span></span><span class="line"><span class="cl">      # PHOTOPRISM_FFMPEG_BUFFERS: &#34;64&#34;              # FFmpeg capture buffers (default: 32)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DETECT_NSFW: &#34;false&#34;                # Flag photos as private that MAY be offensive
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_UPLOAD_NSFW: &#34;true&#34;                 # Allow uploads that MAY be offensive
+</span></span><span class="line"><span class="cl">      # PHOTOPRISM_DATABASE_DRIVER: &#34;sqlite&#34;         # SQLite is an embedded database that doesn&#39;t require a server
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DATABASE_DRIVER: &#34;mysql&#34;            # Use MariaDB (or MySQL) instead of SQLite for improved performance
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DATABASE_SERVER: &#34;mariadb:3306&#34;     # MariaDB database server (hostname:port)
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DATABASE_NAME: &#34;photoprism&#34;         # MariaDB database schema name
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DATABASE_USER: &#34;photoprism&#34;         # MariaDB database user name
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_DATABASE_PASSWORD: &#34;insecure&#34;       # MariaDB database user password
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_SITE_URL: &#34;http://localhost:2342/&#34;  # Public PhotoPrism URL
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_SITE_TITLE: &#34;PhotoPrism&#34;
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_SITE_CAPTION: &#34;Browse Your Life&#34;
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_SITE_DESCRIPTION: &#34;&#34;
+</span></span><span class="line"><span class="cl">      PHOTOPRISM_SITE_AUTHOR: &#34;&#34;
+</span></span><span class="line"><span class="cl">      # You may optionally set a user / group id using environment variables if your Docker version or NAS does not
+</span></span><span class="line"><span class="cl">      # support this natively (see next example):
+</span></span><span class="line"><span class="cl">      # UID: 1000
+</span></span><span class="line"><span class="cl">      # GID: 1000
+</span></span><span class="line"><span class="cl">      # UMASK: 0000
+</span></span><span class="line"><span class="cl">    # Uncomment and edit the following line to set a specific user / group id (native):
+</span></span><span class="line"><span class="cl">    # user: &#34;1000:1000&#34;
+</span></span><span class="line"><span class="cl">    # For hardware AVC transcoding using the h264_v4l2m2m encoder:
+</span></span><span class="line"><span class="cl">    # devices:
+</span></span><span class="line"><span class="cl">    #  - &#34;/dev/video11:/dev/video11&#34;
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      # Your photo and video files ([local path]:[container path]):
+</span></span><span class="line"><span class="cl">      - &#34;~/Pictures:/photoprism/originals&#34;
+</span></span><span class="line"><span class="cl">      # Multiple folders can be indexed by mounting them as sub-folders of /photoprism/originals:
+</span></span><span class="line"><span class="cl">      # - &#34;/mnt/Family:/photoprism/originals/Family&#34;    # [folder_1]:/photoprism/originals/[folder_1]
+</span></span><span class="line"><span class="cl">      # - &#34;/mnt/Friends:/photoprism/originals/Friends&#34;  # [folder_2]:/photoprism/originals/[folder_2]
+</span></span><span class="line"><span class="cl">      # Mounting an import folder is optional (see docs):
+</span></span><span class="line"><span class="cl">      # - &#34;~/Import:/photoprism/import&#34;
+</span></span><span class="line"><span class="cl">      # Permanent storage for settings, index &amp; sidecar files (DON&#39;T REMOVE):
+</span></span><span class="line"><span class="cl">      - &#34;./storage:/photoprism/storage&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  mariadb:
+</span></span><span class="line"><span class="cl">    image: arm64v8/mariadb:10.5
+</span></span><span class="line"><span class="cl">    container_name: mariadb
+</span></span><span class="line"><span class="cl">    restart: unless-stopped
+</span></span><span class="line"><span class="cl">    security_opt:
+</span></span><span class="line"><span class="cl">      - seccomp:unconfined
+</span></span><span class="line"><span class="cl">      - apparmor:unconfined
+</span></span><span class="line"><span class="cl">    command: mysqld --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=50
+</span></span><span class="line"><span class="cl">    volumes: # Don&#39;t remove permanent storage for index database files!
+</span></span><span class="line"><span class="cl">      - &#34;./database:/var/lib/mysql&#34;
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      MYSQL_ROOT_PASSWORD: please_change
+</span></span><span class="line"><span class="cl">      MYSQL_DATABASE: photoprism
+</span></span><span class="line"><span class="cl">      MYSQL_USER: photoprism
+</span></span><span class="line"><span class="cl">      MYSQL_PASSWORD: insecure
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Uncomment the following lines to upgrade automatically, whenever there is a new Docker image available:
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl">#  watchtower:
+</span></span><span class="line"><span class="cl">#    image: containrrr/watchtower
+</span></span><span class="line"><span class="cl">#    container_name: watchtower
+</span></span><span class="line"><span class="cl">#    restart: unless-stopped
+</span></span><span class="line"><span class="cl">#    environment:
+</span></span><span class="line"><span class="cl">#      WATCHTOWER_CLEANUP: &#34;true&#34;
+</span></span><span class="line"><span class="cl">#      WATCHTOWER_POLL_INTERVAL: 7200 # Checks for updates every two hours
+</span></span><span class="line"><span class="cl">#    volumes:
+</span></span><span class="line"><span class="cl">#      - &#34;/var/run/docker.sock:/var/run/docker.sock&#34;
+</span></span><span class="line"><span class="cl">#      - &#34;~/.docker/config.json:/config.json&#34; # Optional, for authentication if you have a Docker Hub account
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We confirm that</p>
+<ul>
+<li>
+<p>the image is photoprism-arm64: latest</p>
+</li>
+<li>
+<p>that the restart is unless-stoped (we can turn it to always after making sure that our config works)</p>
+</li>
+<li>
+<p>in the port the default port that makes expose is 2342 we can change it but we make sure to change PHOTOPRISM_HTTP_PORT in enviromet</p>
+</li>
+<li>
+<p>also in the enviroment from the number of config it contains, we change at least the:</p>
+<p>PHOTOPRISM_ADMIN_PASSWORD:</p>
+<p>PHOTOPRISM_DATABASE_PASSWOD:</p>
+</li>
+</ul>
+<p>workers not more than 2</p>
+<ul>
+<li>
+<p>In addition to what .yml contains I have personally added to
+PHOTOPRISM_AUTO_INDEX at 60 sec which is the time after which the automatic synchronization of the originals (of our library) starts after the upload from webdav</p>
+</li>
+<li>
+<p>complete list of available enviromental variables and what each one does <a class="link" href="https://docs.photoprism.org/getting-started/config-options/"  target="_blank" rel="noopener"
+    >here</a></p>
+</li>
+<li>
+<p>in volumes we map the filepath of the folder that contains our photos</p>
+</li>
+</ul>
+<p><code>photo / file / path: / photoprism / originals</code></p>
+<ul>
+<li>we can add many folders as subfolders of originals</li>
+</ul>
+<p><code>&quot; / mnt / Family: / photoprism / originals / Family &quot;</code></p>
+<ul>
+<li>and map an import folder</li>
+</ul>
+<p><code>&quot; file / path / to / Import: / photoprism / import &quot;</code></p>
+<ul>
+<li>but also the storage folder with the index &amp; sidecar files files</li>
+</ul>
+<p><code>&quot; file / path / to / storage: / photoprism / storage &quot;</code></p>
+<ul>
+<li>
+<p>the latter will become quite large in size and it is good to choose an external hard drive. Personally I have all the filepaths on an external hard drive</p>
+</li>
+<li>
+<p>in mariadb enviroment we change MYSQL_ROOT_PASSWORD:</p>
+</li>
+</ul>
+<p>** securing **</p>
+<p>In the official documentation there are examples with all the popular reverse proxies to protect the port that exposes your photoprism behind it as well as to add an ssl certificate and make the connection encrypted</p>
+<p>I personally use caddy since it is very simple adding to / etc / caddy / Caddyfile</p>
+<blockquote>
+<p>example.com:port {</p>
+</blockquote>
+<pre><code>&gt; reverse_proxy localhost: 2342
+</code></pre>
+<blockquote>
+<p>}</p>
+</blockquote>
+<p>where example.com:port my ddns domain and a port forworded port on the router dedicated to photoprism eg 8888</p>
+<p>The caddy automatically adds ssl cert you do not need to get it yourself from certbot nor do automatic updates it does all this</p>
+<p>This particular config domain: port may seem strange since the most logical would be a ddns domain dedicated to photoprism and generally a domain name per service running on the server (raspberry) eg <a class="link" href="https://ippokratis.photoprism.duck.net"  target="_blank" rel="noopener"
+    >https://ippokratis.photoprism.duck.net</a> at 443 and caddy to redirect to localhost
+The reason is that both the router and the wind router are locked and you can only use one ddns address
+I mention it because it&rsquo;s probably interesting</p>
+<p>Photoprism has one lerning curve until you get acquainted with its options
+the official documentation is informative <a class="link" href="https://docs.photoprism.org/user-guide/"  target="_blank" rel="noopener"
+    >here</a>)
+the key points I want to dwell on
+(differences import and originals <a class="link" href="https://docs.photoprism.org/user-guide/library/import-vs-index/"  target="_blank" rel="noopener"
+    >here</a>)
+In the originals inside the container, all the folders with your photos have been mapped
+Import (optional) is a folder where uploads and webdav sync go if you select it. It is a temporary folder from which the photos are copied to the folder of originals after they become (automatically) indexed. They are also copied to the photo folder in the file system</p>
+<p><strong>partner apps</strong></p>
+<p><a class="link" href="https://levionsoftware.com/"  target="_blank" rel="noopener"
+    >photo map</a></p>
+<p>Well-made free application that displays our photos on the map
+Photoprism is present in the available sources
+Select it from the top left menu, in the services (conect to photoprism) and it is of the form
+https: ddns.domain: port, username, password</p>
+<p><a class="link" href="https://play.google.com/store/apps/details?id=com.touchbyte.photosync"  target="_blank" rel="noopener"
+    >photosync</a>
+paid app
+alternative <a class="link" href="https://play.google.com/store/apps/details?id=dk.tacit.android.foldersync.lite&amp;hl=en_US&amp;gl=US"  target="_blank" rel="noopener"
+    >foldersync</a>
+contains ads (many)
+I have not found any foss app with webdav sync</p>
+<p>from the top right menu</p>
+<p>settings</p>
+<p>configure targets</p>
+<p>webdav</p>
+<p>add new</p>
+<p>server: domain.name</p>
+<p>port: port</p>
+<p>username</p>
+<p>password</p>
+<p>I do not put ssl after caddy takes over</p>
+<p>for full foldersync setup also watch webdav post</p>
+<p><a class="link" href="https://github.com/photoprism/photoprism-mobile"  target="_blank" rel="noopener"
+    >comunity app</a></p>
+<p>barebones app</p>
+<p>only the timeline works</p>
+<p>but at least you do not have to upload the photos every time from the beginning</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ippo-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Depl0yed
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.13.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

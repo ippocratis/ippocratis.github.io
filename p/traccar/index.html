@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Dockerised Selfhosted Traccar server'><title>traccar location tracker</title>
+
+<link rel='canonical' href='https://ippocratis.github.io/p/traccar/'>
+
+<link rel="stylesheet" href="/scss/style.min.ac77dcf8b111b51da39a92990f431923f210f3876d85798a2125667f96dc33a4.css"><meta property='og:title' content='traccar location tracker'>
+<meta property='og:description' content='Dockerised Selfhosted Traccar server'>
+<meta property='og:url' content='https://ippocratis.github.io/p/traccar/'>
+<meta property='og:site_name' content='Depl0yed'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='raspberry pi' /><meta property='article:tag' content='location' /><meta property='article:tag' content='alternative' /><meta property='article:published_time' content='2022-11-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-11-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://ippocratis.github.io/p/traccar/traccar.png' />
+<meta name="twitter:title" content="traccar location tracker">
+<meta name="twitter:description" content="Dockerised Selfhosted Traccar server"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ippocratis.github.io/p/traccar/traccar.png' />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53T8RWZ8BR"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-53T8RWZ8BR', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hue27fa0595436520d69d01a95cf7f15e5_36931_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Depl0yed</a></h1>
+            <h2 class="site-description">Self Host Use Foss and Drop Google</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://medium.com/@i.pyrgiotis'
+                        target="_blank"
+                        title="Medium"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <path d="M8 9h1l3 3l3 -3h1" />
+  <line x1="8" y1="15" x2="10" y2="15" />
+  <line x1="14" y1="15" x2="16" y2="15" />
+  <line x1="9" y1="9" x2="9" y2="15" />
+  <line x1="15" y1="9" x2="15" y2="15" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/ippossackofhacks'
+                        target="_blank"
+                        title="Telegram"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/abut/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/traccar/">
+                <img src="/p/traccar/traccar_hu4f4d748acb69c0f52e2340aac180cda5_35275_800x0_resize_box_3.png"
+                        srcset="/p/traccar/traccar_hu4f4d748acb69c0f52e2340aac180cda5_35275_800x0_resize_box_3.png 800w, /p/traccar/traccar_hu4f4d748acb69c0f52e2340aac180cda5_35275_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="400" 
+                        loading="lazy"
+                        alt="Featured image of post traccar location tracker" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/alternative/" >
+                alternative
+            </a>
+        
+            <a href="/categories/docker/" style="background-color: #2a9d8f; color: #5a0f15;">
+                Docker
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/traccar/">traccar location tracker</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Dockerised Selfhosted Traccar server
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 22, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>get location history with a selfhosted dockerised location tracking server and an android client to provide periodic location updates</p>
+<p><strong>create a proper Dockerfile for raspberry aarch</strong></p>
+<p><code>nano Dockerfile</code></p>
+<p>paste</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM debian:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ENV TRACCAR_VERSION 4.10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">WORKDIR /opt/traccar
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN set -ex &amp;&amp; \
+</span></span><span class="line"><span class="cl">    apt-get update &amp;&amp;\
+</span></span><span class="line"><span class="cl">    TERM=xterm DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends unzip wget default-jre &amp;&amp; \
+</span></span><span class="line"><span class="cl">    wget -qO /tmp/traccar.zip https://github.com/traccar/traccar/releases/download/v$TRACCAR_VERSION/traccar-other-$TRACCAR_VERSION.zip &amp;&amp; \
+</span></span><span class="line"><span class="cl">    unzip -qo /tmp/traccar.zip -d /opt/traccar &amp;&amp; \
+</span></span><span class="line"><span class="cl">    apt-get autoremove --yes unzip wget &amp;&amp; \
+</span></span><span class="line"><span class="cl">    apt-get clean &amp;&amp; \
+</span></span><span class="line"><span class="cl">    rm -rf /var/lib/apt/lists/* /tmp/*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ENTRYPOINT [&#34;java&#34;, &#34;-Xms512m&#34;, &#34;-Xmx512m&#34;, &#34;-Djava.net.preferIPv4Stack=true&#34;]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CMD [&#34;-jar&#34;, &#34;tracker-server.jar&#34;, &#34;conf/traccar.xml&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>build the Dockerfile</strong></p>
+<p><code>docker build -t debian-traccar-nginx .</code></p>
+<p><strong>create the volume</strong></p>
+<p><code>docker volume create traccar_raspberry</code></p>
+<p><strong>run the container</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker run -d \
+</span></span><span class="line"><span class="cl">  --name Traccar \
+</span></span><span class="line"><span class="cl">  -p 5002:5002/tcp \
+</span></span><span class="line"><span class="cl">  -p 5002:5002/udp \
+</span></span><span class="line"><span class="cl">  -p 5055:5055/tcp \
+</span></span><span class="line"><span class="cl">  -p 5093:5093/tcp \
+</span></span><span class="line"><span class="cl">  -p 5093:5093/udp \
+</span></span><span class="line"><span class="cl">  -p 82:8082 \
+</span></span><span class="line"><span class="cl">  --mount source=traccar_raspberry,target=/opt/traccar \
+</span></span><span class="line"><span class="cl">  --restart=unless-stopped \
+</span></span><span class="line"><span class="cl">  debian-traccar-nginx:latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>update: the above Dockerfile is no longer needed
+tested the debian atm64 image and it works fine on raspberry400
+Digest:sha256:f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412</p>
+<p><a class="link" href="https://hub.docker.com/layers/traccar/traccar/debian/images/sha256-f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412?context=explore"  target="_blank" rel="noopener"
+    >https://hub.docker.com/layers/traccar/traccar/debian/images/sha256-f09791c90dbfe9ea5adeb5c5c1f657cfdb1eccaf56bda2194f2a84abfb4b6412?context=explore</a></p>
+<p>android client needs tcp 5055 port so if you dont plan to use any of the supported hardware gps trackers
+you can skip listening to 5002,5093 tcp/udp ports and only keep 5055 for events and 8082 for the webui</p>
+<p><strong>docker-compose file</strong></p>
+<p>*assuming you have an external hard drive mounted as TOSHIBA  on  /run/media/ippo/TOSHIBA and your username is ippo</p>
+<p>create dirs
+that will have all are files and db on our external drive for backup reasons</p>
+<p>mkdir -p /run/media/ippo/TOSHIBA/traccar</p>
+<p>mkdir -p /run/media/ippo/TOSHIBA/traccar/logs</p>
+<p>mkdir -p /run/media/ippo/TOSHIBA/traccar/data</p>
+<p>mkdirn-p /run/media/ippo/TOSHIBA/traccar/conf</p>
+<p><strong>get the trackar.xml configuration file from the builded image</strong></p>
+<p><code>docker run --rm --entrypoint cat debian-traccar-nginx:latest /opt/traccar/conf/traccar.xml &gt; /run/media/ippo/TOSHIBA/traccar/conf/traccar.xml</code></p>
+<p><strong>the actual yml</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker-compose.yml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">version: &#39;2&#39;
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">    web:
+</span></span><span class="line"><span class="cl">        image: &#39;debian-traccar-nginx:latest&#39;
+</span></span><span class="line"><span class="cl">        restart: unless-stopped
+</span></span><span class="line"><span class="cl">        hostname: &#39;my.ddns.provider.com&#39;
+</span></span><span class="line"><span class="cl">        container_name: traccar
+</span></span><span class="line"><span class="cl">        ports:
+</span></span><span class="line"><span class="cl">            - &#39;8082:8082&#39;
+</span></span><span class="line"><span class="cl">            - &#39;5055:5055/tcp&#39;
+</span></span><span class="line"><span class="cl">        volumes:
+</span></span><span class="line"><span class="cl">            - &#39;/etc/localtime:/etc/localtime:ro&#39;
+</span></span><span class="line"><span class="cl">            - &#39;/run/media/ippo/TOSHIBA/traccar/logs:/opt/traccar/logs:rw&#39;
+</span></span><span class="line"><span class="cl">            - &#39;/run/media/ippo/TOSHIBA/traccar/conf/traccar.xml:/opt/traccar/conf/traccar.xml:ro&#39;
+</span></span><span class="line"><span class="cl">            - &#39;/run/media/ippo/TOSHIBA/traccar/data:/opt/traccar/data:rw&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>run the container</strong></p>
+<p><code>doker-cmpose up -d</code></p>
+<p>the above will spinup traccar with an  embedded h2 db that will not reset on container restart as its
+volume is mounted  on host and take periodic copies of the files but once corrupted those copies cant restore the traccar container
+Also I have no idea  how to properly backup an h2 db (if possible at all)
+the recomended way is to use an external postges or mariadb database
+i used a postgres docker imageb connected to the traccar image with a docker network and provided the apropriate network gateway url to the traccar xml for the database url</p>
+<p>so:</p>
+<p><strong>traccar-postgres</strong></p>
+<p>create a docker neywork</p>
+<p><code>docker network create net</code></p>
+<p>gwt the network subnet and ip</p>
+<p><code>docker network inspect net</code></p>
+<p>we need the</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                    &#34;Subnet&#34;: &#34;192.168.96.0/20&#34;,
+</span></span><span class="line"><span class="cl">                    &#34;Gateway&#34;: &#34;192.168.96.1&#34;
+</span></span><span class="line"><span class="cl">                }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>part</p>
+<p>use the subnet on the</p>
+<p>ipam:
+config:
+- subnet:192.168.96.0/20</p>
+<p>in the docker-compose.yml</p>
+<p>and the gateway in the database url in the traccar.xml
+jdbc:postgresql://192.168.96.1:5432/db</p>
+<p>note that i used a  <code>POSTGRES_DB: db</code> env var in docker-compose and so yhe /db in the database url you can use any other name</p>
+<p>Replace the h2 contents in the xml with the postges according to
+<a class="link" href="https://www.traccar.org/postgresql/"  target="_blank" rel="noopener"
+    >https://www.traccar.org/postgresql/</a></p>
+<p>docker-compose.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> &#34;3&#34;
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  traccar:
+</span></span><span class="line"><span class="cl">    image: traccar/traccar:debian
+</span></span><span class="line"><span class="cl">    hostname: my.dyn-dns.domain.com
+</span></span><span class="line"><span class="cl">    container_name: traccar
+</span></span><span class="line"><span class="cl">    restart: unless-stopped
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      POSTGRES_USER: user
+</span></span><span class="line"><span class="cl">      POSTGRES_DB: db
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    depends_on:
+</span></span><span class="line"><span class="cl">      - traccar-db
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /run/media/ippo/TOSHIBA/traccar/logs:/opt/traccar/logs:rw
+</span></span><span class="line"><span class="cl">      - /run/media/ippo/TOSHIBA/traccar/conf/traccar.xml:/opt/traccar/conf/traccar.xml:ro
+</span></span><span class="line"><span class="cl">      - /run/media/ippo/TOSHIBA/traccar/data:/opt/traccar/web:rw
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - &#34;82:8082&#34;
+</span></span><span class="line"><span class="cl">      - &#34;5055:5055/tcp&#34;
+</span></span><span class="line"><span class="cl">    networks:
+</span></span><span class="line"><span class="cl">      - net
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  traccar-db:
+</span></span><span class="line"><span class="cl">    container_name: traccar-db
+</span></span><span class="line"><span class="cl">    image: postgres:13
+</span></span><span class="line"><span class="cl">    restart: unless-stopped
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 5432:5432
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /run/media/ippo/TOSHIBA/traccar/db:/var/lib/postgresql/data
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      POSTGRES_PASSWORD: password
+</span></span><span class="line"><span class="cl">    networks:
+</span></span><span class="line"><span class="cl">     - net
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">networks:
+</span></span><span class="line"><span class="cl">  net:
+</span></span><span class="line"><span class="cl">    driver: bridge
+</span></span><span class="line"><span class="cl">    enable_ipv6: false
+</span></span><span class="line"><span class="cl">    ipam:
+</span></span><span class="line"><span class="cl">      config:
+</span></span><span class="line"><span class="cl">        - subnet: 192.168.96.0/20
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>periodic postgres backups and how to restore a corrupted db</strong></p>
+<p>Backup</p>
+<p>docker exec -t your-db-container pg_dumpall -c -U your-db-user &gt; /path/to/backup/folder/dump_$(date +%Y-%m-%d_%H_%M_%S).sql</p>
+<p>A file like dump_20-11-2022_00_55_26.sql is created</p>
+<p>Restore</p>
+<p>cat your_dump.sql | docker exec -i your-db-container psql -U your-db-user -d your-db-name</p>
+<p>Note the -U dbuser (set up as user in the <code>POSTGRES_USER: user</code> env var and in the <code>&lt;entry key='database.user'&gt;[USER]&lt;/entry&gt;</code> on the traccar.xml)</p>
+<p>and the -d bdname (set up as db in the <code>POSTGRES_DB: db</code> env var and in the <code>postgresql://127.0.0.1:5432/[DATABASE]</code> on the traccar.xml)</p>
+<p>Put that on a crontab
+And there you go you have periodic db snapshots</p>
+<p><strong>Caddyfile</strong></p>
+<p>*assuming you use caddy as a reverse proxy/ssl handler</p>
+<p><code>nano /etc/caddy/Caddyfile</code></p>
+<p>add</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#traccar
+</span></span><span class="line"><span class="cl">a.random.ddns.name.duckdns.org {
+</span></span><span class="line"><span class="cl">    reverse_proxy localhost:8082
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Create admin and disable new users</strong></p>
+<p>First you habe to register as a normal user</p>
+<p>From the login page
+fill in email and prefered password
+And register</p>
+<p>Then you can log in with those credestria&rsquo;s</p>
+<p>Its a good.idea for security reasons to disable sign ups</p>
+<p>Login as default admin
+User:pass = admin:admin</p>
+<p>On top left corner
+Settings
+Users
+Select your user
+Select the pencil icon
+From the permissions tab enable admin</p>
+<p>Then
+From settings
+Server
+On permissions tab disable registration</p>
+<p>Log out and re-login with your created user</p>
+<p>From settings
+Users
+You can remove default admin now</p>
+<p><strong>Traccar notifications</strong></p>
+<p>I&rsquo;m setting up notifications over telegram.
+There are many notification types
+Some interesting ones are enter / leave geofence (have to set up a geofence obvius&rsquo;y first)
+Device moving
+Device stoped
+Device online
+Device offline</p>
+<p>Useful if you monitor a second device e.g. a childs device</p>
+<p>Edit the traccar.xml</p>
+<p>In he docker-compose example above I maped /run/media/ippo/YOSHIBA/conf/traccar.xml as the config location</p>
+<p>So</p>
+<p><code>nano /run/media/ippo/TOSHIBA/conf/traccar.xml</code></p>
+<p>And add</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;entry key=&#39;notificator.types&#39;&gt;web,mail,telegram&lt;/entry&gt;
+</span></span><span class="line"><span class="cl">&lt;entry key=&#39;notificator.telegram.key&#39;&gt;BOT_KEY&lt;/entry&gt;
+</span></span><span class="line"><span class="cl">&lt;entry key=&#39;notificator.telegram.chatId&#39;&gt;CHAT_ID&lt;/entry&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You have to create a bot
+get its api token
+Start a chat with it
+And get the chat id</p>
+<p>To create the bot
+Visit @botfather
+/newbot
+Name it
+And get the token</p>
+<p>To get the chat id
+Type @get_id_bot in the conversation chat with the bot</p>
+<p>Restart the container</p>
+<p>You can test the connection visiting your acount and sending a test message</p>
+<p><strong>public demo servers</strong></p>
+<p>you you just want to test traccar before start building and selfhosting it, there are some public servers available</p>
+<p>Public servers (demo)
+<a class="link" href="https://www.traccar.org/demo-server/"  target="_blank" rel="noopener"
+    >https://www.traccar.org/demo-server/</a></p>
+<p>Android client app
+<a class="link" href="https://www.traccar.org/client/"  target="_blank" rel="noopener"
+    >https://www.traccar.org/client/</a></p>
+<p>Navigate to one of demo servers</p>
+<p>demo4.traccar.org</p>
+<p>demo3.traccar.org</p>
+<p>demo2.traccar.org</p>
+<p>demo.traccar.org</p>
+<p>And register
+Select username
+Mail
+And password</p>
+<p>Then use registered mail and password to login</p>
+<p>On client app
+While service deactivated
+Copy identifier
+Insert the demo server URL you registered
+Select location accuracy (high)
+Select frequency report ~120 sec
+Let others as is
+and enable service</p>
+<p>On status verify that the location is updating</p>
+<p>On server
+Top left menu
+Select the plus icon to add a device
+Select a random name
+And the identifier from the client app
+And save</p>
+<p>The you can select the device on the top left menu</p>
+<p>It appears on the map
+From the refresh icon you can select a time period to show a location trail on the map and even animate the motion of tracks</p>
+<p>From the reports tab you can you can view a table of location reports from a selected period</p>
+<p>#disadvantages:
+The public servers are ephemeral and your data will disapear at some point
+you have to either buy a plan or selfhost the server</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/raspberry-pi/">raspberry pi</a>
+        
+            <a href="/tags/location/">location</a>
+        
+            <a href="/tags/alternative/">alternative</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/webdav/">
+        
+        
+            <div class="article-image">
+                <img src="/p/webdav/dav.e42bba1568903b8a5227b3097ac5c1ac_hucc5274772045ef90d438f77c2bc6bf84_90674_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post webdav server"
+                        data-key="webdav" 
+                        data-hash="md5-5Cu6FWiQO4pSJ7MJesXBrA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">webdav server</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/joplin/">
+        
+        
+            <div class="article-image">
+                <img src="/p/joplin/Joplin-logo-wide.f9ec1f51ea24f30f0eab78d74e90982c_hu08cd4055cfae40c9a83d981702fac788_59905_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Joplin Notes Webview"
+                        data-key="joplin" 
+                        data-hash="md5-&#43;ewfUeok8w8Oq3jXTpCYLA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Joplin Notes Webview</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/owntracks/">
+        
+        
+            <div class="article-image">
+                <img src="/p/owntracks/gpstracker.41192a2d849d36a958b24a8d0f5d630f_huf0f38596c1e1c2f966d5a3d609ba36e9_13767_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Owntracks"
+                        data-key="owntracks" 
+                        data-hash="md5-QRkqLYSdNqlYskqND11jDw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Owntracks</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/librephotos/">
+        
+        
+            <div class="article-image">
+                <img src="/p/librephotos/banner.9a4300320172258b4f54ce555812c706_hu575a65300035375844704813ff033aca_31232_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post UhuruPhotos a LibrePhotos Android Client"
+                        data-key="librephotos" 
+                        data-hash="md5-mkMAMgFyJYtPVM5VWBLHBg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">UhuruPhotos a LibrePhotos Android Client</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/caddy2/">
+        
+        
+            <div class="article-image">
+                <img src="/p/caddy2/caddy2.6e9be528596ce31014bc7bbfb2c3106e_hu7f44f2cf8653a2192c6216f2cdb94ab1_82794_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Caddy2 web server"
+                        data-key="Caddy2" 
+                        data-hash="md5-bpvlKFls4xAUvHu/ssMQbg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Caddy2 web server</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ippo-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Depl0yed
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.13.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
