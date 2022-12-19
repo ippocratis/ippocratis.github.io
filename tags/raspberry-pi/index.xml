@@ -6,10 +6,10 @@
         <description>Recent content in raspberry pi on Depl0yed</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 22 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/raspberry-pi/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/raspberry-pi/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>traccar location tracker</title>
         <link>https://ippocratis.github.io/p/traccar/</link>
-        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
         
         <guid>https://ippocratis.github.io/p/traccar/</guid>
         <description>&lt;img src="https://ippocratis.github.io/p/traccar/traccar.png" alt="Featured image of post traccar location tracker" /&gt;&lt;p&gt;get location history with a selfhosted dockerised location tracking server and an android client to provide periodic location updates&lt;/p&gt;
@@ -377,7 +377,7 @@ Type @get_id_bot in the conversation chat with the bot&lt;/p&gt;
 &lt;p&gt;Restart the container&lt;/p&gt;
 &lt;p&gt;You can test the connection visiting your acount and sending a test message&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;public demo servers&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;you you just want to test traccar before start building and selfhosting it, there are some public servers available&lt;/p&gt;
+&lt;p&gt;If you just want to test traccar before start building and selfhosting it, there are some public servers available&lt;/p&gt;
 &lt;p&gt;Public servers (demo)
 &lt;a class=&#34;link&#34; href=&#34;https://www.traccar.org/demo-server/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.traccar.org/demo-server/&lt;/a&gt;&lt;/p&gt;
@@ -416,6 +416,53 @@ From the refresh icon you can select a time period to show a location trail on t
 &lt;p&gt;#disadvantages:
 The public servers are ephemeral and your data will disapear at some point
 you have to either buy a plan or selfhost the server&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Migrate google location history takeout to traccar&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;download your google maps location history takeout&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://takeout.google.com/takeout/custom/local_actions,location_history,maps,mymaps?&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;select location history only&lt;/p&gt;
+&lt;p&gt;and json as format&lt;/p&gt;
+&lt;p&gt;extract the takeout&lt;/p&gt;
+&lt;p&gt;there is a single file called Records.json containing the whole history and also smaller files divides in years , months&lt;/p&gt;
+&lt;p&gt;we need the single file&lt;/p&gt;
+&lt;p&gt;it contains places activities marks its kinda unusable&lt;/p&gt;
+&lt;p&gt;also locations are multiplied by E7&lt;/p&gt;
+&lt;p&gt;we&amp;rsquo;ll use a python script to limit the resaults to just time , latitude and longitude converted to proper coordinates&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/Scarygami/location-history-json-converter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd location-history-json-converter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;install requirements&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;run the script&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;python location_history_json_converter.py Records.json  output.csv -f csv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;csv output will generate a Comma-separated text file with a timestamp field and a location field&lt;/p&gt;
+&lt;p&gt;we&amp;rsquo;ll add  deviceid , protocol and valid fileds to it as traccar need those db fields to recognise and use the locations&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sed &#39;s/^/osmand,1,/; s/$/,1/&#39; export.csv &amp;gt; curated.csv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;the above will add osmand,1,1 values for protocol,deviceid and valid database fields&lt;/p&gt;
+&lt;p&gt;delete the &amp;ldquo;1&amp;rdquo; from the first line an replace osmand with protocol in the first line&lt;/p&gt;
+&lt;p&gt;so now the file looks like&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;protocol,deviceid,Time,Latitude,Longitude,valid
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;osmand,1,2012-08-25 21:26:20,37.95954620,23.72793730,1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;6 columns&lt;/p&gt;
+&lt;p&gt;We are going to parse those values to as sql &lt;code&gt;LOAD DATA LOCAL INFILE&lt;/code&gt; statement to the appropriate tc_position table fields&lt;/p&gt;
+&lt;p&gt;copy the csv to the container&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker cp curated.csv traccar-db:/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;open a root mysql shel to the db container&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker exec -it traccar-db mysql -uroot -pimus&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;connect to database&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;use traccar-db&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;load the data&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;LOAD DATA LOCAL INFILE &#39;inn.csv&#39; INTO TABLE tc_positions FIELDS TERMINATED BY &#39;,&#39; (@osmand,@deviceid,@Time,@Latitude,@Longitude,@valid) set protocol=@osmand,deviceid=@deviceid,devicetime=@Time,fixtime=@Time,servertime=@Time,latitude=@Latitude,longitude=@Longitude,valid=@valid;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and that&amp;rsquo;s it you google datavarebon your se&amp;rsquo;f hosted mysql database&lt;/p&gt;
+&lt;p&gt;goodbye google&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;

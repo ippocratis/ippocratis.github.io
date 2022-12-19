@@ -9,7 +9,7 @@
 <meta property='og:description' content='Dockerised Selfhosted Traccar server'>
 <meta property='og:url' content='https://ippocratis.github.io/p/traccar/'>
 <meta property='og:site_name' content='Depl0yed'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='raspberry pi' /><meta property='article:tag' content='location' /><meta property='article:tag' content='alternative' /><meta property='article:published_time' content='2022-11-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-11-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://ippocratis.github.io/p/traccar/traccar.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='raspberry pi' /><meta property='article:tag' content='location' /><meta property='article:tag' content='alternative' /><meta property='article:published_time' content='2022-12-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://ippocratis.github.io/p/traccar/traccar.png' />
 <meta name="twitter:title" content="traccar location tracker">
 <meta name="twitter:description" content="Dockerised Selfhosted Traccar server"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://ippocratis.github.io/p/traccar/traccar.png' />
@@ -295,7 +295,7 @@ if (!doNotTrack) {
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 22, 2022</time>
+                <time class="article-time--published">Dec 19, 2022</time>
             </div>
         
 
@@ -310,7 +310,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    6 minute read
+                    7 minute read
                 </time>
             </div>
         
@@ -689,7 +689,7 @@ Type @get_id_bot in the conversation chat with the bot</p>
 <p>Restart the container</p>
 <p>You can test the connection visiting your acount and sending a test message</p>
 <p><strong>public demo servers</strong></p>
-<p>you you just want to test traccar before start building and selfhosting it, there are some public servers available</p>
+<p>If you just want to test traccar before start building and selfhosting it, there are some public servers available</p>
 <p>Public servers (demo)
 <a class="link" href="https://www.traccar.org/demo-server/"  target="_blank" rel="noopener"
     >https://www.traccar.org/demo-server/</a></p>
@@ -728,6 +728,53 @@ From the refresh icon you can select a time period to show a location trail on t
 <p>#disadvantages:
 The public servers are ephemeral and your data will disapear at some point
 you have to either buy a plan or selfhost the server</p>
+<p><strong>Migrate google location history takeout to traccar</strong></p>
+<p>download your google maps location history takeout</p>
+<p><a class="link" href="https://takeout.google.com/takeout/custom/local_actions,location_history,maps,mymaps?"  target="_blank" rel="noopener"
+    >link</a></p>
+<p>select location history only</p>
+<p>and json as format</p>
+<p>extract the takeout</p>
+<p>there is a single file called Records.json containing the whole history and also smaller files divides in years , months</p>
+<p>we need the single file</p>
+<p>it contains places activities marks its kinda unusable</p>
+<p>also locations are multiplied by E7</p>
+<p>we&rsquo;ll use a python script to limit the resaults to just time , latitude and longitude converted to proper coordinates</p>
+<p><code>git clone https://github.com/Scarygami/location-history-json-converter</code></p>
+<p>and</p>
+<p><code>cd location-history-json-converter</code></p>
+<p>install requirements</p>
+<p><code>pip install -r requirements.txt</code></p>
+<p>run the script</p>
+<p><code>python location_history_json_converter.py Records.json  output.csv -f csv</code></p>
+<p>csv output will generate a Comma-separated text file with a timestamp field and a location field</p>
+<p>we&rsquo;ll add  deviceid , protocol and valid fileds to it as traccar need those db fields to recognise and use the locations</p>
+<p><code>sed 's/^/osmand,1,/; s/$/,1/' export.csv &gt; curated.csv</code></p>
+<p>the above will add osmand,1,1 values for protocol,deviceid and valid database fields</p>
+<p>delete the &ldquo;1&rdquo; from the first line an replace osmand with protocol in the first line</p>
+<p>so now the file looks like</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">protocol,deviceid,Time,Latitude,Longitude,valid
+</span></span><span class="line"><span class="cl">osmand,1,2012-08-25 21:26:20,37.95954620,23.72793730,1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>6 columns</p>
+<p>We are going to parse those values to as sql <code>LOAD DATA LOCAL INFILE</code> statement to the appropriate tc_position table fields</p>
+<p>copy the csv to the container</p>
+<p><code>docker cp curated.csv traccar-db:/</code></p>
+<p>open a root mysql shel to the db container</p>
+<p><code>docker exec -it traccar-db mysql -uroot -pimus</code></p>
+<p>connect to database</p>
+<p><code>use traccar-db</code></p>
+<p>load the data</p>
+<p><code>LOAD DATA LOCAL INFILE 'inn.csv' INTO TABLE tc_positions FIELDS TERMINATED BY ',' (@osmand,@deviceid,@Time,@Latitude,@Longitude,@valid) set protocol=@osmand,deviceid=@deviceid,devicetime=@Time,fixtime=@Time,servertime=@Time,latitude=@Latitude,longitude=@Longitude,valid=@valid;</code></p>
+<p>and that&rsquo;s it you google datavarebon your se&rsquo;f hosted mysql database</p>
+<p>goodbye google</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->

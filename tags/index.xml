@@ -6,7 +6,31 @@
         <description>Recent content in Tags on Depl0yed</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://ippocratis.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>alternative</title>
+        <link>https://ippocratis.github.io/tags/alternative/</link>
+        <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/alternative/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>location</title>
+        <link>https://ippocratis.github.io/tags/location/</link>
+        <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/location/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>raspberry pi</title>
+        <link>https://ippocratis.github.io/tags/raspberry-pi/</link>
+        <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ippocratis.github.io/tags/raspberry-pi/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>mariadb</title>
         <link>https://ippocratis.github.io/tags/mariadb/</link>
         <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
@@ -28,30 +52,6 @@
         <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
         
         <guid>https://ippocratis.github.io/tags/postgres/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>alternative</title>
-        <link>https://ippocratis.github.io/tags/alternative/</link>
-        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://ippocratis.github.io/tags/alternative/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>location</title>
-        <link>https://ippocratis.github.io/tags/location/</link>
-        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://ippocratis.github.io/tags/location/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>raspberry pi</title>
-        <link>https://ippocratis.github.io/tags/raspberry-pi/</link>
-        <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://ippocratis.github.io/tags/raspberry-pi/</guid>
         <description></description>
         </item>
         <item>
