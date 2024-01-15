@@ -1,12 +1,10 @@
 ---
-title: UhuruPhotos
-tags:             
-- server                                                      
-- raspberry
-- alternative
----                     
-
-![](/images/banner.png)
+layout: post
+title:  "Libre photos"
+author: ippo
+categories: [ server, photos]
+image: assets/images/banner.png
+---
 
 **What is it**
 
