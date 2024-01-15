@@ -17,7 +17,8 @@ I'm no pro this is just my personal experience.
 </p>
 
 <p class="mb-5"><img class="shadow-lg" src="{{site.baseurl}}/assets/images/IMG_20240114_200831_803.jpg" alt="jekyll template mediumish" /></p>
-<h4>Documentation</h4>
+
+<h4>Additional info</h4>
 
 <p>My telegram channel <a href="https://t.me/ippossackofhacks">here</a>.</p>
 
