@@ -3,6 +3,7 @@ layout: post
 title:  "Libre photos"
 author: ippo
 categories: [ server, photos]
+tags: [ server, photos]
 image: assets/images/banner.png
 ---
 
