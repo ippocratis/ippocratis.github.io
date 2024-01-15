@@ -1,6 +1,6 @@
 ---
 layout: page
-title: What is this alla about
+title: What is this all about
 permalink: /about
 comments: true
 ---
