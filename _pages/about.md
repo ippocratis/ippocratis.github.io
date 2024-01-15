@@ -21,9 +21,8 @@ I'm no pro this is just my personal experience.
 
 <p>My telegram channel <a href="https://t.me/ippossackofhacks">here</a>.</p>
 
-<h4>Questions or bug reports?</h4>
 
-<p>Another channel with Foss android apps <a href="https://t.me/favandroidapps">Github repository</a>!</p>
+<p>Another channel with Foss android apps <a href="https://t.me/favandroidapps">here</a>!</p>
 
 </div>
 
@@ -31,6 +30,5 @@ I'm no pro this is just my personal experience.
 
 
 
-</div>
 </div>
 </div>
