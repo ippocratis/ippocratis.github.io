@@ -6,10 +6,8 @@ categories: [ server, photos]
 image: assets/images/banner.png
 ---
 
-**What is it**
 
-It is an android client for librephotos
-And Librephotos is a photo manager server
+A self-hosted open source photo management service that serves ad a hacienda for the android client uhuruphotos.
 
 **so what?**
 
