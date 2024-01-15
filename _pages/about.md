@@ -16,7 +16,7 @@ my telegram channel together with stuff i find helfull and useful before they en
 I'm no pro this is just my personal experience.
 </p>
 
-<p class="mb-5"><img class="shadow-lg" src="{{site.baseurl}}/assets/images/mediumish-jekyll-template.png" alt="jekyll template mediumish" /></p>
+<p class="mb-5"><img class="shadow-lg" src="{{site.baseurl}}/assets/images/IMG_20240114_200831_803.jpg" alt="jekyll template mediumish" /></p>
 <h4>Documentation</h4>
 
 <p>My telegram channel <a href="https://t.me/ippossackofhacks">here</a>.</p>
