@@ -8,7 +8,7 @@ image: assets/images/banner.png
 ---
 
 
-A self-hosted open source photo management service that serves ad a hacienda for the android client uhuruphotos.
+A self-hosted open source photo management service that serves as a backend for the android client uhuruphotos.
 
 **so what?**
 
