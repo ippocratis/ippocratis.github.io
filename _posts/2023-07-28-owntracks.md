@@ -7,8 +7,6 @@ tags: [ map, location, mtls ]
 image: assets/images/owntracks.jpg
 ---
 
-**What's  this all about?**
-
 Tracking you own and family/friends location and have a history of locations on map like a google maps history open source alternative
 
 - Owntracks is a location history tracking app
