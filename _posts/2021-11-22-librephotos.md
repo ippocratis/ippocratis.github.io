@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Libre photos"
-featured: true
 author: ippo
 categories: [ server, photos]
 tags: [ server, photos]
