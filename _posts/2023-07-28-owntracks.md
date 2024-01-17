@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Owntracks location tracker"
-featured: true
 author: ippo
 categories: [ map, location ]
 tags: [ map, location, mtls ]
