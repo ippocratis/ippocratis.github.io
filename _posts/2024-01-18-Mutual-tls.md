@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Mutual TLS client certificates"
+title:  "Mutual TLS directive for caddy webserver"
 author: ippo
 categories: [ mtls, server, security ]
 tags: [ mtls, server, security]
@@ -8,6 +8,10 @@ image: assets/images/mtls.jpg
 ---
 
 Configure caddy with reverse proxy and  mutual TLS (mtls) for the proxied service and install the client certificate on android
+
+Mutual TLS, or mTLS for short, is a method for mutual authentication. mTLS ensures that the parties at each end of a network connection are who they claim to be by verifying that they both have the correct private key. 
+The information within their respective TLS certificates provides additional verification. 
+If the client do not provide a valid cert, the rerver is not respondind to the clients requests.
 
 I use caddy for reverse proxy on my running services.
 
