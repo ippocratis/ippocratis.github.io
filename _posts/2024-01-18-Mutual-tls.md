@@ -4,7 +4,7 @@ title:  "Mutual TLS directive for caddy webserver"
 author: ippo
 categories: [ mtls, server, security ]
 tags: [ mtls, server, security]
-image: assets/images/mtls.jpg
+image: assets/images/mtls.png
 ---
 
 Configure caddy with reverse proxy and  mutual TLS (mtls) for the proxied service and install the client certificate on android
