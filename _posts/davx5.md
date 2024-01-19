@@ -1,0 +1,190 @@
+---
+title: Find My Device
+description: Contacts, calendars and tasks sync aka caldav/cardav
+author: ippo
+image: assets/images/davx5.png
+categories:
+    - sync
+    - server
+    - alternative
+tags:
+    - sync
+    - server
+    - alternative
+---
+
+Contacts, calendars and tasks sync aka caldav/cardav
+
+WebDAV is a set of extensions to the Hypertext Transfer Protocol (HTTP).
+Caldav is a Calendaring Extension to WebDAV.
+CardDav is a vCard Extensions to WebDAV.
+Webcal is a uniform resource identifier (URI) scheme for accessing iCalendar files.
+
+Contacts and calendars are  major sync components on mobile devices, as are tasks,  journals and mostly notes.
+
+Two of the most popular calendar and contacts sync servers are radicale and Baikal.
+
+The most stable, enterprise level app on android that can handle Caldav, carddav and webcal protocols is Davx5.
+
+An android app that can sync notes,tasks and journals using a cardDacmv server is jtxBoard.
+
+On top of that we can have radicale and Baikal running on Docker and most importantly behind reverse proxy with mutual TLS client certificates authentication.
+
+
+# docker-radicale
+
+Radicale is a small but powerful CalDAV (calendars, to-do lists) and CardDAV (contacts) server
+
+<br>
+
+- [Github repo](https://github.com/tomsquest/docker-radicale)
+
+- [configuration file](https://github.com/tomsquest/docker-radicale/blob/master/config)
+
+
+```yml
+services:
+  radicale:
+    image: tomsquest/docker-radicale
+    container_name: radicale
+    ports:
+      - 5232:5232
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: curl -f http://127.0.0.1:5232 || exit 1
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - ./config:/config:ro
+      - ./users:/etc/radicale/users
+```
+
+
+## Tips & tricks
+
+### configuration file
+
+create a config directory in the working dir
+
+mkdir -p config
+
+copy the configuration file from the link above into the config folder 
+
+
+### Basic auth
+
+Uncomment/Enable the following in the configuration file
+
+
+
+[auth]
+type = htpasswd
+htpasswd_filename = /etc/radicale/users
+htpasswd_encryption = md5
+
+
+### htpasswd
+
+flat-file used to store usernames and password for basic authentication 
+
+While in the working dir
+
+
+htpasswd -c users username
+New password:
+Re-type new password:
+
+
+# docker-Baikal
+
+lightweight CalDAV+CardDAV server. It offers an extensive web interface with easy management of users, address books and calendars. It is fast and simple to install and only needs a basic php capable server. The data can be stored in a MySQL or a SQLite database.
+
+<br>
+
+- [Github repo](https://github.com/ckulka/baikal-docker)
+- [website](https://sabre.io/baikal/docker-install/)
+- [examples](https://github.com/ckulka/baikal-docker/tree/master/examples)
+
+
+mkdir -p config Specific
+
+chown -R 101:101 config Specific 
+
+
+```yml
+services:
+  baikal:
+    image: ckulka/baikal:nginx
+    depends_on:
+      - baikal-db
+    restart: unless-stopped
+    ports:
+      - "8456:80"
+    volumes:
+      - ./config:/var/www/baikal/config
+      - ./Specific:/var/www/baikal/Specific
+    networks:
+      - baikal-network
+
+  baikal-db:
+    image: mariadb:latest
+    restart: unless-stopped
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./mysql:/etc/mysql/conf.d
+    ports:
+      - "4406:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=baikal-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    networks:
+      - baikal-network
+
+networks:
+ baikal-network:
+```
+
+## Tips & tricks
+
+Create admin user
+Toggle mysql
+Use hostip:dbport e.g. 192.168.1.24:4406
+Then create a user
+
+
+## Android
+
+### Davx⁵
+
+It can sync with a large list of services, you can review the [here](https://www.davx5.com/tested-with)
+
+For radicale the base sync URL should be (/)
+https://server.example.com/radicale/
+
+For Baikal the base sync URL should be  (/dav.php/) https://server.example/dav.php/
+
+For mutual TLS you must install your client certificate to your android user cert store.
+Then on the initial setup screen under advanced login setup user,password and select the cert.
+
+
+### jtxBoard
+
+It allows you to manage your Journals , Notes and Tasks in one Android app. The app is compatible with the iCal standard (RFC5545) and is integrated with DAVx5 to allow the synchronisation of entries through CalDAV.
+
+- [Github repo](https://github.com/TechbeeAT/jtxBoard)
+
+For Joplin import
+
+[Read](https://github.com/TechbeeAT/jtxBoard/discussions/859)
+
+For Config
+
+No need to configure anything really. It works with Davx⁵ out of the box. Once you set up Davx⁵ it will start sync to you carddav server.
+enjoy
