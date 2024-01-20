@@ -11,8 +11,7 @@ comments: true
 <p>Deployed is about FOSS, 
 it's about selfhosting and testing software on the raspberry pi, 
 the use of android open source apps and degoogling android.
-Random stuff i found interesting gather up at my telegram channel at:
-my telegram channel together with stuff i find helfull and useful before they end ap as posts here.
+Random stuff i found interesting gather up at my telegram channel together with stuff i find helfull and useful before they end ap as posts here.
 I'm no pro this is just my personal experience.
 </p>
 
