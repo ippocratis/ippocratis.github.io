@@ -75,7 +75,7 @@ Verify
 
 Docker & docker-compose
 
-[Kinuxserver Wireguard Docker image](https://github.com/linuxserver/docker-wireguard)
+[linuxserver Wireguard Docker image](https://github.com/linuxserver/docker-wireguard)
 
 Documentation is pretty straightforword there but lets clarify some things
 
