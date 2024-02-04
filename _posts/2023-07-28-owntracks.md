@@ -255,7 +255,7 @@ ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
 - 
 **build and name  the Dockerfile**
 
-`docker build -t ot-arm`
+`docker build -t ot-arm .`
 
 **run the compose file**
 
