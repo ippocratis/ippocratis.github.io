@@ -170,7 +170,7 @@ services:
             - TZ=Europe/Athens
         user: "1000:1000"
     otrecorder:
-        image: ot-arm:latest
+        image: otr-arm:latest
         ports:
             - 8083:8083
         volumes:
