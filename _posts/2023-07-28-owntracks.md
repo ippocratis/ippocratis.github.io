@@ -21,6 +21,11 @@ Tracking you own and family/friends location and have a history of locations on 
 
 **Lets dive in**
 
+**create directories**
+
+`mkdir {config,mosquitto,store,store/last,mosquitto/config}`
+
+
 **create the certificates for mosquitto and owntracks android app**
 
 - script
@@ -61,7 +66,7 @@ generate_client
 
 - Change IP and ST,L,O for ca,server,client crt's also pick an appropriate -days for them
 - place ext file on the same dir with the script
-- copy ca.crt,server.crt,server.key to mosquitto/config
+- copy ca.crt,server.crt,server.key to mosquitto/config (read next)
 
 **ext file for filling S.A.N. field**
 
@@ -99,13 +104,12 @@ This is mantatory these will be the allowed domain for this certificate
 `openssl pkcs12 -export -out cert.p12 -inkey client.key -in client.crt -legacy`
 
 - Transfer ca.crt and cert.p12 on android device
+
+`cp ca.crt server.crt server.key  mosquitto/config`
+
 - Install ca.crt on android>settings>security>encryption>install a certificate>ca certificate
 - Select cert.p12 under owntracks>preferences>connection>security
 - Android can't  handle modern pkcs encryption algorythms (PBES2, PBKDF2, AES-256-CBC, Iteration 2048, PRF hmacWithSHA256) that is used on openssl v3 . You can omit the -legacy flag if you are creating the pkcs cert with older openssl versions
-
-**create directories and config files**
-
-`mkdir {config,mosquitto,store,store/last}`
 
 **create the recorder configuration file**
 
