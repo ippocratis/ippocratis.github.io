@@ -515,6 +515,76 @@ ghash  last  monitor  rec
 data.mdb  lock.mdb
 ```
 
+### Additional config
+
+- reverse geocode
+
+reverse geocoding is getting street/places names from coordinates
+Owntracks supports opencage as provider
+
+To set it up
+
+Add your opencage api key to entrypoint.sh
+
+```
+#!/bin/sh
+
+if ! [ -f ${OTR_STORAGEDIR}/ghash/data.mdb ]; then
+    ot-recorder --initialize
+fi
+
+ot-recorder ${OTR_TOPIC}  --geokey "opencage:xxxxxxxxxx"
+```
+
+
+In config/recorder.conf add:
+
+`OTR_GEOKEY = "opencage:xxxxxxccccccccccc"`
+
+And in the recoders service in compose add:
+
+```
+environment:
+            - OTR_GEOKEY = "opencage:xxxxxxxxxxxxxxxxx"
+```
+
+rebuild your Dockerfile and rerun compose file
+
+> Owntracks is caching the results of reverse geocoding and is feeding back the last (possibly unsuccessful) cached entry instead of going out a fresh to OpenCage
+
+So
+
+> Use a mock lockation provider to feed device false GPS data in order to start seeing reverse geocode in action in the recorder
+
+- Add an image to a friend/family icon
+
+image2card.sh script:
+
+`https://github.com/owntracks/recorder/blob/master/contrib/faces/image2card.sh`
+
+Run:
+
+`image2card.sh image.jpg username > mosquitto/config/user.json`
+
+and
+
+```
+docker exec -it mosquitto mosquitto_pub  -d -h mqtt.example.org -p 8883 --cafile /mosquitto/config/ca.crt --cert /mosquitto/config/server.crt --key /mosquitto/config/server.key -t owntracks/username/device_id/info -f user.json -r
+```
+
+- Restore conflicting Frieds faces
+
+```
+docker exec -it mosquitto mosquitto_pub  -d -h mqtt.example.org -p 8883 --cafile /mosquitto/config/ca.crt --cert /mosquitto/config/server.crt --key /mosquitto/config/server.key -t owntracks/user/device_id/info -r -n
+```
+
+and
+
+`rm -rf store/cards`
+
+then recreate cards
+
+
 **sources**
 
 this is just a summ up with countless trial and error's from varius sources 
