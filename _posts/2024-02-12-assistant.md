@@ -1,14 +1,14 @@
 ---
-title: Find My Device
-description: A Self Hosted Google Find My Device Alternative
+title: Home Assistant
+description: Home Assistant  under Docker
 author: ippo
-image: assets/images/fmd.png
+image: assets/images/assistant.jpeg
 categories:
     - alternative
-    - maps
+    - assistant 
 tags:
     - alternative
-    - maps
+    - assistant 
 ---
 
 Home assistant
