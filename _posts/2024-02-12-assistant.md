@@ -1,5 +1,5 @@
 ---
-title: Home Assistant
+title: Home Assistant under Docker
 description: Home Assistant  under Docker
 author: ippo
 image: assets/images/assistant.jpeg
@@ -11,8 +11,9 @@ tags:
     - assistant 
 ---
 
-Home assistant
+Home assistant is an Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts.
 
+## Docker compose 
 ```
 version: '3'
 services:
@@ -39,9 +40,7 @@ The HA Container is using jemalloc lib for Python runtime speedup.
 
 It can cause issues on certain hardware.
 
-integrations:
-
-https://www.home-assistant.io/integrations/#all
+[integrations](https://www.home-assistant.io/integrations/#all)
 
 ## Add the community store
 
@@ -55,7 +54,7 @@ And cd to it
 
 restart container
 
-- On the android app
+## On the android app
 
 Settings>devices>add integration>hacs
 
@@ -71,3 +70,4 @@ From the left sidebar open hacs
 
 From the top right menu remove all filters and categories to view the full list or use search
 
+[source](https://www.home-assistant.io/installation/linux#docker-compose)
