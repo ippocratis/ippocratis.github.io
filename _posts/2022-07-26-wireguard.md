@@ -86,6 +86,38 @@ Docker run
 ```
 docker run -d   --name=wireguard   --cap-add=NET_ADMIN   --cap-add=SYS_MODULE   -e PUID=1000   -e PGID=1000   -e TZ=Europe/London   -e SERVERURL=your.ddns.domain.name.com `#optional`   -e SERVERPORT=51820 `#optional`   -e PEERS=1 `#optional`   -e PEERDNS=auto `#optional`   -e INTERNAL_SUBNET=10.13.13.0 `#optional`   -e SERVER_ALLOWEDIPS_PEER_phone="192.168.1.x/24, 10.13.13.1"   -e LOG_CONFS=true `#optional`   -p 51820:51820/udp   -v path/to/appdata/config:/config   -v /lib/modules:/lib/modules   --sysctl="net.ipv4.conf.all.src_valid_mark=1"   --restart unless-stopped   linuxserver/wireguard
 ```
+docker-compose
+
+```
+version: '3'
+
+services:
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - SERVERURL=your.ddns.domain.name.com  # optional
+      - SERVERPORT=51820  # optional
+      - PEERS=1  # optional
+      - PEERDNS=auto  # optional
+      - INTERNAL_SUBNET=10.13.13.0  # optional
+      - SERVER_ALLOWEDIPS_PEER_phone=192.168.1.x/24,10.13.13.1
+      - LOG_CONFS=true  # optional
+    ports:
+      - "51820:51820/udp"
+    volumes:
+      - path/to/appdata/config:/config
+      - /lib/modules:/lib/modules
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+```
 
 This will create
 path/to/appdata/config/wg0.conf
