@@ -13,17 +13,20 @@ tags:
 
 The home assistant Companion app on android offers many different notification options.
 Instead of sending an actual notification to the device, you can send a command as a message to trigger certain actions on your phone.
-This service is called "notification commands"
+This function is called "notification commands"
 
 [link](companion.home-assistant.io/docs/notifications/notification-commands)
 
 What does that mean?
+
 We can use the home assistant's voice assistant as an alternative open source assistant that will perform functions on the phone itself.
 
 What we need?
 
 Local TTS and STT engines on the HASS server.
+
 If your installation is full HASS OS you can install whisper (Stt) and piper (tts) as an addon.
+
 If your installation is a docker container then you need to install whisper and piper as separate docker containers.
 
 You can spin up a home assistant docker install following my blogpost [here](https://ippocratis.github.io/https://ippocratis.github.io/assistant/)
@@ -61,6 +64,7 @@ And finally
 Settings>voice assistant>assist>enable whisper in speech to text
 
 Piper:
+
 ```
 version: '3'
 services:
@@ -126,14 +130,15 @@ The action is VIEW
 
 In uri we use google intents since they work with the application "here maps"
 
-Android intents docume ration is [here](https://developer.android.com/guide/components/intents-common)
+Android intents documentation is [here](https://developer.android.com/guide/components/intents-common)
 
-automation
+Automation:
 
 We will create a custom sentence which will run the above script.
+
 In addition, we will add as a variable whatever it hears after the custom sentence.
 
-We create it from the UI by going to settings>automation>automation>add automation>crate new>edit in yaml
+Under Haas UI by going to settings>automation>automation>add automation>crate new>edit in yaml
 
 ```
 alias: Navigate
@@ -149,29 +154,27 @@ action:
 mode: single
 ```
 
-platform: conversation
+`platform: conversation`
 
 Conversation is the voice assistant platform
 
-command: go to {location}
+`command: go to {location}`
 
-In the Command field we write the phrases that if heard assist will trigger the action field
+In the Command field write the phrases that if heard assist will trigger the action field
 
-"notify.mobile_app_phone:" phone is my device ID, replace it with your phone id.
+`"notify.mobile_app_phone:"` 
 
-'location' is the variant I use for the voice match that the voice assistant makes after the command. The following automation fields must match the {{ location }} field of the script
+phone is my device ID, replace it with your phone id.
 
-"fields: location:"
+'location' is the variant I use for the voice match that the voice assistant makes after the command.
 
-"command: Go to {location}"
+The following automation fields must match the {{ location }} field of the script
 
-data: location:
-
-"{{ trigger.slots.location }}"
+`"fields: location:"` , `"command: Go to {location}"`,  `"data: location:"`,  `"{{ trigger.slots.location }}"`
 
 Finally in
 
-"service: script.navigate"
+`"service: script.navigate"`
 
 navigate must be identical to the alias of the script
 
