@@ -2,7 +2,7 @@
 title: Home Assistant as an android voice assistant
 description: Home Assistant "assist" as an android assistant
 author: ippo
-image: assets/images/voice-assistant.jpeg
+image: assets/images/voice-assist.jpeg
 categories:
     - alternative
     - assistant 
