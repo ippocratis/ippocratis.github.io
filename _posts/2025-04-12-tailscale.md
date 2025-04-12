@@ -155,7 +155,7 @@ We will use a Python script that automates the deployment of tsnet-based service
 
 
 ## Systemd.py
-
+{% raw %}
 ```
 import yaml
 import os
@@ -299,6 +299,7 @@ WantedBy=multi-user.target
 
 print("\n🎉 All services deployed!")
 ```
+{% endraw %}
 
 1. Read Configuration from YAML
 
@@ -413,7 +414,7 @@ main_go.write_text(f'''package main
 That generated main.go app is in the format:
 
 ## main.go
-
+{% raw %}
 ```
 package main
 
@@ -450,7 +451,7 @@ func main() {
     log.Fatal(http.Serve(ln, proxy))
 }
 ```
-
+{% endraw %}
 6. Build Go Binary
 
 The script runs several go commands to initialize the module, fetch dependencies (including Tailscale), and build the Go binary (app) for each service.
