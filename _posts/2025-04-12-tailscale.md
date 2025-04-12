@@ -1,6 +1,6 @@
 ---
-title: multi tailscale tsnet.server funnels
-description: tailscalised
+title: Multi Tailscale tsnet.Server Funnels
+description: Automating the exposure of multiple services using Tailscale Funnel with tsnet.Server, including Go service generation, Docker containers, and systemd integration.
 image: assets/images/tailscale.png
 categories:
     - vpn
@@ -11,7 +11,6 @@ tags:
     - ssh
     - security
 ---
-
 
 **Expose Multiple Services on Tailscale Funnel with tsnet and Python Automation**
 
@@ -231,15 +230,9 @@ import (
 )
 
 func main() {{
-    {% raw %}
-```go
-srv := &tsnet.Server{
-    Hostname: "{hostname}",
-    AuthKey:  os.Getenv("TS_AUTHKEY"),
-    ...
-}
-```
-{% endraw %}
+    srv := &tsnet.Server{{
+        Hostname: "{hostname}",
+        AuthKey:  os.Getenv("TS_AUTHKEY"),
         Dir:      "./state",
     }}
     defer srv.Close()
@@ -306,8 +299,6 @@ WantedBy=multi-user.target
 
 print("\n🎉 All services deployed!")
 ```
-
----
 
 1. Read Configuration from YAML
 
@@ -436,16 +427,12 @@ import (
 )
 
 func main() {
-    {% raw %}
-```go
     srv := &tsnet.Server{
-        Hostname: "{hostname}",
+        Hostname: "vault",
         AuthKey:  os.Getenv("TS_AUTHKEY"),
         Dir:      "./state",
     }
-    {% endraw %}
     defer srv.Close()
-}
 
     ln, err := srv.ListenFunnel("tcp", ":443")
     if err != nil {
@@ -518,9 +505,6 @@ Once all services are processed and installed, a success message is printed.
 
 
 print("\n🎉 All services deployed!")
-
-
----
 
 ## summary
 
