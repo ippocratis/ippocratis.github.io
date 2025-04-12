@@ -21,7 +21,7 @@ group :jekyll_plugins do
     gem 'addressable'
     gem 'concurrent-ruby'
     gem 'http_parser.rb'
-    gemu 'em-websocket'
+    gem 'em-websocket'
     gem 'ffi'
     gem 'i18n'
     gem 'rb-fsevent'
