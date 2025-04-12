@@ -1,11 +1,17 @@
 ---
-layout: post
-title:  "tailscale funnels"
-author: ippo
-categories: [ security,server]
-tags: [ security,server]
+title: multi tailscale tsnet.server funnels
+description: tailscalised
 image: assets/images/tailscale.png
+categories:
+    - vpn
+    - ssh
+    - security
+tags:
+    - vpn
+    - ssh
+    - security
 ---
+
 
 **Expose Multiple Services on Tailscale Funnel with tsnet and Python Automation**
 
