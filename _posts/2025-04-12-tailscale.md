@@ -436,12 +436,16 @@ import (
 )
 
 func main() {
+    {% raw %}
+```go
     srv := &tsnet.Server{
-        Hostname: "vault",
+        Hostname: "{hostname}",
         AuthKey:  os.Getenv("TS_AUTHKEY"),
         Dir:      "./state",
     }
+    {% endraw %}
     defer srv.Close()
+}
 
     ln, err := srv.ListenFunnel("tcp", ":443")
     if err != nil {
