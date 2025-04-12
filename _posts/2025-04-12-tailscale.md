@@ -231,9 +231,15 @@ import (
 )
 
 func main() {{
-    srv := &tsnet.Server{{
-        Hostname: "{hostname}",
-        AuthKey:  os.Getenv("TS_AUTHKEY"),
+    {% raw %}
+```go
+srv := &tsnet.Server{
+    Hostname: "{hostname}",
+    AuthKey:  os.Getenv("TS_AUTHKEY"),
+    ...
+}
+```
+{% endraw %}
         Dir:      "./state",
     }}
     defer srv.Close()
