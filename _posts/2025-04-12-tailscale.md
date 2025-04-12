@@ -361,6 +361,10 @@ Select Generate key.
 
 Copy the key to .env
 
+.env file format
+
+`TS_AUTHKEY=your_key_goes_here`
+
 3. Systemd Setup
 
 The script defines a path to the systemd directory (/etc/systemd/system), where service files will be installed.
