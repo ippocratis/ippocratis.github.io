@@ -500,7 +500,7 @@ You can check the subdomain of each service at the admin panel on your tailscale
 
 and get a list of all subdomains with:
 
-`grep 'hostname:' ./stack/services.yml | awk '{print $2}' | xargs -I{} sh -c 'echo -n "{}: "; tailscale status --json | jq -r --arg hostname "{}" ".Peer[] | select(.HostName == \$hostname) | .DNSName"'`
+`grep 'hostname:' ./services.yml | awk '{print $2}' | xargs -I{} sh -c 'echo -n "{}: "; tailscale status --json | jq -r --arg hostname "{}" ".Peer[] | select(.HostName == \$hostname) | .DNSName"'`
 
 ## Auth key expiration
 
