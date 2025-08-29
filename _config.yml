@@ -1,7 +1,7 @@
 # Site
 name: "Deployed"
 title: "Selfhost use Foss and drop Google"
-description: "Selfhost use Foss and drop Google"
+description: "Selfhosted software to serve mobile devices"
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
 baseurl: 'https://ippocratis.github.io'
