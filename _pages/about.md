@@ -8,7 +8,7 @@ comments: true
 <div class="row justify-content-between">
 <div class="col-md-8 pr-5">
 
-<p>Deployed is about my journey with awlfhosting on my raspberryPi and using thise swrvicea on my mobile devicea. 
+<p>Deployed is about my journey with Self-Hosting on my raspberryPi and using thise swrvicea on my mobile devicea. 
   Its been android for years but switched to ios recently.
   This makes no real diference to the core of this blog which was always and mostly about hosting my own shit.
 </p>
