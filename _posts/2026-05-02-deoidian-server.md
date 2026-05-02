@@ -7,8 +7,6 @@ tags: [ server, droidian ]
 image: assets/images/droidian.png
 ---
 
-# Droidian as a Headless Home-Lab Micro Server
-
 **Strip the UI, kill the sleep, keep the wake-lock.**
 
 Droidian is just Debian with a phone kernel. That makes a $40 Pixel 3a or Redmi Note 9s in my case a perfect 2-4W ARM64 server â€” until Phosh, ModemManager, and Android-style deep sleep keep putting it to bed. This is the minimal setup I use to turn Droidian into a reliable, always-on box you can SSH into .
@@ -157,11 +155,20 @@ gsettings set org.gnome.desktop.session idle-delay 0
 
 ## Result
 
+upower gives us the power state of our server and battery related stats .
+ps filtered out gives us the ram used by the top 12 ram consumption process.
+
+```bash
+upower -i $(upower -e | grep 'battery')
+
+ps -eo size,pid,user,command --sort -size | awk '{ hr=$1/1024 ; printf("%13.2f Mb ",hr) } { for ( x=4 ; x<=NF ; x++ ) { printf("%s ",$x) } print "" }' | head -n 12
+```
+
 My curtana now idles at:
 •  0,3W , 900MB RAM used
 •  67 days uptime (before I updated)
 •  Running tailscale , vaultwarden, jellyfin and a amall go tsnet service .
 
-Halium/Android layer stuff like Netmgrd,Qcrild and Cnd/Qseecomd occupy like 200mb of ram and cant be disabled without riaking a brick .
+Halium/Android layer stuff like Netmgrd,Qcrild and Cnd/Qseecomd occupy like 200mb of ram and cant be disabled without risking a brick .
 
 
