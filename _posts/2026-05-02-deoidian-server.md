@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Droidian compatible phone as a home server"
+author: ippo
+categories: [ server, droidian ]
+tags: [ server, droidian ]
+image: assets/images/droidian.jpg
+---
+
 # Droidian as a Headless Home-Lab Micro Server
 
 **Strip the UI, kill the sleep, keep the wake-lock.**
