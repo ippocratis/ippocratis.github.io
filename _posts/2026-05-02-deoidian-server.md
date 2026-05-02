@@ -4,7 +4,7 @@ title:  "Droidian compatible phone as a home server"
 author: ippo
 categories: [ server, droidian ]
 tags: [ server, droidian ]
-image: assets/images/droidian.jpg
+image: assets/images/droidian.png
 ---
 
 # Droidian as a Headless Home-Lab Micro Server
