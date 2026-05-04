@@ -150,6 +150,29 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-typ
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 gsettings set org.gnome.desktop.session idle-delay 0
 ```
+8) The "Hard Limit" (Systemd Cgroups)
+
+We can tell the Linux kernel to physically prevent apps e.g. Jellyfin from taking more than a certain amount of RAM. If it tries to cross the line, the kernel will force it to clean up.
+
+Run: 
+
+```bash
+sudo systemctl edit jellyfin
+```
+
+paste this in 
+
+```bash
+[Service]
+# Limit Jellyfin to 600MB of RAM
+MemoryMax=600M
+MemoryHigh=500M
+# Lower its priority so it doesn't lag the phone's UI
+CPUWeight=50
+IOWeight=50
+```
+
+
 
 ---
 
