@@ -167,7 +167,7 @@ These let PhotoPrism read HEIC, RAW, and video.
 
 ```bash
 sudo apt update
-sudo apt install -y libheif-examples libvips42 libexif12 libexif-dev ffmpeg
+sudo apt install -y curl libheif-examples libvips42 libexif12 libexif-dev ffmpeg
 ```
 
 ### 2. Install the ARM64 deb
