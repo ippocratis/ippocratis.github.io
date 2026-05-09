@@ -79,7 +79,7 @@ cd "$SERVICE_DIR"
 
 ### 3. Add your auth key
 
-Create a `.env` file with a reusable auth key from your Tailscale admin console. Do not paste a real key into a blog post or a git repo.
+Create a `.env` file with a reusable auth key from your Tailscale admin console. 
 
 ```bash
 if [ ! -f ".env" ]; then
