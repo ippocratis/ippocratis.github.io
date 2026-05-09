@@ -2,6 +2,7 @@
 title: photoprism on droidian 
 description: install PhotoPrism image server on a droidian compatible phone.
 image: assets/images/photoprism.png
+author: ippo
 categories:
     - gallery 
     - droidian
