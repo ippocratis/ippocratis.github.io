@@ -2,6 +2,7 @@
 title: taiscale on droidian 
 description: Tailscale and tsnet micro service on droidian.
 image: assets/images/tsnet.png
+author: ippo
 categories:
     - vpn 
     - droidian
