@@ -150,6 +150,20 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-typ
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 gsettings set org.gnome.desktop.session idle-delay 0
 ```
+
+check if gps is active 
+
+```bash
+gsettings get org.gnome.system.location enabled
+```
+
+and disable it
+
+```bash
+gsettings set org.gnome.system.location enabled false
+```
+
+
 8) The "Hard Limit" (Systemd Cgroups)
 
 We can tell the Linux kernel to physically prevent apps e.g. Jellyfin from taking more than a certain amount of RAM. If it tries to cross the line, the kernel will force it to clean up.
