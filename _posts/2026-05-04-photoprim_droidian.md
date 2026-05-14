@@ -201,9 +201,9 @@ After=mariadb.service
 RequiresMountsFor=/mnt/drive
 
 [Service]
+User=droidian
+Group=droidian
 Type=simple
-User=photoprism
-Group=photoprism
 WorkingDirectory=/opt/photoprism
 ExecStart=/usr/local/bin/photoprism start
 Restart=always
@@ -263,6 +263,8 @@ UploadNSFW: true
 Fix ownership:
 ```bash
 sudo chown -R photoprism:photoprism /mnt/drive/photoprism/storage
+sudo chown -R droidian:droidian /opt/photoprism```
+
 ```
 
 ### 5. Test first run
