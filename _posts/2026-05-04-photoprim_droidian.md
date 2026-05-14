@@ -56,6 +56,13 @@ Add:
 /mnt/drive/photoprism/database/ r,
 /mnt/drive/photoprism/database/** rwk,
 ```
+put AppArmor into "complain" mode for MariaDB. This allows the action but logs the "violation."
+
+```bash
+sudo apt update && sudo apt install -y apparmor-utils
+sudo aa-complain /usr/sbin/mariadbd
+```
+
 Reload:
 ```bash
 sudo apparmor_parser -r /etc/apparmor.d/mariadbd
