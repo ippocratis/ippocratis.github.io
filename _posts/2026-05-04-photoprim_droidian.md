@@ -58,7 +58,7 @@ Add:
 ```
 Reload:
 ```bash
-sudo apparmor_parser -r /etc/apparmor.d/usr.sbin.mariadbd
+sudo apparmor_parser -r /etc/apparmor.d/mariadbd
 ```
 
 ### 4. Ensure base directory exists
