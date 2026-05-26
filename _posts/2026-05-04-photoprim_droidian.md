@@ -44,6 +44,22 @@ If you are moving from a Raspberry Pi, if you are not using the same drive that 
 sudo chown -R mysql:mysql /mnt/drive/photoprism/database
 sudo chmod -R 750 /mnt/drive/photoprism/database
 ```
+Also make sure the photoprism migration dirs user and permissions ma hea your curent user runing the photoprism service.
+
+a. fix just the top-level folders PhotoPrism writes to
+
+```bash
+sudo chown 32011:32011 /mnt/drive/photoprism/storage \
+                       /mnt/drive/photoprism/storage/sidecar \
+                       /mnt/drive/photoprism/storage/cache \
+                       /mnt/drive/photoprism/storage/temp
+```
+
+b. make sure any *existing* year folders inside sidecar are writable
+
+```bash
+sudo find /mnt/drive/photoprism/storage/sidecar -type d ! -user 32011 -exec chown 32011:32011 {} +
+```
 
 ### 3. Fix AppArmor for /mnt access (Droidian/Ubuntu)
 Droidian blocks MariaDB from /mnt by default. Create a local override if you hit permission denied.
