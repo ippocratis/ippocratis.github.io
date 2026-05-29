@@ -92,11 +92,40 @@ sudo mkdir -p /var/lib/mysql
 sudo chown mysql:mysql /var/lib/mysql
 ```
 
-### 5. Restart MariaDB
+### 5. optimise MariaDB
+
+Recreate indexes for fast sorting 
+
 ```bash
-sudo systemctl stop mariadb
-sudo systemctl start mariadb
+mysql -u root -p'insecure' photoprism <<'SQL'
+-- 1. covers: public/private + any sort
+DROP INDEX IF EXISTS idx_photos_private_taken ON photos;
+CREATE INDEX idx_photos_private_taken ON photos (photo_private, deleted_at, taken_at DESC, photo_uid);
+
+-- 2. covers: favorite + any sort  
+DROP INDEX IF EXISTS idx_photos_fav_taken ON photos;
+CREATE INDEX idx_photos_fav_taken ON photos (photo_favorite, deleted_at, taken_at DESC, photo_uid);
+
+-- 3. covers: type/album searches + merged view
+DROP INDEX IF EXISTS idx_photos_type_taken ON photos;
+CREATE INDEX idx_photos_type_taken ON photos (photo_type, deleted_at, taken_at DESC, photo_uid);
+
+ANALYZE TABLE photos;
+SQL
 ```
+
+Fix the loading buffer pool
+
+```bash
+cat >> /etc/mysql/mariadb.conf.d/50-server.cnf <<'EOF'
+
+# phone-optimized: skip buffer pool dump/load
+innodb_buffer_pool_dump_at_shutdown = OFF
+innodb_buffer_pool_load_at_startup = OFF
+EOF
+
+systemctl restart mariadb
+```bash
 
 ### 6. Mount the external drive
 Find your drive UUID.
